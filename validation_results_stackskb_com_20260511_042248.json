@@ -1,0 +1,91 @@
+{
+  "store_url": "https://stackskb.com/?utm_source=chatgpt.com",
+  "label": "",
+  "timestamp": "2026-05-11T04:22:48.432942",
+  "script_version": "v2.1",
+  "checks": {
+    "R1": {
+      "check": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "No AI crawlers blocked",
+      "evidence": "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\n\nUser-agent: PetalBot\nDisallow: /\n\nUser-agent: GeedoBot\nDisallow: /\n\nUser-agent: GeedoProductSearch\nDisallow: /\n\nSitemap: https://stackskb.com/sitemap_index.xml\n\n\n"
+    },
+    "R3": {
+      "check": "R3",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "60 URLs | products: 0 | collections: 0",
+      "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet type=\"text/xsl\" href=\"https://stackskb.com/sitemap.xsl\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xhtml=\"http://www.w3.org/1999/xhtml\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n<!-- Si"
+    },
+    "R7": {
+      "check": "R7",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "detail": "Schema present, no commerce types: ['WebPage', 'WPHeader']",
+      "evidence": "Types: ['WebPage', 'WPHeader']"
+    },
+    "R9": {
+      "check": "R9",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "No price signal found on homepage",
+      "evidence": "",
+      "note": "Reframed for homepage: any crawler-visible price signal"
+    },
+    "R16": {
+      "check": "R16",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Refund policy page not found",
+      "evidence": ""
+    },
+    "R17": {
+      "check": "R17",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Shipping timeframe: 'express shipping'",
+      "evidence": "Shipping Policy - StacksKB                                               \n Join our Discord for latest updates and to discuss keyboards! \n Join Discord \n Skip to content Keyboards Expand \n DIY Keyboard Kits Full Size TKL 75% Compact Barebones Keycaps Expand \n Keycap Sets Backlit Keycaps Novelties Switches Expand \n Linear Tactile Clicky Low Profile Silent Switches Switch Parts Clearance Parts and A"
+    },
+    "R25": {
+      "check": "R25",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Inconsistent (min 13.793103448275868%) \u2014 {'og_site_name': 'StacksKB', 'footer': 'k LinksHomeBlogAbout UsTERMS OF SERVICEGB/Pre-orde'}",
+      "evidence": "{'og_site_name': 'StacksKB', 'footer': 'k LinksHomeBlogAbout UsTERMS OF SERVICEGB/Pre-orde'}"
+    },
+    "R28": {
+      "check": "R28",
+      "tier": "FORWARD-LOOKING",
+      "status": "FORWARD-LOOKING",
+      "detail": "UCP not found (Shopify auto-provides when store enables it)",
+      "evidence": ""
+    },
+    "R30": {
+      "check": "R30",
+      "tier": "VERIFIED",
+      "status": "UNKNOWN",
+      "detail": "Not a Shopify store \u2014 ACP auto-enrollment does not apply",
+      "evidence": ""
+    },
+    "R31": {
+      "check": "R31",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Weak GMC signals (0/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+      "evidence": "signals=[] missing=['no google-site-verification', 'og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+      "note": "Reframed for homepage: GMC readiness signals"
+    }
+  },
+  "score": {
+    "pass_rate": 0.44,
+    "passes": 3,
+    "warns": 1,
+    "fails": 4,
+    "unknowns": 1,
+    "total_scored": 9,
+    "total_scoreable": 8,
+    "r28_status": "FORWARD-LOOKING",
+    "verdict": "RETHINK"
+  }
+}
