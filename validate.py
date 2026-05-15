@@ -659,7 +659,7 @@ def save_results(store_url, label, checks, sc, out_dir):
     existing = []
     if os.path.exists(agg_path):
         try:
-            with open(agg_path) as f:
+            with open(agg_path, encoding="utf-8") as f:
                 existing = json.load(f)
         except Exception:
             existing = []
@@ -673,18 +673,18 @@ def save_results(store_url, label, checks, sc, out_dir):
         "score":          sc,
     }
     existing.append(entry)
-    with open(agg_path, "w") as f:
+    with open(agg_path, "w", encoding="utf-8") as f:
         json.dump(existing, f, indent=2, default=str)
 
     # Per-run files
     json_path = os.path.join(out_dir, f"validation_results_{domain}_{ts}.json")
     txt_path  = os.path.join(out_dir, f"validation_report_{domain}_{ts}.txt")
 
-    with open(json_path, "w") as f:
+    with open(json_path, "w", encoding="utf-8") as f:
         json.dump(entry, f, indent=2, default=str)
 
     report = build_report(store_url, label, checks, sc)
-    with open(txt_path, "w") as f:
+    with open(txt_path, "w", encoding="utf-8") as f:
         f.write(report)
 
     return json_path, txt_path, agg_path
