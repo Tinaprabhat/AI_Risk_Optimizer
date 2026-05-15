@@ -726,5 +726,2189 @@
       "r28_status": "PASS",
       "verdict": "PARTIAL"
     }
+  },
+  {
+    "store_url": "https://www.gymshark.com/",
+    "label": "",
+    "timestamp": "2026-05-14T20:51:27.672263",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\nUser-agent: *\nDisallow: /admin\nDisallow: /cart\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /988822/checkouts\nDisallow: /988822/orders\nDisallow: /carts\nDisallow: /account\nDisallow: /collections/*sort_by*\nDisallow: /*/collections/*sort_by*\nDisallow: /collections/*+*\nDisallow: /collections/*%2B*\nDisallow: /collections/*%2b*\nDisallow: /*/collections/*+*\nDisallow: /*/collections/*%2B*\nDisallow: /*/collections/*%2b*\nDisallow: /collections/*/products*\nDisallow: /blogs/*+*\nDisallow: /blogs/*%2B*\nDisallow: /blogs/*%2b*\nDisallow: /*/b"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "9 URLs | products: 0 | collections: 0",
+        "evidence": "\n    <sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n        \n        <sitemap>\n            <loc>https://www.gymshark.com/sitemap_pages_1.xml</loc>\n        </sitemap>\n        <sitemap>\n            <loc>https://www.gymshark.com/sitemap_collections_1.xml</loc>\n        </sitemap>\n        <sitemap>\n            <loc>https://www.gymshark.com/sitemap_products_1.xml</loc>\n        </site"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['WebSite', 'Organization']",
+        "evidence": "Types: ['WebSite', 'Organization']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Currency prices in HTML (3): ['$75', '$75', '$75']",
+        "evidence": "['$75', '$75', '$75']",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Refund policy page not found",
+        "evidence": ""
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Shipping policy page not found",
+        "evidence": ""
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 17.24137931034483%) \u2014 {'og_site_name': 'Gymshark', 'schema_org': 'Gymshark', 'footer': 'yMake A Return OrdersSubmit a FakeFAQDelivery Info'}",
+        "evidence": "{'og_site_name': 'Gymshark', 'schema_org': 'Gymshark', 'footer': 'yMake A Return OrdersSubmit a FakeFAQDelivery Info'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "FORWARD-LOOKING",
+        "detail": "UCP not found (Shopify auto-provides when store enables it)",
+        "evidence": ""
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "WARN",
+        "detail": "Partial GMC signals (2/4): ['prices visible (3)', 'Organization/WebSite schema'] | missing: ['no google-site-verification', 'og:type not product']",
+        "evidence": "signals=['prices visible (3)', 'Organization/WebSite schema'] missing=['no google-site-verification', 'og:type not product']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.56,
+      "passes": 4,
+      "warns": 2,
+      "fails": 3,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "FORWARD-LOOKING",
+      "verdict": "PARTIAL"
+    }
+  },
+  {
+    "store_url": "https://skims.com/en-in",
+    "label": "",
+    "timestamp": "2026-05-14T20:52:58.306067",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "User-agent: *\nDisallow: /admin\nAllow: /cart?.data*\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /25954484284/checkouts\nDisallow: /25954484284/orders\nDisallow: /carts\nDisallow: /account\nDisallow: /collections/*sort_by*\nDisallow: /*/collections/*sort_by*\nDisallow: /collections/*+*\nDisallow: *//collections*\nDisallow: *anchor*anchor\nDisallow: *hash*hash\nDisallow: /collections/*%2B*\nDisallow: /collections/*%2b*\nDisallow: /*/collections/*+*\nDisallow: /*/collections/*%2B*\nDisallow: /*/collections/*%2b*\nDisallow: */collections/*filter*&*filter*\nDisallow: /blogs/*+*\nDisallow: /"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "4 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n    <sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n        <sitemap>\n    <loc>https://skims.com/sitemap-pages.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://skims.com/sitemap-products.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://skims.com/sitemap-collections.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://skims.com/sitemap-"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization']",
+        "evidence": "Types: ['Organization', 'WebPage']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Return window: 'return within 30 days'",
+        "evidence": "Returns | SKIMS Skip to main content SKIMS Logo International Shipping Available SKIMS Logo New All New Arrivals Mens New Arrivals Color Spotlight: Red Back In Stock Just Dropped: NikeSKIMS Studio Made for the studio and beyond\u00e2\u0080\u0094shop new corset-inspired silhouettes, buttery soft Studio Stretch styles, and our latest Rift Mesh shade All NikeSKIMS NikeSKIMS Fabric Guide The Sports Bra Guide Style T"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "Shipping | SKIMS Skip to main content SKIMS Logo International Shipping Available SKIMS Logo New All New Arrivals Mens New Arrivals Color Spotlight: Red Back In Stock Just Dropped: NikeSKIMS Studio Made for the studio and beyond\u00e2\u0080\u0094shop new corset-inspired silhouettes, buttery soft Studio Stretch styles, and our latest Rift Mesh shade All NikeSKIMS NikeSKIMS Fabric Guide The Sports Bra Guide Style "
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 14.54545454545455%) \u2014 {'schema_org': 'SKIMS', 'footer': 'yStart a ReturnTrack OrderTrack ReturnSize GuidesO'}",
+        "evidence": "{'schema_org': 'SKIMS', 'footer': 'yStart a ReturnTrack OrderTrack ReturnSize GuidesO'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://skimsbody.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://skimsbody.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://skimsbody.myshopify.com/api"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Weak GMC signals (1/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+        "evidence": "signals=['Organization/WebSite schema'] missing=['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.5,
+      "passes": 4,
+      "warns": 1,
+      "fails": 4,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "PARTIAL"
+    }
+  },
+  {
+    "store_url": "https://www.fashionnova.com/",
+    "label": "",
+    "timestamp": "2026-05-14T20:53:53.687337",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "User-agent: *\nDisallow: /a/downloads/-/*\nDisallow: /admin\nDisallow: /cart\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /2939277/checkouts\nDisallow: /2939277/orders\nDisallow: /carts\nDisallow: /account\nDisallow: /collections/*sort_by*\nDisallow: /*/collections/*sort_by*\nDisallow: /collections/*+*\nDisallow: /collections/*%2B*\nDisallow: /collections/*%2b*\nDisallow: /*/collections/*+*\nDisallow: /*/collections/*%2B*\nDisallow: /*/collections/*%2b*\nDisallow: */collections/*filter*&*filter*\nDisallow: /blogs/*+*\nDisallow: /blogs/*%2B*\nDisallow: /blogs/*%2b*\nDisallow: /*/blogs/*+*"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "94 URLs | products: 94 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <sitemap><loc>https://www.fashionnova.com/sitemap/products/1.xml</loc></sitemap>\n  <sitemap><loc>https://www.fashionnova.com/sitemap/products/2.xml</loc></sitemap>\n  <sitemap><loc>https://www.fashionnova.com/sitemap/products/3.xml</loc></sitemap>\n  <sitemap><loc>https://www.fashionnova.com/s"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization']",
+        "evidence": "Types: ['Organization']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n Easy Returns \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n This Website uses the latest in JavaScript technologies.  Please enable JavaScript and update your browser to the latest version if you are able to read this message. \n \n \n \n \n"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Shipping timeframe: '1-12 business days'",
+        "evidence": "Shipping Policy Spend   $75   or more to unlock FREE SHIPPING! Shop New WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY Search within Women's Clothing \u00f0\u009f\u0087\u00ba\u00f0\u009f\u0087\u00b8 WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY New In Clothing Novadeals Swimwear Dresses Matching Sets Tops Graphics Jeans Jumpsuits & Rompers Shoes Formal Shop Bottoms Accessories Lingerie & Sleep Jackets & Sweaters Sale Nova Luxe Sport Search wit"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 29.032258064516125%) \u2014 {'schema_org': 'Fashion Nova', 'footer': 'enterTrack OrderShipping InfoReturnsContact UsComp'}",
+        "evidence": "{'schema_org': 'Fashion Nova', 'footer': 'enterTrack OrderShipping InfoReturnsContact UsComp'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://fnova.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://fnova.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://fnova.myshopify.com/api/ucp/mcp\", \""
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Weak GMC signals (1/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+        "evidence": "signals=['Organization/WebSite schema'] missing=['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.5,
+      "passes": 4,
+      "warns": 1,
+      "fails": 4,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "PARTIAL"
+    }
+  },
+  {
+    "store_url": "https://www.allbirds.com/",
+    "label": "",
+    "timestamp": "2026-05-14T20:55:43.535065",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "\nUser-agent: *\nDisallow: /a/downloads/-/*\nDisallow: /admin\nDisallow: /cart\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /11044168/checkouts\nDisallow: /11044168/orders\nDisallow: /carts\nDisallow: /account\nDisallow: /collections/*sort_by*\nDisallow: /*/collections/*sort_by*\nDisallow: /collections/*+*\nDisallow: /collections/*%2B*\nDisallow: /collections/*%2b*\nDisallow: /*/collections/*+*\nDisallow: /*/collections/*%2B*\nDisallow: /*/collections/*%2b*\nDisallow: */collections/*filter*&*filter*\nDisallow: /blogs/*+*\nDisallow: /blogs/*%2B*\nDisallow: /blogs/*%2b*\nDisallow: /*/blogs/"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "6 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://www.allbirds.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>\n "
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No schema.org markup found",
+        "evidence": "Types: []"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Currency prices in HTML (3): ['$2', '$3', '$5']",
+        "evidence": "['$2', '$3', '$5']",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n            \n  "
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n            \n  "
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 23.076923076923073%) \u2014 {'og_site_name': 'Allbirds', 'footer': 'ribe to our emails'}",
+        "evidence": "{'og_site_name': 'Allbirds', 'footer': 'ribe to our emails'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://weareallbirds.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://weareallbirds.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://weareallbirds.mysho"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "WARN",
+        "detail": "Partial GMC signals (2/4): ['google-site-verification', 'prices visible (3)'] | missing: ['og:type not product', 'no Org/WebSite schema']",
+        "evidence": "signals=['google-site-verification', 'prices visible (3)'] missing=['og:type not product', 'no Org/WebSite schema']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.44,
+      "passes": 3,
+      "warns": 2,
+      "fails": 4,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "RETHINK"
+    }
+  },
+  {
+    "store_url": "https://www.aloyoga.com/en-in",
+    "label": "",
+    "timestamp": "2026-05-14T21:00:26.288490",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "64 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://www.aloyoga.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>\n  "
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization']",
+        "evidence": "Types: ['Organization']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Refund policy | ALO \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n "
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Shipping policy | ALO \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n "
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 17.391304347826086%) \u2014 {'og_site_name': 'Alo Yoga', 'footer': 'ustomer Service'}",
+        "evidence": "{'og_site_name': 'Alo Yoga', 'footer': 'ustomer Service'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://alo-yoga.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://alo-yoga.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://alo-yoga.myshopify.com/api/uc"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Weak GMC signals (1/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+        "evidence": "signals=['Organization/WebSite schema'] missing=['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.39,
+      "passes": 3,
+      "warns": 1,
+      "fails": 5,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "RETHINK"
+    }
+  },
+  {
+    "store_url": "https://kith.com/",
+    "label": "",
+    "timestamp": "2026-05-14T21:02:32.964497",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "21 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://kith.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>\n  <sitema"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization', 'WebSite']",
+        "evidence": "Types: ['Organization', 'WebSite']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Refund policy\n \u2013 Kith \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Skip to content\n     \n \n \n \n \n \n \n Menu Bars \n \n \n \n \n \n New  \n Mens  \n Womens  \n Kids  \n Hospitality  \n \n \n \n \n Kith Logo \n"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Shipping timeframe: '3-5 business days'",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Shipping policy\n \u2013 Kith \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Skip to content\n     \n \n \n \n \n \n \n Menu Bars \n \n \n \n \n \n New  \n Mens  \n Womens  \n Kids  \n Hospitality  \n \n \n \n \n Kith Logo"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 25.0%) \u2014 {'og_site_name': 'Kith', 'schema_org': 'Kith', 'footer': 'aret'}",
+        "evidence": "{'og_site_name': 'Kith', 'schema_org': 'Kith', 'footer': 'aret'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://kithnyc.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://kithnyc.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://kithnyc.myshopify.com/api/ucp/m"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "WARN",
+        "detail": "Partial GMC signals (2/4): ['google-site-verification', 'Organization/WebSite schema'] | missing: ['og:type not product', 'no currency pricing visible']",
+        "evidence": "signals=['google-site-verification', 'Organization/WebSite schema'] missing=['og:type not product', 'no currency pricing visible']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.56,
+      "passes": 4,
+      "warns": 2,
+      "fails": 3,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "PARTIAL"
+    }
+  },
+  {
+    "store_url": "https://www.dunelondon.com/",
+    "label": "",
+    "timestamp": "2026-05-14T21:03:24.080602",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "Sitemap: https://www.dunelondon.com/sitemap_index.xml\r\n\r\n# robots.txt file updated by Polaris on 08/01/2026\r\n\r\nUser-agent: *\r\n\r\n\r\nDisallow: */rw/\r\nDisallow: */eu/\r\nAllow: */eu/.html\r\nAllow: */eu/fr\r\nAllow: */eu/de\r\nAllow: */eu/en*\r\nAllow: */ch*\r\n\r\n\r\n# old robots.txt rules\r\n\r\nDisallow: */sign-in/\r\nDisallow: */basket/\r\nDisallow: */wishlist/\r\nDisallow: */checkout/\r\n\r\n\r\n# new robots.txt rules\r\n\r\n# Pages\r\nDisallow: */ajxr_review/\r\nDisallow: *?sessionid=\r\nDisallow: */search?*\r\nDisallow: */myaccount*\r\nDisallow: */login?*\r\nDisallow: */orders*\r\nDisallow: */searchwishlists*\r\nDisallow: */article-artlabou"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "FAIL",
+        "detail": "sitemap.xml not found (timeout)",
+        "evidence": ""
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "WARN",
+        "detail": "Schema present, no commerce types: ['WebPage']",
+        "evidence": "Types: ['WebPage']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Currency prices in HTML (1): ['\u00a375']",
+        "evidence": "['\u00a375']",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n    \n        Dune London Returns\n    \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n FREE DELIVERY ON ORDERS OVER \u00a375   T&CS APPLY \n \n \n \n \n \n Skip to main content \n Skip to footer content \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n   Se"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Shipping policy page not found",
+        "evidence": ""
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 40.0%) \u2014 {'footer': 'al Dune London store or one of our concession part', 'title_fallback': 'Dune London'}",
+        "evidence": "{'footer': 'al Dune London store or one of our concession part', 'title_fallback': 'Dune London'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "FORWARD-LOOKING",
+        "detail": "UCP not found (Shopify auto-provides when store enables it)",
+        "evidence": ""
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "UNKNOWN",
+        "detail": "Not a Shopify store \u2014 ACP auto-enrollment does not apply",
+        "evidence": ""
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Weak GMC signals (1/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no Org/WebSite schema']",
+        "evidence": "signals=['prices visible (1)'] missing=['no google-site-verification', 'og:type not product', 'no Org/WebSite schema']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.31,
+      "passes": 2,
+      "warns": 1,
+      "fails": 5,
+      "unknowns": 1,
+      "total_scored": 9,
+      "total_scoreable": 8,
+      "r28_status": "FORWARD-LOOKING",
+      "verdict": "RETHINK"
+    }
+  },
+  {
+    "store_url": "https://www.chubbiesshorts.com/",
+    "label": "",
+    "timestamp": "2026-05-14T21:04:56.290920",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "User-agent: *\nDisallow: /admin\nDisallow: /cart\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /carts\nDisallow: /account\nSitemap: https://www.chubbiesshorts.com/sitemap.xml\n\n# Google adsbot ignores robots.txt unless specifically named!\nUser-agent: adsbot-google\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /carts\nDisallow: /orders\n\nUser-agent: Pinterest\nCrawl-delay: 1"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "15 URLs | products: 17 | collections: 0",
+        "evidence": "\n    <urlset\n      xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"\n      xmlns:image=\"http://www.google.com/schemas/sitemap-image/1.1\"\n    >\n      \n    <url>\n      <loc>https://www.chubbiesshorts.com</loc>\n      <lastmod>2026-05-07T19:24:12.483Z</lastmod>\n      <changefreq>weekly</changefreq>\n      \n\n    </url>\n  \n    <url>\n      <loc>https://www.chubbiesshorts.com/products/gift-card</loc>\n   "
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization']",
+        "evidence": "Types: ['Organization']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "Chubbies Shorts Enable \n Accessibility Accessibility \n Statement \u00f0\u009f\u0087\u00ba\u00f0\u009f\u0087\u00b8 Rewards \u00f0\u009f\u008c\u009f Blog Help Featured  Shorts Swim Pants Tops Kids Clearance   For Her Afterparty Extras NFL  Element Element About Us Foundation 43 by Chubbies Store Locations Chubjobs Need Help? Search:  Shorts Swim NFL Pants Golf Kids Trending Searches Shorts Swim NFL Pants Golf Kids Search:  Shorts Swim NFL Pants Golf Kids Tre"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "Chubbies Shorts Enable \n Accessibility Accessibility \n Statement \u00f0\u009f\u0087\u00ba\u00f0\u009f\u0087\u00b8 Rewards \u00f0\u009f\u008c\u009f Blog Help Featured  Shorts Swim Pants Tops Kids Clearance   For Her Afterparty Extras NFL  Element Element About Us Foundation 43 by Chubbies Store Locations Chubjobs Need Help? Search:  Shorts Swim NFL Pants Golf Kids Trending Searches Shorts Swim NFL Pants Golf Kids Search:  Shorts Swim NFL Pants Golf Kids Tre"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 24.615384615384617%) \u2014 {'schema_org': 'Chubbies Shorts', 'footer': \"hatText us anytime and we'll respond within 24 hou\"}",
+        "evidence": "{'schema_org': 'Chubbies Shorts', 'footer': \"hatText us anytime and we'll respond within 24 hou\"}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://chubbies.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://chubbies.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://chubbies.myshopify.com/api/uc"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Weak GMC signals (1/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+        "evidence": "signals=['Organization/WebSite schema'] missing=['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.39,
+      "passes": 3,
+      "warns": 1,
+      "fails": 5,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "RETHINK"
+    }
+  },
+  {
+    "store_url": "https://fentybeauty.com/en-in",
+    "label": "",
+    "timestamp": "2026-05-14T21:05:50.438539",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n# Google Support Required Format\nUser-agent: Googlebot\nDisallow:\nDisallow: /*.atom\n\nUser-agent: Googlebot-image\nDisallow:\nDisallow: /*.atom\n\n\nUser-agent: *\nDisallow: /a/downloads/-/*\nDisallow: /admin\nDisallow: /cart\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /34134589485/checkouts\nDisallow: /34134589485/orders\nDisallow: /carts\nDisallow: /account\nDisallow: /collections/*sort_by*\nDisallow: /*/collections/*sort_by*\nDisallow: /collections/*+*\nDisallow: /collections/*%2B*\nDisallow: /collections/*%2b*\nDisallow: /*/collections/*+*"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "64 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://fentybeauty.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>\n  "
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization', 'WebSite']",
+        "evidence": "Types: ['Organization', 'WebSite']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Currency prices in HTML (1): ['$80']",
+        "evidence": "['$80']",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n "
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Shipping timeframe: '4-8 business days'",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n "
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 19.999999999999996%) \u2014 {'og_site_name': 'Fenty Beauty', 'schema_org': 'Fenty Beauty', 'footer': 'K EXCLUSIVE OFFERS'}",
+        "evidence": "{'og_site_name': 'Fenty Beauty', 'schema_org': 'Fenty Beauty', 'footer': 'K EXCLUSIVE OFFERS'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://fentybeautyshop.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://fentybeautyshop.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://fentybeautyshop"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Strong GMC signals (3/4): ['google-site-verification', 'prices visible (1)', 'Organization/WebSite schema']",
+        "evidence": "signals=['google-site-verification', 'prices visible (1)', 'Organization/WebSite schema'] missing=['og:type not product']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.72,
+      "passes": 6,
+      "warns": 1,
+      "fails": 2,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "VALIDATED"
+    }
+  },
+  {
+    "store_url": "https://www.rarebeauty.com/",
+    "label": "",
+    "timestamp": "2026-05-14T21:08:58.884785",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "5 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://www.rarebeauty.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization', 'WebSite']",
+        "evidence": "Types: ['Organization', 'HealthAndBeautyBusiness', 'WebSite']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Currency prices in HTML (1): ['$5']",
+        "evidence": "['$5']",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n    Refund policy\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n    Skip to Main\n   \n \n \n \n \n \n \n \n Open Navigation \n \n \n \n Close Navigation \n \n \n \n Account \n \n \n \n Shop \n              \u2303\n               Open navigation menu \n \n \n Shop All New"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Shipping timeframe: '1-3 business days'",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n    Shipping policy\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n    Skip to Main\n   \n \n \n \n \n \n \n \n Open Navigation \n \n \n \n Close Navigation \n \n \n \n Account \n \n \n \n Shop \n              \u2303\n               Open navigation menu \n \n \n Shop All N"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 27.27272727272727%) \u2014 {'og_site_name': 'Rare Beauty', 'schema_org': 'Rare Beauty', 'footer': 'roll to Top'}",
+        "evidence": "{'og_site_name': 'Rare Beauty', 'schema_org': 'Rare Beauty', 'footer': 'roll to Top'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://therarebeauty.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://therarebeauty.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://therarebeauty.mysho"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Strong GMC signals (3/4): ['google-site-verification', 'prices visible (1)', 'Organization/WebSite schema']",
+        "evidence": "signals=['google-site-verification', 'prices visible (1)', 'Organization/WebSite schema'] missing=['og:type not product']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.72,
+      "passes": 6,
+      "warns": 1,
+      "fails": 2,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "VALIDATED"
+    }
+  },
+  {
+    "store_url": "https://kyliecosmetics.com/en-in",
+    "label": "",
+    "timestamp": "2026-05-14T21:16:38.733077",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "\nUser-agent: *\nDisallow: /a/downloads/-/*\nDisallow: /admin\nDisallow: /cart\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /66245984498/checkouts\nDisallow: /66245984498/orders\nDisallow: /carts\nDisallow: /account\nDisallow: /collections/*sort_by*\nDisallow: /*/collections/*sort_by*\nDisallow: /collections/*+*\nDisallow: /collections/*%2B*\nDisallow: /collections/*%2b*\nDisallow: /*/collections/*+*\nDisallow: /*/collections/*%2B*\nDisallow: /*/collections/*%2b*\nDisallow: */collections/*filter*&*filter*\nDisallow: /blogs/*+*\nDisallow: /blogs/*%2B*\nDisallow: /blogs/*%2b*\nDisallow: /*/"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "63 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://kyliecosmetics.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization', 'WebSite']",
+        "evidence": "Types: ['Organization', 'WebSite', 'siteNavigationElement', 'siteNavigationElement', 'siteNavigationElement', 'siteNavigationElement', 'siteNavigationElement', 'BreadcrumbList']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Refund policy \u2013 Kylie Cosmetics \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Skip to content \n \n \n \n \n just dropped \ud83d\udc44 hydrating lip essentials \ud83d\udc44  shop now free water bottle \ud83e\ude77 with any $55+ order \ud83e\ude77   shop now \ud83d\udc95 custom engraving on all c"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Shipping policy \u2013 Kylie Cosmetics \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Skip to content \n \n \n \n \n just dropped \ud83d\udc44 hydrating lip essentials \ud83d\udc44  shop now free water bottle \ud83e\ude77 with any $55+ order \ud83e\ude77   shop now \ud83d\udc95 custom engraving on all"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 33.333333333333336%) \u2014 {'og_site_name': 'Kylie Cosmetics', 'schema_org': 'Kylie Cosmetics', 'footer': 'ome back!'}",
+        "evidence": "{'og_site_name': 'Kylie Cosmetics', 'schema_org': 'Kylie Cosmetics', 'footer': 'ome back!'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://kylie-jenner-us.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://kylie-jenner-us.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://kylie-jenner-us"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "WARN",
+        "detail": "Partial GMC signals (2/4): ['google-site-verification', 'Organization/WebSite schema'] | missing: ['og:type not product', 'no currency pricing visible']",
+        "evidence": "signals=['google-site-verification', 'Organization/WebSite schema'] missing=['og:type not product', 'no currency pricing visible']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.44,
+      "passes": 3,
+      "warns": 2,
+      "fails": 4,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "RETHINK"
+    }
+  },
+  {
+    "store_url": "https://colourpop.com/",
+    "label": "",
+    "timestamp": "2026-05-14T21:17:48.257960",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "4 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://colourpop.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>\n  <s"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization', 'WebSite']",
+        "evidence": "Types: ['Organization', 'WebSite']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n Refund policy \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n          Skip to content\n         \n \n \n \n \n \n \n    Free U.S. shipping on orders over $35\n   \n \n \n    Free international shipping o"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n Shipping policy \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n          Skip to content\n         \n \n \n \n \n \n \n    Free U.S. shipping on orders over $35\n   \n \n \n    Free international shipping"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 22.22222222222222%) \u2014 {'og_site_name': 'ColourPop', 'schema_org': 'ColourPop', 'footer': 'ontact Us'}",
+        "evidence": "{'og_site_name': 'ColourPop', 'schema_org': 'ColourPop', 'footer': 'ontact Us'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://colourpop-prd.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://colourpop-prd.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://colourpop-prd.mysho"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Weak GMC signals (1/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+        "evidence": "signals=['Organization/WebSite schema'] missing=['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.39,
+      "passes": 3,
+      "warns": 1,
+      "fails": 5,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "RETHINK"
+    }
+  },
+  {
+    "store_url": "https://www.glossier.com/en-in",
+    "label": "",
+    "timestamp": "2026-05-14T21:18:28.813252",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "64 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://www.glossier.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>\n "
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "WARN",
+        "detail": "Minimal schema: ['Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product']",
+        "evidence": "Types: ['Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product', 'Product']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n Refund policy \u2013 Glossier \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Shipping timeframe: 'express shipping'",
+        "evidence": "\n \n \n \n \n \n \n Shipping policy \u2013 Glossier \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 31.25%) \u2014 {'og_site_name': 'Glossier', 'footer': 'ts inspired by real life'}",
+        "evidence": "{'og_site_name': 'Glossier', 'footer': 'ts inspired by real life'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://glossier-admin.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://glossier-admin.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://glossier-admin.my"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Weak GMC signals (1/4) \u2014 missing: ['og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+        "evidence": "signals=['google-site-verification'] missing=['og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.44,
+      "passes": 3,
+      "warns": 2,
+      "fails": 4,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "RETHINK"
+    }
+  },
+  {
+    "store_url": "https://int.hismileteeth.com/?rdr=1",
+    "label": "",
+    "timestamp": "2026-05-14T21:19:06.127198",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "5 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://int.hismileteeth.com/sitemap_agentic_discovery.xml</loc>\n  </sitema"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No schema.org markup found",
+        "evidence": "Types: []"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n            Refund policy            \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Refund policy \n \n \n \n If you have received the incorrect items or the items you have received are faulty, please email  help@hismileteeth.com  to discuss with us further. If you are not satisfied with the goods you have received, you can return them to us within"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Shipping timeframe: '3-10 business days'",
+        "evidence": "\n \n \n            Shipping policy            \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Shipping policy \n \n \n \n All orders placed will be dispatched from our warehouse within 3-10 business days. Please note all shipping timeframe\u00a0are calculated from\u00a0date of dispatch. All dispatch times and shipping times are estimated in business days (Monday - F"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "UNKNOWN",
+        "detail": "Only 1 brand source found \u2014 cannot assess: {}",
+        "evidence": "{}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://hismileint.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://hismileint.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://hismileint.myshopify.com/"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Weak GMC signals (1/4) \u2014 missing: ['og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+        "evidence": "signals=['google-site-verification'] missing=['og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.44,
+      "passes": 3,
+      "warns": 1,
+      "fails": 4,
+      "unknowns": 1,
+      "total_scored": 9,
+      "total_scoreable": 8,
+      "r28_status": "PASS",
+      "verdict": "RETHINK"
+    }
+  },
+  {
+    "store_url": "https://www.morphe.com/",
+    "label": "",
+    "timestamp": "2026-05-14T21:20:01.005876",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "5 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://www.morphe.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>\n  <"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['WebSite', 'Organization']",
+        "evidence": "Types: ['WebSite', 'Organization']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n  Refund policy \u2013 Morphe US\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Skip to content \n \n \n \n \n \n \n \n \n \n                  Free Shipping on Orders $35+\n                 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Morphe logo \n \n \n \n \n \n \n"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n  Shipping policy \u2013 Morphe US\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Skip to content \n \n \n \n \n \n \n \n \n \n                  Free Shipping on Orders $35+\n                 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Morphe logo \n \n \n \n \n \n"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 13.33333333333333%) \u2014 {'og_site_name': 'Morphe US', 'schema_org': 'Morphe US', 'footer': 'ribing'}",
+        "evidence": "{'og_site_name': 'Morphe US', 'schema_org': 'Morphe US', 'footer': 'ribing'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://morphe-inc.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://morphe-inc.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://morphe-inc.myshopify.com/"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "WARN",
+        "detail": "Partial GMC signals (2/4): ['google-site-verification', 'Organization/WebSite schema'] | missing: ['og:type not product', 'no currency pricing visible']",
+        "evidence": "signals=['google-site-verification', 'Organization/WebSite schema'] missing=['og:type not product', 'no currency pricing visible']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.44,
+      "passes": 3,
+      "warns": 2,
+      "fails": 4,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "RETHINK"
+    }
+  },
+  {
+    "store_url": "https://liquiddeath.com/en-in",
+    "label": "",
+    "timestamp": "2026-05-14T21:20:43.379060",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "64 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://liquiddeath.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>\n  "
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No schema.org markup found",
+        "evidence": "Types: []"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Refund policy\n \u2013 Liquid Death \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Shipping policy\n \u2013 Liquid Death \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 12.5%) \u2014 {'og_site_name': 'Liquid Death', 'footer': 'all:'}",
+        "evidence": "{'og_site_name': 'Liquid Death', 'footer': 'all:'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://liquiddeath.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://liquiddeath.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://liquiddeath.myshopify.c"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Weak GMC signals (1/4) \u2014 missing: ['og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+        "evidence": "signals=['google-site-verification'] missing=['og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.28,
+      "passes": 2,
+      "warns": 1,
+      "fails": 6,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "RETHINK"
+    }
+  },
+  {
+    "store_url": "https://huel.com/",
+    "label": "",
+    "timestamp": "2026-05-14T21:25:48.913470",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# Hustle hard, crawl fast\n\nUser-agent: *\nDisallow: /cart\nDisallow: /search?\nDisallow: /account\n\nSitemap: https://huel.com/sitemap.xml\n\n\n# @@@@@@+           +@@@@@@                                               =@@@@@=    ====== \n# @@@@@@+           +@@@@@@                                               =@@@@@=   +.*##= *\n# @@@@@@+           +@@@@@@                                               =@@@@@=   *.*+++ *\n# @@@@@@+           +@@@@@@                                 .....         =@@@@@=    ==--==.\n# @@@@@@+           +@@@@@@   %@@@@@        #@@@@@.     -*%@@@@@@@%+:     =@@@@@=           "
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "13 URLs | products: 0 | collections: 0",
+        "evidence": "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <sitemap>\n    <loc>https://huel.com/sitemaps/sitemap/en-us.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://uk.huel.com/sitemaps/sitemap/en-gb.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://de.huel.com/sitemaps/sitemap/de-de.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://jp.huel.com/sitemaps/sitemap/ja-jp.xml</loc>\n "
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['WebSite', 'Organization']",
+        "evidence": "Types: ['WebSite', 'Organization']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Currency prices in HTML (6): ['$65', '$65', '$65']",
+        "evidence": "['$65', '$65', '$65', '$65', '$65']",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Return window: '30-Day Money Back'",
+        "evidence": "Returns Policy | Huel US All stores Africa South Africa ( English ) Americas Bermuda ( English ) United States ( English ) Asia Hong Kong ( English ) India ( English ) Kuwait ( English ) Malaysia ( English ) New Zealand ( English ) Saudi Arabia ( English ) Singapore ( English ) South Korea ( English ) Taiwan ( English ) United Arab Emirates ( English ) \u65e5\u672c ( \u65e5\u672c\u8a9e ) Europe Austria ( Deutsch ) Austria"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Shipping policy page not found",
+        "evidence": ""
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "WARN",
+        "detail": "Minor variation (min 72.72727272727273%) \u2014 {'og_site_name': 'Huel', 'schema_org': 'Huel US'}",
+        "evidence": "{'og_site_name': 'Huel', 'schema_org': 'Huel US'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "FORWARD-LOOKING",
+        "detail": "UCP not found (Shopify auto-provides when store enables it)",
+        "evidence": ""
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Strong GMC signals (3/4): ['google-site-verification', 'prices visible (6)', 'Organization/WebSite schema']",
+        "evidence": "signals=['google-site-verification', 'prices visible (6)', 'Organization/WebSite schema'] missing=['og:type not product']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.78,
+      "passes": 6,
+      "warns": 2,
+      "fails": 1,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "FORWARD-LOOKING",
+      "verdict": "VALIDATED"
+    }
+  },
+  {
+    "store_url": "https://www.deathwishcoffee.com/",
+    "label": "",
+    "timestamp": "2026-05-14T21:27:48.514146",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "5 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://www.deathwishcoffee.com/sitemap_agentic_discovery.xml</loc>\n  </sit"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization', 'WebSite']",
+        "evidence": "Types: ['Organization', 'WebSite']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Currency prices in HTML (1): ['$,']",
+        "evidence": "['$,']",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Return window: '60 day money back'",
+        "evidence": "\n \n \n         \n \n \n \n \n \n \n \n      Refund policy\n \u2013 Death Wish Coffee \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Skip to content\n     \n \n \n \n \n BUILD YOUR OWN COFFEE BUNDLE AND SAVE UP TO 15% OFF \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n "
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n         \n \n \n \n \n \n \n \n      Shipping policy\n \u2013 Death Wish Coffee \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Skip to content\n     \n \n \n \n \n BUILD YOUR OWN COFFEE BUNDLE AND SAVE UP TO 15% OFF \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n "
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 8.695652173913048%) \u2014 {'og_site_name': 'Death Wish Coffee', 'schema_org': 'Death Wish Coffee', 'footer': 'ompany'}",
+        "evidence": "{'og_site_name': 'Death Wish Coffee', 'schema_org': 'Death Wish Coffee', 'footer': 'ompany'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://deathwishcoffee.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://deathwishcoffee.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://deathwishcoffee"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Strong GMC signals (3/4): ['google-site-verification', 'prices visible (1)', 'Organization/WebSite schema']",
+        "evidence": "signals=['google-site-verification', 'prices visible (1)', 'Organization/WebSite schema'] missing=['og:type not product']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.72,
+      "passes": 6,
+      "warns": 1,
+      "fails": 2,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "VALIDATED"
+    }
+  },
+  {
+    "store_url": "https://magicspoon.com/",
+    "label": "",
+    "timestamp": "2026-05-14T22:03:12.464981",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "5 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://magicspoon.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>\n  <"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization']",
+        "evidence": "Types: ['Organization']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n     \n \n \n \n \n \n \n \n \n \n Refund policy \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \u231b Limited! FREE Bowl Set for New Subscribers! \ud83e\udd63\u2728 \n \n \n Limited time only: Peaches & Cream + Salted Caramel are back \u23f3 \n \n \n \u2728High Protei"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n     \n \n \n \n \n \n \n \n \n \n Shipping policy \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \u231b Limited! FREE Bowl Set for New Subscribers! \ud83e\udd63\u2728 \n \n \n Limited time only: Peaches & Cream + Salted Caramel are back \u23f3 \n \n \n \u2728High Prot"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 40.0%) \u2014 {'schema_org': 'Magic Spoon', 'footer': 'ontact Us'}",
+        "evidence": "{'schema_org': 'Magic Spoon', 'footer': 'ontact Us'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://magic-spoon.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://magic-spoon.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://magic-spoon.myshopify.c"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "WARN",
+        "detail": "Partial GMC signals (2/4): ['google-site-verification', 'Organization/WebSite schema'] | missing: ['og:type not product', 'no currency pricing visible']",
+        "evidence": "signals=['google-site-verification', 'Organization/WebSite schema'] missing=['og:type not product', 'no currency pricing visible']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.44,
+      "passes": 3,
+      "warns": 2,
+      "fails": 4,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "RETHINK"
+    }
+  },
+  {
+    "store_url": "https://flybyjing.com/",
+    "label": "",
+    "timestamp": "2026-05-14T22:26:52.090028",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "5 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://flybyjing.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>\n  <s"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization', 'WebSite']",
+        "evidence": "Types: ['Organization', 'WebSite']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n      Refund policy\n\n        \u2013 FLY BY JING \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Skip to content \n \n \n \n \n \n \n \n \n \n \n \n LIMITED SPICY CHOCOLATE SET \ud83c\udf6b  SHOP NOW \u00a0\u00a0      \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0FREE SHIPPING OVER"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Shipping timeframe: '2-4 business days'",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n      Shipping policy\n\n        \u2013 FLY BY JING \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Skip to content \n \n \n \n \n \n \n \n \n \n \n \n LIMITED SPICY CHOCOLATE SET \ud83c\udf6b  SHOP NOW \u00a0\u00a0      \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0FREE SHIPPING OV"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 19.672131147540984%) \u2014 {'og_site_name': 'FLY BY JING', 'schema_org': 'FLY BY JING', 'footer': 'hinese chili sauce that\u2019s changing the flavor game'}",
+        "evidence": "{'og_site_name': 'FLY BY JING', 'schema_org': 'FLY BY JING', 'footer': 'hinese chili sauce that\u2019s changing the flavor game'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://fly-by-jing.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://fly-by-jing.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://fly-by-jing.myshopify.c"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "WARN",
+        "detail": "Partial GMC signals (2/4): ['google-site-verification', 'Organization/WebSite schema'] | missing: ['og:type not product', 'no currency pricing visible']",
+        "evidence": "signals=['google-site-verification', 'Organization/WebSite schema'] missing=['og:type not product', 'no currency pricing visible']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.56,
+      "passes": 4,
+      "warns": 2,
+      "fails": 3,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "PARTIAL"
+    }
+  },
+  {
+    "store_url": "https://ruggable.com/",
+    "label": "",
+    "timestamp": "2026-05-14T22:31:44.611651",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\nUser-agent: *\nDisallow: /admin\nDisallow: /cart\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /10330751/checkouts\nDisallow: /10330751/orders\nDisallow: /carts\nDisallow: /account\nDisallow: /collections/*sort_by*\nDisallow: /*/collections/*sort_by*\nDisallow: /collections/*+*\nDisallow: /collections/*%2B*\nDisallow: /collections/*%2b*\nDisallow: /*/collections/*+*\nDisallow: /*/collections/*%2B*\nDisallow: /*/collections/*%2b*\nDisallow: /blogs/*+*\nDisallow: /blogs/*%2B*\nDisallow: /blogs/*%2b*\nDisallow: /*/blogs/*+*\nDisallow: /*/blogs/*%2"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "10 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><sitemap><loc>https://ruggable.com/sitemap_products_1.xml</loc></sitemap><sitemap><loc>https://ruggable.com/sitemap_pages_1.xml</loc></sitemap><sitemap><loc>https://ruggable.com/sitemap_collections_1.xml</loc></sitemap><sitemap><loc>https://ruggable.com/sitemap_blogs_1.xml</loc></sitemap><sitema"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No schema.org markup found",
+        "evidence": "Types: []"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Refund policy page not found",
+        "evidence": ""
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Shipping policy page not found",
+        "evidence": ""
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 28.07017543859649%) \u2014 {'og_site_name': 'Ruggable', 'footer': 'lusions Apply*Ruggable.com sitewide FREE SHIPPING'}",
+        "evidence": "{'og_site_name': 'Ruggable', 'footer': 'lusions Apply*Ruggable.com sitewide FREE SHIPPING'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "FORWARD-LOOKING",
+        "detail": "UCP not found (Shopify auto-provides when store enables it)",
+        "evidence": ""
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Weak GMC signals (0/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+        "evidence": "signals=[] missing=['no google-site-verification', 'og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.28,
+      "passes": 2,
+      "warns": 1,
+      "fails": 6,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "FORWARD-LOOKING",
+      "verdict": "RETHINK"
+    }
+  },
+  {
+    "store_url": "https://www.brooklinen.com/",
+    "label": "",
+    "timestamp": "2026-05-14T22:36:55.255632",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "5 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://www.brooklinen.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization', 'WebSite']",
+        "evidence": "Types: ['Organization', 'WebSite', 'ItemList', 'ItemList']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Currency prices in HTML (9): ['$25', '$50.00', '$75.00']",
+        "evidence": "['$25', '$50.00', '$75.00', '$100.00', '$150.00']",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n  Refund policy\n\n    \u2013 Brooklinen \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Skip to content\n     \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Memorial Day: 25% OFF sitewide now! \n \n                        Terms "
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n  Shipping policy\n\n    \u2013 Brooklinen \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Skip to content\n     \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Memorial Day: 25% OFF sitewide now! \n \n                        Term"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 22.22222222222222%) \u2014 {'og_site_name': 'Brooklinen', 'schema_org': 'Brooklinen', 'footer': 'ommunity'}",
+        "evidence": "{'og_site_name': 'Brooklinen', 'schema_org': 'Brooklinen', 'footer': 'ommunity'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://brooklinen2.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://brooklinen2.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://brooklinen2.myshopify.c"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Strong GMC signals (3/4): ['google-site-verification', 'prices visible (9)', 'Organization/WebSite schema']",
+        "evidence": "signals=['google-site-verification', 'prices visible (9)', 'Organization/WebSite schema'] missing=['og:type not product']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.61,
+      "passes": 5,
+      "warns": 1,
+      "fails": 3,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "PARTIAL"
+    }
+  },
+  {
+    "store_url": "https://www.thesill.com/",
+    "label": "",
+    "timestamp": "2026-05-14T22:39:29.168939",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "6 URLs | products: 0 | collections: 0",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://www.thesill.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>\n  "
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Commerce schema: ['Organization', 'WebSite']",
+        "evidence": "Types: ['Organization', 'WebSite']"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Refund policy\n\n        | The Sill \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Skip to content\n     \n \n \n \n \n \n \n \n \n \n \n \n \n Your cart  (0) \n \n \n \n \n \n \n \n Your cart is currently empty! \n Find products that match"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "PASS",
+        "detail": "Shipping timeframe: '2-6 business days'",
+        "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Shipping policy\n\n        | The Sill \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Skip to content\n     \n \n \n \n \n \n \n \n \n \n \n \n \n Your cart  (0) \n \n \n \n \n \n \n \n Your cart is currently empty! \n Find products that mat"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 43.47826086956522%) \u2014 {'og_site_name': 'The Sill', 'schema_org': 'The Sill', 'footer': 'ustomer Service'}",
+        "evidence": "{'og_site_name': 'The Sill', 'schema_org': 'The Sill', 'footer': 'ustomer Service'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "PASS",
+        "detail": "UCP found. Services: ['dev.ucp.shopping']",
+        "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://the-sill.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://the-sill.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://the-sill.myshopify.com/api/uc"
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "WARN",
+        "detail": "Partial GMC signals (2/4): ['google-site-verification', 'Organization/WebSite schema'] | missing: ['og:type not product', 'no currency pricing visible']",
+        "evidence": "signals=['google-site-verification', 'Organization/WebSite schema'] missing=['og:type not product', 'no currency pricing visible']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.56,
+      "passes": 4,
+      "warns": 2,
+      "fails": 3,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "PASS",
+      "verdict": "PARTIAL"
+    }
+  },
+  {
+    "store_url": "https://madeincookware.com/",
+    "label": "",
+    "timestamp": "2026-05-14T22:46:14.260498",
+    "script_version": "v2.1",
+    "checks": {
+      "R1": {
+        "check": "R1",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "No AI crawlers blocked",
+        "evidence": "User-Agent: *\nDisallow: /api\nSitemap: https://madeincookware.com/sitemap.xml\n\nUser-agent: Googlebot\nDisallow:\nSitemap: https://madeincookware.com/sitemap.xml\n\nUser-agent: AdsBot-Google\nDisallow:\nSitemap: https://madeincookware.com/sitemap.xml\n\nUser-agent: Googlebot-Image\nDisallow:\nSitemap: https://madeincookware.com/sitemap.xml"
+      },
+      "R3": {
+        "check": "R3",
+        "tier": "VERIFIED",
+        "status": "PASS",
+        "detail": "4 URLs | products: 1 | collections: 1",
+        "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <sitemap>\n    <loc>https://madeincookware.com/sitemaps/products.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://madeincookware.com/sitemaps/collections.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://madeincookware.com/sitemaps/blogs.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https:"
+      },
+      "R7": {
+        "check": "R7",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No schema.org markup found",
+        "evidence": "Types: []"
+      },
+      "R9": {
+        "check": "R9",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "No price signal found on homepage",
+        "evidence": "",
+        "note": "Reframed for homepage: any crawler-visible price signal"
+      },
+      "R16": {
+        "check": "R16",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "Made In Skip to Content learn more about our accessibility policy Go to home page Made In Logo Learn open dropdown for Learn The menu has 5 items. Cart Shop All Save With Sets open dropdown for Save With Sets The menu has 5 items. Shop All Sets Complete Kitchen Set Best Value Small Spaces Set 10-Piece Stainless Set Most Popular Categories Complete Kitchen Set Cookware Sets Tabletop Sets Knife Sets"
+      },
+      "R17": {
+        "check": "R17",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Policy exists but no concrete timeframe extractable",
+        "evidence": "Made In Skip to Content learn more about our accessibility policy Go to home page Made In Logo Learn open dropdown for Learn The menu has 5 items. Cart Shop All Save With Sets open dropdown for Save With Sets The menu has 5 items. Shop All Sets Complete Kitchen Set Best Value Small Spaces Set 10-Piece Stainless Set Most Popular Categories Complete Kitchen Set Cookware Sets Tabletop Sets Knife Sets"
+      },
+      "R25": {
+        "check": "R25",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Inconsistent (min 36.66666666666667%) \u2014 {'og_site_name': 'Made In Cookware', 'footer': 'hemailsubmit\u00a9 Made In undefinedCompanyFind a Store'}",
+        "evidence": "{'og_site_name': 'Made In Cookware', 'footer': 'hemailsubmit\u00a9 Made In undefinedCompanyFind a Store'}"
+      },
+      "R28": {
+        "check": "R28",
+        "tier": "FORWARD-LOOKING",
+        "status": "WARN",
+        "detail": "UCP endpoint exists but invalid JSON",
+        "evidence": ""
+      },
+      "R30": {
+        "check": "R30",
+        "tier": "VERIFIED",
+        "status": "WARN",
+        "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+        "evidence": "Shopify=True, product_schema=False, signals=[]"
+      },
+      "R31": {
+        "check": "R31",
+        "tier": "CORRELATED",
+        "status": "FAIL",
+        "detail": "Weak GMC signals (0/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+        "evidence": "signals=[] missing=['no google-site-verification', 'og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+        "note": "Reframed for homepage: GMC readiness signals"
+      }
+    },
+    "score": {
+      "pass_rate": 0.28,
+      "passes": 2,
+      "warns": 1,
+      "fails": 6,
+      "unknowns": 0,
+      "total_scored": 9,
+      "total_scoreable": 9,
+      "r28_status": "WARN",
+      "verdict": "RETHINK"
+    }
   }
 ]

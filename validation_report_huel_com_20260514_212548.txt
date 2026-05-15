@@ -1,0 +1,32 @@
+=================================================================
+AI REPRESENTATION OPTIMIZER — VALIDATION (v2.1)
+Store:     https://huel.com/
+Label:     —
+Timestamp: 2026-05-14 21:25:48
+=================================================================
+
+CHECKPOINT RESULTS:
+  ✅ R1   [VERIFIED        ] No AI crawlers blocked
+  ✅ R3   [VERIFIED        ] 13 URLs | products: 0 | collections: 0
+  ✅ R7   [CORRELATED      ] Commerce schema: ['WebSite', 'Organization']
+  ✅ R9   [CORRELATED      ] Currency prices in HTML (6): ['$65', '$65', '$65']
+            Note: Reframed for homepage: any crawler-visible price signal
+  ✅ R16  [CORRELATED      ] Return window: '30-Day Money Back'
+  ❌ R17  [CORRELATED      ] Shipping policy page not found
+  ⚠️ R25  [CORRELATED      ] Minor variation (min 72.72727272727273%) — {'og_site_name': 'Huel', 'schema
+  🔮 R28  [FORWARD-LOOKING ] UCP not found (Shopify auto-provides when store enables it)
+  ⚠️ R30  [VERIFIED        ] Shopify confirmed. No Product schema on homepage (normal). Re-run on a /pro
+  ✅ R31  [CORRELATED      ] Strong GMC signals (3/4): ['google-site-verification', 'prices visible (6)'
+            Note: Reframed for homepage: GMC readiness signals
+
+R28 (FORWARD-LOOKING, not scored): FORWARD-LOOKING
+
+SCORE:   6 PASS  2 WARN  1 FAIL  0 UNKNOWN
+RATE:    78%  (6 + 2×0.5 out of 9 scoreable checks)
+VERDICT: VALIDATED
+
+REMOVED CHECKS (not run):
+  R4: Removed — plain-requests JS check measured script limitations, not real AI crawler behavior.
+  R10: Removed — 11/11 stores failed yet were AI-recommended. Not a recommendation blocker.
+  R21: Removed — duplicate of R10.
+  R22: Removed — same root cause as R10.

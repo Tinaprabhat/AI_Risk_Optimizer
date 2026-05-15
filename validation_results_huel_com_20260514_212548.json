@@ -1,0 +1,91 @@
+{
+  "store_url": "https://huel.com/",
+  "label": "",
+  "timestamp": "2026-05-14T21:25:48.913470",
+  "script_version": "v2.1",
+  "checks": {
+    "R1": {
+      "check": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "No AI crawlers blocked",
+      "evidence": "# Hustle hard, crawl fast\n\nUser-agent: *\nDisallow: /cart\nDisallow: /search?\nDisallow: /account\n\nSitemap: https://huel.com/sitemap.xml\n\n\n# @@@@@@+           +@@@@@@                                               =@@@@@=    ====== \n# @@@@@@+           +@@@@@@                                               =@@@@@=   +.*##= *\n# @@@@@@+           +@@@@@@                                               =@@@@@=   *.*+++ *\n# @@@@@@+           +@@@@@@                                 .....         =@@@@@=    ==--==.\n# @@@@@@+           +@@@@@@   %@@@@@        #@@@@@.     -*%@@@@@@@%+:     =@@@@@=           "
+    },
+    "R3": {
+      "check": "R3",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "13 URLs | products: 0 | collections: 0",
+      "evidence": "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <sitemap>\n    <loc>https://huel.com/sitemaps/sitemap/en-us.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://uk.huel.com/sitemaps/sitemap/en-gb.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://de.huel.com/sitemaps/sitemap/de-de.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://jp.huel.com/sitemaps/sitemap/ja-jp.xml</loc>\n "
+    },
+    "R7": {
+      "check": "R7",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Commerce schema: ['WebSite', 'Organization']",
+      "evidence": "Types: ['WebSite', 'Organization']"
+    },
+    "R9": {
+      "check": "R9",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Currency prices in HTML (6): ['$65', '$65', '$65']",
+      "evidence": "['$65', '$65', '$65', '$65', '$65']",
+      "note": "Reframed for homepage: any crawler-visible price signal"
+    },
+    "R16": {
+      "check": "R16",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Return window: '30-Day Money Back'",
+      "evidence": "Returns Policy | Huel US All stores Africa South Africa ( English ) Americas Bermuda ( English ) United States ( English ) Asia Hong Kong ( English ) India ( English ) Kuwait ( English ) Malaysia ( English ) New Zealand ( English ) Saudi Arabia ( English ) Singapore ( English ) South Korea ( English ) Taiwan ( English ) United Arab Emirates ( English ) \u65e5\u672c ( \u65e5\u672c\u8a9e ) Europe Austria ( Deutsch ) Austria"
+    },
+    "R17": {
+      "check": "R17",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Shipping policy page not found",
+      "evidence": ""
+    },
+    "R25": {
+      "check": "R25",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "detail": "Minor variation (min 72.72727272727273%) \u2014 {'og_site_name': 'Huel', 'schema_org': 'Huel US'}",
+      "evidence": "{'og_site_name': 'Huel', 'schema_org': 'Huel US'}"
+    },
+    "R28": {
+      "check": "R28",
+      "tier": "FORWARD-LOOKING",
+      "status": "FORWARD-LOOKING",
+      "detail": "UCP not found (Shopify auto-provides when store enables it)",
+      "evidence": ""
+    },
+    "R30": {
+      "check": "R30",
+      "tier": "VERIFIED",
+      "status": "WARN",
+      "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+      "evidence": "Shopify=True, product_schema=False, signals=[]"
+    },
+    "R31": {
+      "check": "R31",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Strong GMC signals (3/4): ['google-site-verification', 'prices visible (6)', 'Organization/WebSite schema']",
+      "evidence": "signals=['google-site-verification', 'prices visible (6)', 'Organization/WebSite schema'] missing=['og:type not product']",
+      "note": "Reframed for homepage: GMC readiness signals"
+    }
+  },
+  "score": {
+    "pass_rate": 0.78,
+    "passes": 6,
+    "warns": 2,
+    "fails": 1,
+    "unknowns": 0,
+    "total_scored": 9,
+    "total_scoreable": 9,
+    "r28_status": "FORWARD-LOOKING",
+    "verdict": "VALIDATED"
+  }
+}

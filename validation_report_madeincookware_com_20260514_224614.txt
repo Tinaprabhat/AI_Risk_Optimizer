@@ -1,0 +1,32 @@
+=================================================================
+AI REPRESENTATION OPTIMIZER — VALIDATION (v2.1)
+Store:     https://madeincookware.com/
+Label:     —
+Timestamp: 2026-05-14 22:46:14
+=================================================================
+
+CHECKPOINT RESULTS:
+  ✅ R1   [VERIFIED        ] No AI crawlers blocked
+  ✅ R3   [VERIFIED        ] 4 URLs | products: 1 | collections: 1
+  ❌ R7   [CORRELATED      ] No schema.org markup found
+  ❌ R9   [CORRELATED      ] No price signal found on homepage
+            Note: Reframed for homepage: any crawler-visible price signal
+  ❌ R16  [CORRELATED      ] Policy exists but no concrete timeframe extractable
+  ❌ R17  [CORRELATED      ] Policy exists but no concrete timeframe extractable
+  ❌ R25  [CORRELATED      ] Inconsistent (min 36.66666666666667%) — {'og_site_name': 'Made In Cookware'
+  ⚠️ R28  [FORWARD-LOOKING ] UCP endpoint exists but invalid JSON
+  ⚠️ R30  [VERIFIED        ] Shopify confirmed. No Product schema on homepage (normal). Re-run on a /pro
+  ❌ R31  [CORRELATED      ] Weak GMC signals (0/4) — missing: ['no google-site-verification', 'og:type 
+            Note: Reframed for homepage: GMC readiness signals
+
+R28 (FORWARD-LOOKING, not scored): WARN
+
+SCORE:   2 PASS  1 WARN  6 FAIL  0 UNKNOWN
+RATE:    28%  (2 + 1×0.5 out of 9 scoreable checks)
+VERDICT: RETHINK
+
+REMOVED CHECKS (not run):
+  R4: Removed — plain-requests JS check measured script limitations, not real AI crawler behavior.
+  R10: Removed — 11/11 stores failed yet were AI-recommended. Not a recommendation blocker.
+  R21: Removed — duplicate of R10.
+  R22: Removed — same root cause as R10.

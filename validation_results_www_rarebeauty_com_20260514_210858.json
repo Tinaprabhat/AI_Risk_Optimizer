@@ -1,0 +1,91 @@
+{
+  "store_url": "https://www.rarebeauty.com/",
+  "label": "",
+  "timestamp": "2026-05-14T21:08:58.884785",
+  "script_version": "v2.1",
+  "checks": {
+    "R1": {
+      "check": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "No AI crawlers blocked",
+      "evidence": "# we use Shopify as our ecommerce platform\n\n#  \u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n#  \u2503  Robots & Agent policy                                               \u2503\n#  \u2523\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252b\n#  \u2503  Checkouts are for humans.                                           \u2503\n#  \u2503  * Automated scraping, \u201cbuy-for-me\u201d agents, or any end-to-end flow   \u2503\n#  \u2503    that completes payment without a final human review step is not   \u2503\n#  \u2503    permitted.                                                        \u2503\n#  \u2503  * Legitimate integ"
+    },
+    "R3": {
+      "check": "R3",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "5 URLs | products: 0 | collections: 0",
+      "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://www.rarebeauty.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>"
+    },
+    "R7": {
+      "check": "R7",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Commerce schema: ['Organization', 'WebSite']",
+      "evidence": "Types: ['Organization', 'HealthAndBeautyBusiness', 'WebSite']"
+    },
+    "R9": {
+      "check": "R9",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Currency prices in HTML (1): ['$5']",
+      "evidence": "['$5']",
+      "note": "Reframed for homepage: any crawler-visible price signal"
+    },
+    "R16": {
+      "check": "R16",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Policy exists but no concrete timeframe extractable",
+      "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n    Refund policy\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n    Skip to Main\n   \n \n \n \n \n \n \n \n Open Navigation \n \n \n \n Close Navigation \n \n \n \n Account \n \n \n \n Shop \n              \u2303\n               Open navigation menu \n \n \n Shop All New"
+    },
+    "R17": {
+      "check": "R17",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Shipping timeframe: '1-3 business days'",
+      "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n    Shipping policy\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n    Skip to Main\n   \n \n \n \n \n \n \n \n Open Navigation \n \n \n \n Close Navigation \n \n \n \n Account \n \n \n \n Shop \n              \u2303\n               Open navigation menu \n \n \n Shop All N"
+    },
+    "R25": {
+      "check": "R25",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Inconsistent (min 27.27272727272727%) \u2014 {'og_site_name': 'Rare Beauty', 'schema_org': 'Rare Beauty', 'footer': 'roll to Top'}",
+      "evidence": "{'og_site_name': 'Rare Beauty', 'schema_org': 'Rare Beauty', 'footer': 'roll to Top'}"
+    },
+    "R28": {
+      "check": "R28",
+      "tier": "FORWARD-LOOKING",
+      "status": "PASS",
+      "detail": "UCP found. Services: ['dev.ucp.shopping']",
+      "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://therarebeauty.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://therarebeauty.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://therarebeauty.mysho"
+    },
+    "R30": {
+      "check": "R30",
+      "tier": "VERIFIED",
+      "status": "WARN",
+      "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+      "evidence": "Shopify=True, product_schema=False, signals=[]"
+    },
+    "R31": {
+      "check": "R31",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Strong GMC signals (3/4): ['google-site-verification', 'prices visible (1)', 'Organization/WebSite schema']",
+      "evidence": "signals=['google-site-verification', 'prices visible (1)', 'Organization/WebSite schema'] missing=['og:type not product']",
+      "note": "Reframed for homepage: GMC readiness signals"
+    }
+  },
+  "score": {
+    "pass_rate": 0.72,
+    "passes": 6,
+    "warns": 1,
+    "fails": 2,
+    "unknowns": 0,
+    "total_scored": 9,
+    "total_scoreable": 9,
+    "r28_status": "PASS",
+    "verdict": "VALIDATED"
+  }
+}

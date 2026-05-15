@@ -1,0 +1,91 @@
+{
+  "store_url": "https://skims.com/en-in",
+  "label": "",
+  "timestamp": "2026-05-14T20:52:58.306067",
+  "script_version": "v2.1",
+  "checks": {
+    "R1": {
+      "check": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "No AI crawlers blocked",
+      "evidence": "User-agent: *\nDisallow: /admin\nAllow: /cart?.data*\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /25954484284/checkouts\nDisallow: /25954484284/orders\nDisallow: /carts\nDisallow: /account\nDisallow: /collections/*sort_by*\nDisallow: /*/collections/*sort_by*\nDisallow: /collections/*+*\nDisallow: *//collections*\nDisallow: *anchor*anchor\nDisallow: *hash*hash\nDisallow: /collections/*%2B*\nDisallow: /collections/*%2b*\nDisallow: /*/collections/*+*\nDisallow: /*/collections/*%2B*\nDisallow: /*/collections/*%2b*\nDisallow: */collections/*filter*&*filter*\nDisallow: /blogs/*+*\nDisallow: /"
+    },
+    "R3": {
+      "check": "R3",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "4 URLs | products: 0 | collections: 0",
+      "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n    <sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n        <sitemap>\n    <loc>https://skims.com/sitemap-pages.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://skims.com/sitemap-products.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://skims.com/sitemap-collections.xml</loc>\n  </sitemap>\n  <sitemap>\n    <loc>https://skims.com/sitemap-"
+    },
+    "R7": {
+      "check": "R7",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Commerce schema: ['Organization']",
+      "evidence": "Types: ['Organization', 'WebPage']"
+    },
+    "R9": {
+      "check": "R9",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "No price signal found on homepage",
+      "evidence": "",
+      "note": "Reframed for homepage: any crawler-visible price signal"
+    },
+    "R16": {
+      "check": "R16",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Return window: 'return within 30 days'",
+      "evidence": "Returns | SKIMS Skip to main content SKIMS Logo International Shipping Available SKIMS Logo New All New Arrivals Mens New Arrivals Color Spotlight: Red Back In Stock Just Dropped: NikeSKIMS Studio Made for the studio and beyond\u00e2\u0080\u0094shop new corset-inspired silhouettes, buttery soft Studio Stretch styles, and our latest Rift Mesh shade All NikeSKIMS NikeSKIMS Fabric Guide The Sports Bra Guide Style T"
+    },
+    "R17": {
+      "check": "R17",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Policy exists but no concrete timeframe extractable",
+      "evidence": "Shipping | SKIMS Skip to main content SKIMS Logo International Shipping Available SKIMS Logo New All New Arrivals Mens New Arrivals Color Spotlight: Red Back In Stock Just Dropped: NikeSKIMS Studio Made for the studio and beyond\u00e2\u0080\u0094shop new corset-inspired silhouettes, buttery soft Studio Stretch styles, and our latest Rift Mesh shade All NikeSKIMS NikeSKIMS Fabric Guide The Sports Bra Guide Style "
+    },
+    "R25": {
+      "check": "R25",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Inconsistent (min 14.54545454545455%) \u2014 {'schema_org': 'SKIMS', 'footer': 'yStart a ReturnTrack OrderTrack ReturnSize GuidesO'}",
+      "evidence": "{'schema_org': 'SKIMS', 'footer': 'yStart a ReturnTrack OrderTrack ReturnSize GuidesO'}"
+    },
+    "R28": {
+      "check": "R28",
+      "tier": "FORWARD-LOOKING",
+      "status": "PASS",
+      "detail": "UCP found. Services: ['dev.ucp.shopping']",
+      "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://skimsbody.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://skimsbody.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://skimsbody.myshopify.com/api"
+    },
+    "R30": {
+      "check": "R30",
+      "tier": "VERIFIED",
+      "status": "WARN",
+      "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+      "evidence": "Shopify=True, product_schema=False, signals=[]"
+    },
+    "R31": {
+      "check": "R31",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Weak GMC signals (1/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+      "evidence": "signals=['Organization/WebSite schema'] missing=['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+      "note": "Reframed for homepage: GMC readiness signals"
+    }
+  },
+  "score": {
+    "pass_rate": 0.5,
+    "passes": 4,
+    "warns": 1,
+    "fails": 4,
+    "unknowns": 0,
+    "total_scored": 9,
+    "total_scoreable": 9,
+    "r28_status": "PASS",
+    "verdict": "PARTIAL"
+  }
+}

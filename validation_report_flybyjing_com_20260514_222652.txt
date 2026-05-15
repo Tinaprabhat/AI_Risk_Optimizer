@@ -1,0 +1,32 @@
+=================================================================
+AI REPRESENTATION OPTIMIZER — VALIDATION (v2.1)
+Store:     https://flybyjing.com/
+Label:     —
+Timestamp: 2026-05-14 22:26:52
+=================================================================
+
+CHECKPOINT RESULTS:
+  ✅ R1   [VERIFIED        ] No AI crawlers blocked
+  ✅ R3   [VERIFIED        ] 5 URLs | products: 0 | collections: 0
+  ✅ R7   [CORRELATED      ] Commerce schema: ['Organization', 'WebSite']
+  ❌ R9   [CORRELATED      ] No price signal found on homepage
+            Note: Reframed for homepage: any crawler-visible price signal
+  ❌ R16  [CORRELATED      ] Policy exists but no concrete timeframe extractable
+  ✅ R17  [CORRELATED      ] Shipping timeframe: '2-4 business days'
+  ❌ R25  [CORRELATED      ] Inconsistent (min 19.672131147540984%) — {'og_site_name': 'FLY BY JING', 's
+  ✅ R28  [FORWARD-LOOKING ] UCP found. Services: ['dev.ucp.shopping']
+  ⚠️ R30  [VERIFIED        ] Shopify confirmed. No Product schema on homepage (normal). Re-run on a /pro
+  ⚠️ R31  [CORRELATED      ] Partial GMC signals (2/4): ['google-site-verification', 'Organization/WebSi
+            Note: Reframed for homepage: GMC readiness signals
+
+R28 (FORWARD-LOOKING, not scored): PASS
+
+SCORE:   4 PASS  2 WARN  3 FAIL  0 UNKNOWN
+RATE:    56%  (4 + 2×0.5 out of 9 scoreable checks)
+VERDICT: PARTIAL
+
+REMOVED CHECKS (not run):
+  R4: Removed — plain-requests JS check measured script limitations, not real AI crawler behavior.
+  R10: Removed — 11/11 stores failed yet were AI-recommended. Not a recommendation blocker.
+  R21: Removed — duplicate of R10.
+  R22: Removed — same root cause as R10.

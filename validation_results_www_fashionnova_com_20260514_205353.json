@@ -1,0 +1,91 @@
+{
+  "store_url": "https://www.fashionnova.com/",
+  "label": "",
+  "timestamp": "2026-05-14T20:53:53.687337",
+  "script_version": "v2.1",
+  "checks": {
+    "R1": {
+      "check": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "No AI crawlers blocked",
+      "evidence": "User-agent: *\nDisallow: /a/downloads/-/*\nDisallow: /admin\nDisallow: /cart\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /2939277/checkouts\nDisallow: /2939277/orders\nDisallow: /carts\nDisallow: /account\nDisallow: /collections/*sort_by*\nDisallow: /*/collections/*sort_by*\nDisallow: /collections/*+*\nDisallow: /collections/*%2B*\nDisallow: /collections/*%2b*\nDisallow: /*/collections/*+*\nDisallow: /*/collections/*%2B*\nDisallow: /*/collections/*%2b*\nDisallow: */collections/*filter*&*filter*\nDisallow: /blogs/*+*\nDisallow: /blogs/*%2B*\nDisallow: /blogs/*%2b*\nDisallow: /*/blogs/*+*"
+    },
+    "R3": {
+      "check": "R3",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "94 URLs | products: 94 | collections: 0",
+      "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <sitemap><loc>https://www.fashionnova.com/sitemap/products/1.xml</loc></sitemap>\n  <sitemap><loc>https://www.fashionnova.com/sitemap/products/2.xml</loc></sitemap>\n  <sitemap><loc>https://www.fashionnova.com/sitemap/products/3.xml</loc></sitemap>\n  <sitemap><loc>https://www.fashionnova.com/s"
+    },
+    "R7": {
+      "check": "R7",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Commerce schema: ['Organization']",
+      "evidence": "Types: ['Organization']"
+    },
+    "R9": {
+      "check": "R9",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "No price signal found on homepage",
+      "evidence": "",
+      "note": "Reframed for homepage: any crawler-visible price signal"
+    },
+    "R16": {
+      "check": "R16",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Policy exists but no concrete timeframe extractable",
+      "evidence": "\n \n \n \n \n \n \n \n Easy Returns \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n This Website uses the latest in JavaScript technologies.  Please enable JavaScript and update your browser to the latest version if you are able to read this message. \n \n \n \n \n"
+    },
+    "R17": {
+      "check": "R17",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Shipping timeframe: '1-12 business days'",
+      "evidence": "Shipping Policy Spend   $75   or more to unlock FREE SHIPPING! Shop New WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY Search within Women's Clothing \u00f0\u009f\u0087\u00ba\u00f0\u009f\u0087\u00b8 WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY New In Clothing Novadeals Swimwear Dresses Matching Sets Tops Graphics Jeans Jumpsuits & Rompers Shoes Formal Shop Bottoms Accessories Lingerie & Sleep Jackets & Sweaters Sale Nova Luxe Sport Search wit"
+    },
+    "R25": {
+      "check": "R25",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Inconsistent (min 29.032258064516125%) \u2014 {'schema_org': 'Fashion Nova', 'footer': 'enterTrack OrderShipping InfoReturnsContact UsComp'}",
+      "evidence": "{'schema_org': 'Fashion Nova', 'footer': 'enterTrack OrderShipping InfoReturnsContact UsComp'}"
+    },
+    "R28": {
+      "check": "R28",
+      "tier": "FORWARD-LOOKING",
+      "status": "PASS",
+      "detail": "UCP found. Services: ['dev.ucp.shopping']",
+      "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://fnova.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://fnova.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://fnova.myshopify.com/api/ucp/mcp\", \""
+    },
+    "R30": {
+      "check": "R30",
+      "tier": "VERIFIED",
+      "status": "WARN",
+      "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+      "evidence": "Shopify=True, product_schema=False, signals=[]"
+    },
+    "R31": {
+      "check": "R31",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Weak GMC signals (1/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+      "evidence": "signals=['Organization/WebSite schema'] missing=['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+      "note": "Reframed for homepage: GMC readiness signals"
+    }
+  },
+  "score": {
+    "pass_rate": 0.5,
+    "passes": 4,
+    "warns": 1,
+    "fails": 4,
+    "unknowns": 0,
+    "total_scored": 9,
+    "total_scoreable": 9,
+    "r28_status": "PASS",
+    "verdict": "PARTIAL"
+  }
+}

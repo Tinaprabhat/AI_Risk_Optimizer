@@ -1,7 +1,7 @@
 {
-  "store_url": "https://corridorseven.coffee/?utm_source=chatgpt.com",
+  "store_url": "https://www.brooklinen.com/",
   "label": "",
-  "timestamp": "2026-05-12T01:50:14.426431",
+  "timestamp": "2026-05-14T22:36:55.255632",
   "script_version": "v2.1",
   "checks": {
     "R1": {
@@ -16,21 +16,21 @@
       "tier": "VERIFIED",
       "status": "PASS",
       "detail": "5 URLs | products: 0 | collections: 0",
-      "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://corridorseven.coffee/sitemap_agentic_discovery.xml</loc>\n  </sitema"
+      "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://www.brooklinen.com/sitemap_agentic_discovery.xml</loc>\n  </sitemap>"
     },
     "R7": {
       "check": "R7",
       "tier": "CORRELATED",
       "status": "PASS",
       "detail": "Commerce schema: ['Organization', 'WebSite']",
-      "evidence": "Types: ['Organization', 'WebSite']"
+      "evidence": "Types: ['Organization', 'WebSite', 'ItemList', 'ItemList']"
     },
     "R9": {
       "check": "R9",
       "tier": "CORRELATED",
-      "status": "FAIL",
-      "detail": "No price signal found on homepage",
-      "evidence": "",
+      "status": "PASS",
+      "detail": "Currency prices in HTML (9): ['$25', '$50.00', '$75.00']",
+      "evidence": "['$25', '$50.00', '$75.00', '$100.00', '$150.00']",
       "note": "Reframed for homepage: any crawler-visible price signal"
     },
     "R16": {
@@ -38,28 +38,28 @@
       "tier": "CORRELATED",
       "status": "FAIL",
       "detail": "Policy exists but no concrete timeframe extractable",
-      "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Refund policy \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n                    .\n                 \n \n \n \n                   Next Roasting:  \n \n \n \n \n \n \n                    .\n                 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n "
+      "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n  Refund policy\n\n    \u2013 Brooklinen \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Skip to content\n     \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Memorial Day: 25% OFF sitewide now! \n \n                        Terms "
     },
     "R17": {
       "check": "R17",
       "tier": "CORRELATED",
-      "status": "PASS",
-      "detail": "Shipping timeframe: '5-7 business days'",
-      "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Shipping policy \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n                    .\n                 \n \n \n \n                   Next Roasting:  \n \n \n \n \n \n \n                    .\n                 \n \n \n \n \n \n \n \n \n \n \n \n \n \n "
+      "status": "FAIL",
+      "detail": "Policy exists but no concrete timeframe extractable",
+      "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n  Shipping policy\n\n    \u2013 Brooklinen \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Skip to content\n     \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Memorial Day: 25% OFF sitewide now! \n \n                        Term"
     },
     "R25": {
       "check": "R25",
       "tier": "CORRELATED",
       "status": "FAIL",
-      "detail": "Inconsistent (min 16.216216216216218%) \u2014 {'og_site_name': 'Corridor Seven Coffee Roasters', 'schema_org': 'Corridor Seven Coffee Roasters', 'footer': 'k links'}",
-      "evidence": "{'og_site_name': 'Corridor Seven Coffee Roasters', 'schema_org': 'Corridor Seven Coffee Roasters', 'footer': 'k links'}"
+      "detail": "Inconsistent (min 22.22222222222222%) \u2014 {'og_site_name': 'Brooklinen', 'schema_org': 'Brooklinen', 'footer': 'ommunity'}",
+      "evidence": "{'og_site_name': 'Brooklinen', 'schema_org': 'Brooklinen', 'footer': 'ommunity'}"
     },
     "R28": {
       "check": "R28",
       "tier": "FORWARD-LOOKING",
       "status": "PASS",
       "detail": "UCP found. Services: ['dev.ucp.shopping']",
-      "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://corridor-seven-coffee-roasters.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://corridor-seven-coffee-roasters.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-01-23\", \"spec\": \"https://ucp.dev/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"http"
+      "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://brooklinen2.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://brooklinen2.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://brooklinen2.myshopify.c"
     },
     "R30": {
       "check": "R30",
@@ -71,16 +71,16 @@
     "R31": {
       "check": "R31",
       "tier": "CORRELATED",
-      "status": "WARN",
-      "detail": "Partial GMC signals (2/4): ['google-site-verification', 'Organization/WebSite schema'] | missing: ['og:type not product', 'no currency pricing visible']",
-      "evidence": "signals=['google-site-verification', 'Organization/WebSite schema'] missing=['og:type not product', 'no currency pricing visible']",
+      "status": "PASS",
+      "detail": "Strong GMC signals (3/4): ['google-site-verification', 'prices visible (9)', 'Organization/WebSite schema']",
+      "evidence": "signals=['google-site-verification', 'prices visible (9)', 'Organization/WebSite schema'] missing=['og:type not product']",
       "note": "Reframed for homepage: GMC readiness signals"
     }
   },
   "score": {
-    "pass_rate": 0.56,
-    "passes": 4,
-    "warns": 2,
+    "pass_rate": 0.61,
+    "passes": 5,
+    "warns": 1,
     "fails": 3,
     "unknowns": 0,
     "total_scored": 9,

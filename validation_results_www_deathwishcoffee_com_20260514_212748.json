@@ -1,7 +1,7 @@
 {
-  "store_url": "https://tego.fit/collections/all-products",
+  "store_url": "https://www.deathwishcoffee.com/",
   "label": "",
-  "timestamp": "2026-05-11T04:21:34.586601",
+  "timestamp": "2026-05-14T21:27:48.514146",
   "script_version": "v2.1",
   "checks": {
     "R1": {
@@ -16,50 +16,50 @@
       "tier": "VERIFIED",
       "status": "PASS",
       "detail": "5 URLs | products: 0 | collections: 0",
-      "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://tego.fit/sitemap_agentic_discovery.xml</loc>\n  </sitemap>\n  <sitema"
+      "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <!-- This is the parent sitemap linking to additional sitemaps for products, collections and pages as shown below. The sitemap can not be edited manually, but is kept up to date in real time. -->\n  <sitemap>\n    <loc>https://www.deathwishcoffee.com/sitemap_agentic_discovery.xml</loc>\n  </sit"
     },
     "R7": {
       "check": "R7",
       "tier": "CORRELATED",
       "status": "PASS",
-      "detail": "Commerce schema: ['Organization']",
-      "evidence": "Types: ['Organization']"
+      "detail": "Commerce schema: ['Organization', 'WebSite']",
+      "evidence": "Types: ['Organization', 'WebSite']"
     },
     "R9": {
       "check": "R9",
       "tier": "CORRELATED",
       "status": "PASS",
-      "detail": "Currency prices in HTML (2): ['$,', '$1']",
-      "evidence": "['$,', '$1']",
+      "detail": "Currency prices in HTML (1): ['$,']",
+      "evidence": "['$,']",
       "note": "Reframed for homepage: any crawler-visible price signal"
     },
     "R16": {
       "check": "R16",
       "tier": "CORRELATED",
       "status": "PASS",
-      "detail": "Return window: 'return within 30 days'",
-      "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Refund policy\n\u2013 TEGO\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Skip to content \n \n \n \n \n \n \n \n MENU \n \n \n \n \n \n \n \n"
+      "detail": "Return window: '60 day money back'",
+      "evidence": "\n \n \n         \n \n \n \n \n \n \n \n      Refund policy\n \u2013 Death Wish Coffee \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Skip to content\n     \n \n \n \n \n BUILD YOUR OWN COFFEE BUNDLE AND SAVE UP TO 15% OFF \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n "
     },
     "R17": {
       "check": "R17",
       "tier": "CORRELATED",
       "status": "FAIL",
       "detail": "Policy exists but no concrete timeframe extractable",
-      "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Shipping policy\n\u2013 TEGO\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Skip to content \n \n \n \n \n \n \n \n MENU \n \n \n \n \n \n \n"
+      "evidence": "\n \n \n         \n \n \n \n \n \n \n \n      Shipping policy\n \u2013 Death Wish Coffee \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n      Skip to content\n     \n \n \n \n \n BUILD YOUR OWN COFFEE BUNDLE AND SAVE UP TO 15% OFF \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n "
     },
     "R25": {
       "check": "R25",
       "tier": "CORRELATED",
       "status": "FAIL",
-      "detail": "Inconsistent (min 44.44444444444444%) \u2014 {'og_site_name': 'TEGO', 'footer': 'ebook'}",
-      "evidence": "{'og_site_name': 'TEGO', 'footer': 'ebook'}"
+      "detail": "Inconsistent (min 8.695652173913048%) \u2014 {'og_site_name': 'Death Wish Coffee', 'schema_org': 'Death Wish Coffee', 'footer': 'ompany'}",
+      "evidence": "{'og_site_name': 'Death Wish Coffee', 'schema_org': 'Death Wish Coffee', 'footer': 'ompany'}"
     },
     "R28": {
       "check": "R28",
       "tier": "FORWARD-LOOKING",
       "status": "PASS",
       "detail": "UCP found. Services: ['dev.ucp.shopping']",
-      "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://tegofit.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://tegofit.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-01-23\", \"spec\": \"https://ucp.dev/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://tegofit.myshopify.com/api/ucp/mcp\", \"schem"
+      "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://deathwishcoffee.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://deathwishcoffee.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://deathwishcoffee"
     },
     "R30": {
       "check": "R30",
@@ -71,21 +71,21 @@
     "R31": {
       "check": "R31",
       "tier": "CORRELATED",
-      "status": "WARN",
-      "detail": "Partial GMC signals (2/4): ['google-site-verification', 'prices visible (2)'] | missing: ['og:type not product', 'no Org/WebSite schema']",
-      "evidence": "signals=['google-site-verification', 'prices visible (2)'] missing=['og:type not product', 'no Org/WebSite schema']",
+      "status": "PASS",
+      "detail": "Strong GMC signals (3/4): ['google-site-verification', 'prices visible (1)', 'Organization/WebSite schema']",
+      "evidence": "signals=['google-site-verification', 'prices visible (1)', 'Organization/WebSite schema'] missing=['og:type not product']",
       "note": "Reframed for homepage: GMC readiness signals"
     }
   },
   "score": {
-    "pass_rate": 0.67,
-    "passes": 5,
-    "warns": 2,
+    "pass_rate": 0.72,
+    "passes": 6,
+    "warns": 1,
     "fails": 2,
     "unknowns": 0,
     "total_scored": 9,
     "total_scoreable": 9,
     "r28_status": "PASS",
-    "verdict": "PARTIAL"
+    "verdict": "VALIDATED"
   }
 }

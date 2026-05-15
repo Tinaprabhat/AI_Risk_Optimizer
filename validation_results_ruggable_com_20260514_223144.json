@@ -1,0 +1,91 @@
+{
+  "store_url": "https://ruggable.com/",
+  "label": "",
+  "timestamp": "2026-05-14T22:31:44.611651",
+  "script_version": "v2.1",
+  "checks": {
+    "R1": {
+      "check": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "No AI crawlers blocked",
+      "evidence": "# we use Shopify as our ecommerce platform\n\nUser-agent: *\nDisallow: /admin\nDisallow: /cart\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /10330751/checkouts\nDisallow: /10330751/orders\nDisallow: /carts\nDisallow: /account\nDisallow: /collections/*sort_by*\nDisallow: /*/collections/*sort_by*\nDisallow: /collections/*+*\nDisallow: /collections/*%2B*\nDisallow: /collections/*%2b*\nDisallow: /*/collections/*+*\nDisallow: /*/collections/*%2B*\nDisallow: /*/collections/*%2b*\nDisallow: /blogs/*+*\nDisallow: /blogs/*%2B*\nDisallow: /blogs/*%2b*\nDisallow: /*/blogs/*+*\nDisallow: /*/blogs/*%2"
+    },
+    "R3": {
+      "check": "R3",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "10 URLs | products: 0 | collections: 0",
+      "evidence": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><sitemap><loc>https://ruggable.com/sitemap_products_1.xml</loc></sitemap><sitemap><loc>https://ruggable.com/sitemap_pages_1.xml</loc></sitemap><sitemap><loc>https://ruggable.com/sitemap_collections_1.xml</loc></sitemap><sitemap><loc>https://ruggable.com/sitemap_blogs_1.xml</loc></sitemap><sitema"
+    },
+    "R7": {
+      "check": "R7",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "No schema.org markup found",
+      "evidence": "Types: []"
+    },
+    "R9": {
+      "check": "R9",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "No price signal found on homepage",
+      "evidence": "",
+      "note": "Reframed for homepage: any crawler-visible price signal"
+    },
+    "R16": {
+      "check": "R16",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Refund policy page not found",
+      "evidence": ""
+    },
+    "R17": {
+      "check": "R17",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Shipping policy page not found",
+      "evidence": ""
+    },
+    "R25": {
+      "check": "R25",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Inconsistent (min 28.07017543859649%) \u2014 {'og_site_name': 'Ruggable', 'footer': 'lusions Apply*Ruggable.com sitewide FREE SHIPPING'}",
+      "evidence": "{'og_site_name': 'Ruggable', 'footer': 'lusions Apply*Ruggable.com sitewide FREE SHIPPING'}"
+    },
+    "R28": {
+      "check": "R28",
+      "tier": "FORWARD-LOOKING",
+      "status": "FORWARD-LOOKING",
+      "detail": "UCP not found (Shopify auto-provides when store enables it)",
+      "evidence": ""
+    },
+    "R30": {
+      "check": "R30",
+      "tier": "VERIFIED",
+      "status": "WARN",
+      "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+      "evidence": "Shopify=True, product_schema=False, signals=[]"
+    },
+    "R31": {
+      "check": "R31",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Weak GMC signals (0/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+      "evidence": "signals=[] missing=['no google-site-verification', 'og:type not product', 'no currency pricing visible', 'no Org/WebSite schema']",
+      "note": "Reframed for homepage: GMC readiness signals"
+    }
+  },
+  "score": {
+    "pass_rate": 0.28,
+    "passes": 2,
+    "warns": 1,
+    "fails": 6,
+    "unknowns": 0,
+    "total_scored": 9,
+    "total_scoreable": 9,
+    "r28_status": "FORWARD-LOOKING",
+    "verdict": "RETHINK"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "store_url": "https://www.chubbiesshorts.com/",
+  "label": "",
+  "timestamp": "2026-05-14T21:04:56.290920",
+  "script_version": "v2.1",
+  "checks": {
+    "R1": {
+      "check": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "No AI crawlers blocked",
+      "evidence": "User-agent: *\nDisallow: /admin\nDisallow: /cart\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /carts\nDisallow: /account\nSitemap: https://www.chubbiesshorts.com/sitemap.xml\n\n# Google adsbot ignores robots.txt unless specifically named!\nUser-agent: adsbot-google\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /carts\nDisallow: /orders\n\nUser-agent: Pinterest\nCrawl-delay: 1"
+    },
+    "R3": {
+      "check": "R3",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "15 URLs | products: 17 | collections: 0",
+      "evidence": "\n    <urlset\n      xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"\n      xmlns:image=\"http://www.google.com/schemas/sitemap-image/1.1\"\n    >\n      \n    <url>\n      <loc>https://www.chubbiesshorts.com</loc>\n      <lastmod>2026-05-07T19:24:12.483Z</lastmod>\n      <changefreq>weekly</changefreq>\n      \n\n    </url>\n  \n    <url>\n      <loc>https://www.chubbiesshorts.com/products/gift-card</loc>\n   "
+    },
+    "R7": {
+      "check": "R7",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Commerce schema: ['Organization']",
+      "evidence": "Types: ['Organization']"
+    },
+    "R9": {
+      "check": "R9",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "No price signal found on homepage",
+      "evidence": "",
+      "note": "Reframed for homepage: any crawler-visible price signal"
+    },
+    "R16": {
+      "check": "R16",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Policy exists but no concrete timeframe extractable",
+      "evidence": "Chubbies Shorts Enable \n Accessibility Accessibility \n Statement \u00f0\u009f\u0087\u00ba\u00f0\u009f\u0087\u00b8 Rewards \u00f0\u009f\u008c\u009f Blog Help Featured  Shorts Swim Pants Tops Kids Clearance   For Her Afterparty Extras NFL  Element Element About Us Foundation 43 by Chubbies Store Locations Chubjobs Need Help? Search:  Shorts Swim NFL Pants Golf Kids Trending Searches Shorts Swim NFL Pants Golf Kids Search:  Shorts Swim NFL Pants Golf Kids Tre"
+    },
+    "R17": {
+      "check": "R17",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Policy exists but no concrete timeframe extractable",
+      "evidence": "Chubbies Shorts Enable \n Accessibility Accessibility \n Statement \u00f0\u009f\u0087\u00ba\u00f0\u009f\u0087\u00b8 Rewards \u00f0\u009f\u008c\u009f Blog Help Featured  Shorts Swim Pants Tops Kids Clearance   For Her Afterparty Extras NFL  Element Element About Us Foundation 43 by Chubbies Store Locations Chubjobs Need Help? Search:  Shorts Swim NFL Pants Golf Kids Trending Searches Shorts Swim NFL Pants Golf Kids Search:  Shorts Swim NFL Pants Golf Kids Tre"
+    },
+    "R25": {
+      "check": "R25",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Inconsistent (min 24.615384615384617%) \u2014 {'schema_org': 'Chubbies Shorts', 'footer': \"hatText us anytime and we'll respond within 24 hou\"}",
+      "evidence": "{'schema_org': 'Chubbies Shorts', 'footer': \"hatText us anytime and we'll respond within 24 hou\"}"
+    },
+    "R28": {
+      "check": "R28",
+      "tier": "FORWARD-LOOKING",
+      "status": "PASS",
+      "detail": "UCP found. Services: ['dev.ucp.shopping']",
+      "evidence": "{\"ucp\": {\"version\": \"2026-04-08\", \"supported_versions\": {\"2026-04-08\": \"https://chubbies.myshopify.com/.well-known/ucp/2026-04-08\", \"2026-01-23\": \"https://chubbies.myshopify.com/.well-known/ucp/2026-01-23\"}, \"services\": {\"dev.ucp.shopping\": [{\"version\": \"2026-04-08\", \"spec\": \"https://ucp.dev/2026-04-08/specification/overview/\", \"transport\": \"mcp\", \"endpoint\": \"https://chubbies.myshopify.com/api/uc"
+    },
+    "R30": {
+      "check": "R30",
+      "tier": "VERIFIED",
+      "status": "WARN",
+      "detail": "Shopify confirmed. No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation. Signals: none",
+      "evidence": "Shopify=True, product_schema=False, signals=[]"
+    },
+    "R31": {
+      "check": "R31",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Weak GMC signals (1/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+      "evidence": "signals=['Organization/WebSite schema'] missing=['no google-site-verification', 'og:type not product', 'no currency pricing visible']",
+      "note": "Reframed for homepage: GMC readiness signals"
+    }
+  },
+  "score": {
+    "pass_rate": 0.39,
+    "passes": 3,
+    "warns": 1,
+    "fails": 5,
+    "unknowns": 0,
+    "total_scored": 9,
+    "total_scoreable": 9,
+    "r28_status": "PASS",
+    "verdict": "RETHINK"
+  }
+}

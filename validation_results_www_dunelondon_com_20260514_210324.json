@@ -1,0 +1,91 @@
+{
+  "store_url": "https://www.dunelondon.com/",
+  "label": "",
+  "timestamp": "2026-05-14T21:03:24.080602",
+  "script_version": "v2.1",
+  "checks": {
+    "R1": {
+      "check": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "detail": "No AI crawlers blocked",
+      "evidence": "Sitemap: https://www.dunelondon.com/sitemap_index.xml\r\n\r\n# robots.txt file updated by Polaris on 08/01/2026\r\n\r\nUser-agent: *\r\n\r\n\r\nDisallow: */rw/\r\nDisallow: */eu/\r\nAllow: */eu/.html\r\nAllow: */eu/fr\r\nAllow: */eu/de\r\nAllow: */eu/en*\r\nAllow: */ch*\r\n\r\n\r\n# old robots.txt rules\r\n\r\nDisallow: */sign-in/\r\nDisallow: */basket/\r\nDisallow: */wishlist/\r\nDisallow: */checkout/\r\n\r\n\r\n# new robots.txt rules\r\n\r\n# Pages\r\nDisallow: */ajxr_review/\r\nDisallow: *?sessionid=\r\nDisallow: */search?*\r\nDisallow: */myaccount*\r\nDisallow: */login?*\r\nDisallow: */orders*\r\nDisallow: */searchwishlists*\r\nDisallow: */article-artlabou"
+    },
+    "R3": {
+      "check": "R3",
+      "tier": "VERIFIED",
+      "status": "FAIL",
+      "detail": "sitemap.xml not found (timeout)",
+      "evidence": ""
+    },
+    "R7": {
+      "check": "R7",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "detail": "Schema present, no commerce types: ['WebPage']",
+      "evidence": "Types: ['WebPage']"
+    },
+    "R9": {
+      "check": "R9",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "detail": "Currency prices in HTML (1): ['\u00a375']",
+      "evidence": "['\u00a375']",
+      "note": "Reframed for homepage: any crawler-visible price signal"
+    },
+    "R16": {
+      "check": "R16",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Policy exists but no concrete timeframe extractable",
+      "evidence": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n    \n        Dune London Returns\n    \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n FREE DELIVERY ON ORDERS OVER \u00a375   T&CS APPLY \n \n \n \n \n \n Skip to main content \n Skip to footer content \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n   Se"
+    },
+    "R17": {
+      "check": "R17",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Shipping policy page not found",
+      "evidence": ""
+    },
+    "R25": {
+      "check": "R25",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Inconsistent (min 40.0%) \u2014 {'footer': 'al Dune London store or one of our concession part', 'title_fallback': 'Dune London'}",
+      "evidence": "{'footer': 'al Dune London store or one of our concession part', 'title_fallback': 'Dune London'}"
+    },
+    "R28": {
+      "check": "R28",
+      "tier": "FORWARD-LOOKING",
+      "status": "FORWARD-LOOKING",
+      "detail": "UCP not found (Shopify auto-provides when store enables it)",
+      "evidence": ""
+    },
+    "R30": {
+      "check": "R30",
+      "tier": "VERIFIED",
+      "status": "UNKNOWN",
+      "detail": "Not a Shopify store \u2014 ACP auto-enrollment does not apply",
+      "evidence": ""
+    },
+    "R31": {
+      "check": "R31",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "detail": "Weak GMC signals (1/4) \u2014 missing: ['no google-site-verification', 'og:type not product', 'no Org/WebSite schema']",
+      "evidence": "signals=['prices visible (1)'] missing=['no google-site-verification', 'og:type not product', 'no Org/WebSite schema']",
+      "note": "Reframed for homepage: GMC readiness signals"
+    }
+  },
+  "score": {
+    "pass_rate": 0.31,
+    "passes": 2,
+    "warns": 1,
+    "fails": 5,
+    "unknowns": 1,
+    "total_scored": 9,
+    "total_scoreable": 8,
+    "r28_status": "FORWARD-LOOKING",
+    "verdict": "RETHINK"
+  }
+}

@@ -1,0 +1,32 @@
+=================================================================
+AI REPRESENTATION OPTIMIZER — VALIDATION (v2.1)
+Store:     https://www.dunelondon.com/
+Label:     —
+Timestamp: 2026-05-14 21:03:24
+=================================================================
+
+CHECKPOINT RESULTS:
+  ✅ R1   [VERIFIED        ] No AI crawlers blocked
+  ❌ R3   [VERIFIED        ] sitemap.xml not found (timeout)
+  ⚠️ R7   [CORRELATED      ] Schema present, no commerce types: ['WebPage']
+  ✅ R9   [CORRELATED      ] Currency prices in HTML (1): ['£75']
+            Note: Reframed for homepage: any crawler-visible price signal
+  ❌ R16  [CORRELATED      ] Policy exists but no concrete timeframe extractable
+  ❌ R17  [CORRELATED      ] Shipping policy page not found
+  ❌ R25  [CORRELATED      ] Inconsistent (min 40.0%) — {'footer': 'al Dune London store or one of our c
+  🔮 R28  [FORWARD-LOOKING ] UCP not found (Shopify auto-provides when store enables it)
+  ❓ R30  [VERIFIED        ] Not a Shopify store — ACP auto-enrollment does not apply
+  ❌ R31  [CORRELATED      ] Weak GMC signals (1/4) — missing: ['no google-site-verification', 'og:type 
+            Note: Reframed for homepage: GMC readiness signals
+
+R28 (FORWARD-LOOKING, not scored): FORWARD-LOOKING
+
+SCORE:   2 PASS  1 WARN  5 FAIL  1 UNKNOWN
+RATE:    31%  (2 + 1×0.5 out of 8 scoreable checks)
+VERDICT: RETHINK
+
+REMOVED CHECKS (not run):
+  R4: Removed — plain-requests JS check measured script limitations, not real AI crawler behavior.
+  R10: Removed — 11/11 stores failed yet were AI-recommended. Not a recommendation blocker.
+  R21: Removed — duplicate of R10.
+  R22: Removed — same root cause as R10.
