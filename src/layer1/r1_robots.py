@@ -13,6 +13,10 @@ Logic:
   - Any Disallow: / or Disallow: /* for an AI agent = FAIL
 """
 
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 import logging
 from urllib.robotparser import RobotFileParser
 from io import StringIO

@@ -1,11 +1,18 @@
 """
-layer5/r28_r30_r31.py
-──────────────────────
-R28 — UCP profile:       CORRELATED  0/1 binary  (Shopify=scored, non-Shopify=0)
-R30 — ACP feed quality:  VERIFIED    0–10 scored  (Shopify only)
-R31 — GMC signals:       CORRELATED  0–10 scored
+layer5/r28_r30_r31.py  — v2
+──────────────────────────────────────────────────────────────────────────────
+CHANGES FROM v1:
+  R30 — REMOVED from scoring. Kept as informational only.
+        Reason: Shopify auto-WARN for all stores = platform noise, not merchant signal.
+        Now returns status="INFORMATIONAL", score=0, not counted in total.
+  R28, R31 — Observability traces added.
 """
 
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
+import json
 import re
 import logging
 
@@ -18,188 +25,203 @@ logger = logging.getLogger(__name__)
 
 
 def _is_shopify(html: str) -> bool:
-    """Detect if the store runs on Shopify."""
     return "cdn.shopify.com" in html or "myshopify.com" in html
+
+
+def _obs(check_id, raw_evidence, what_we_did, what_AI_sees, status, severity, fix):
+    return {
+        "check_id":     check_id,
+        "raw_evidence": raw_evidence,
+        "what_we_did":  what_we_did,
+        "what_AI_sees": what_AI_sees,
+        "status":       status,
+        "severity":     severity,
+        "fix":          fix,
+    }
 
 
 # ── R28 — UCP PROFILE ─────────────────────────────────────────────────────────
 
 def check_r28(base_url: str, html: str) -> dict:
-    """
-    R28 — Does the store have a UCP (Universal Checkout Protocol) profile?
-
-    Non-Shopify: score=0, status=FORWARD-LOOKING (not a current requirement)
-    Shopify:     checked and scored — UCP is live for Shopify stores in 2026
-    """
     result = {
         "check": "R28", "tier": "CORRELATED",
         "status": "UNKNOWN", "score": 0,
-        "detail": "", "evidence": "", "fix": "",
+        "detail": "", "evidence": "", "fix": "", "observability": {},
     }
 
     shopify = _is_shopify(html)
 
     if not shopify:
         result.update(
-            status="FORWARD-LOOKING",
-            score=0,
+            status="FORWARD-LOOKING", score=0,
             detail="Non-Shopify store — UCP not yet broadly available outside Shopify",
-            fix="Monitor https://ucp.shopping for when UCP becomes available for your platform.",
+            fix="Monitor https://ucp.shopping for availability on your platform.",
+            observability=_obs(
+                "R28",
+                raw_evidence="Shopify fingerprint (cdn.shopify.com) not found in HTML.",
+                what_we_did="Checked for Shopify CDN fingerprint in homepage HTML.",
+                what_AI_sees="Store not on Shopify — UCP not applicable yet.",
+                status="FORWARD-LOOKING", severity="INFO",
+                fix="Monitor https://ucp.shopping for availability on your platform.",
+            ),
         )
         return result
 
-    # Shopify store — fetch UCP endpoint
     ucp_url = base_url.rstrip("/") + "/.well-known/ucp"
     jitter_sleep(0.4, 0.3)
-    fetch = safe_get(ucp_url)
+    fetch   = safe_get(ucp_url)
 
     if fetch.timed_out or fetch.blocked or not fetch.ok:
+        fix = (
+            "Enable UCP in Shopify admin:\n"
+            "Settings → Apps and sales channels → Enable AI shopping agents\n"
+            "UCP profile auto-generates at /.well-known/ucp once enabled."
+        )
         result.update(
-            status="FAIL",
-            score=0,
-            detail=f"UCP profile not found (Shopify store — should be auto-enabled)",
-            fix=(
-                "Enable UCP in your Shopify admin:\n"
-                "Settings → Apps and sales channels → Enable AI shopping agents\n"
-                "Once enabled, UCP profile auto-generates at /.well-known/ucp"
+            status="FAIL", score=0,
+            detail="UCP profile not found (Shopify store — should be auto-enabled)",
+            fix=fix,
+            observability=_obs(
+                "R28",
+                raw_evidence=f"GET {ucp_url} → {getattr(fetch, 'status_code', 'no response')}",
+                what_we_did="GET /.well-known/ucp with retry. Shopify store confirmed.",
+                what_AI_sees="AI commerce agents cannot discover this store's capabilities.",
+                status="FAIL", severity="MODERATE", fix=fix,
             ),
         )
         return result
 
     try:
-        import json
         data     = json.loads(fetch.text)
         services = list(data.get("ucp", {}).get("services", {}).keys())
         result.update(
-            status="PASS",
-            score=1,
+            status="PASS", score=1,
             detail=f"UCP profile found. Services: {services or 'declared'}",
             evidence=fetch.text[:400],
+            observability=_obs(
+                "R28",
+                raw_evidence=fetch.text[:400],
+                what_we_did=f"GET {ucp_url} → 200. Parsed JSON for services.",
+                what_AI_sees=f"AI commerce agents can discover store with services: {services}.",
+                status="PASS", severity="INFO", fix="",
+            ),
         )
     except Exception:
+        fix = "Contact Shopify support — UCP profile returned invalid JSON."
         result.update(
-            status="WARN",
-            score=0,
+            status="WARN", score=0,
             detail="UCP endpoint exists but returned invalid JSON",
-            fix="Contact Shopify support — your UCP profile may be corrupted.",
+            fix=fix,
+            observability=_obs(
+                "R28",
+                raw_evidence=fetch.text[:200],
+                what_we_did=f"GET {ucp_url} → 200 but JSON parse failed.",
+                what_AI_sees="AI agents may fail to parse UCP — store capabilities unclear.",
+                status="WARN", severity="MODERATE", fix=fix,
+            ),
         )
-
     return result
 
 
-# ── R30 — ACP FEED QUALITY ───────────────────────────────────────────────────
+# ── R30 — ACP FEED QUALITY (INFORMATIONAL ONLY — NOT SCORED IN v2) ────────────
 
 _GTIN_FIELDS = ["gtin", "gtin8", "gtin12", "gtin13", "gtin14", "mpn", "sku"]
 
+
 def check_r30(base_url: str, html: str) -> dict:
     """
-    R30 — ACP feed quality for Shopify stores.
+    R30 — ACP feed quality.
 
-    Non-Shopify: score=0, status=NOT-APPLICABLE
-    Shopify on homepage: checks product schema sub-fields
-      Each of 4 sub-fields worth 2.5 points = max 10
+    v2 CHANGE: R30 is now INFORMATIONAL ONLY — score=0, not counted in total.
+    Reason: All Shopify stores auto-WARN (no Product schema on homepage is normal).
+    This was platform noise, not a merchant-controllable signal.
 
-    Sub-fields checked:
-      • Descriptive title (≥3 words)
-      • GTIN/MPN/SKU present
-      • Price in schema
-      • Availability declared
+    Still runs and logs findings for merchant awareness — shown in UI as info card,
+    not as a failure.
     """
     result = {
         "check": "R30", "tier": "VERIFIED",
-        "status": "UNKNOWN", "score": 0,
-        "detail": "", "evidence": "", "fix": "",
+        "status": "INFORMATIONAL", "score": 0,   # score always 0 in v2
+        "detail": "", "evidence": "", "fix": "", "observability": {},
+        "scored": False,   # explicit flag: aggregator skips this check
     }
 
     if not _is_shopify(html):
         result.update(
-            status="NOT-APPLICABLE",
-            score=0,
-            detail="ACP auto-enrollment is Shopify-specific — not applicable here",
+            detail="Not a Shopify store — ACP auto-enrollment not applicable.",
+            observability=_obs(
+                "R30",
+                raw_evidence="Shopify fingerprint not found.",
+                what_we_did="Platform detection via HTML fingerprint.",
+                what_AI_sees="Store not enrolled in ACP (not Shopify).",
+                status="INFORMATIONAL", severity="INFO", fix="",
+            ),
         )
         return result
 
-    # Shopify confirmed — extract Product schema
     try:
-        data = extruct.extract(html, base_url=base_url, syntaxes=["json-ld"])
+        data     = extruct.extract(html, base_url=base_url, syntaxes=["json-ld"])
         products = [i for i in data.get("json-ld", []) if i.get("@type") == "Product"]
     except Exception as e:
-        result.update(status="UNKNOWN", detail=f"extruct error: {e}")
+        result.update(detail=f"extruct error: {e}")
         return result
 
     if not products:
-        # Shopify homepage rarely has Product schema — this is expected
         result.update(
-            status="WARN",
-            score=5,   # partial credit — Shopify store is enrolled even without homepage schema
-            detail="Shopify confirmed (auto-enrolled in ACP). No Product schema on homepage (normal). Re-run on a /products/ URL for full evaluation.",
+            detail="Shopify confirmed (auto-enrolled in ACP). No Product schema on homepage — normal for Shopify. Product pages have schema by default.",
             evidence="Shopify=True, homepage_product_schema=False",
-            fix="No action needed for ACP enrollment. Product pages have schema by default in Shopify.",
+            observability=_obs(
+                "R30",
+                raw_evidence="Shopify CDN confirmed. extruct found 0 Product schema on homepage.",
+                what_we_did="extruct JSON-LD extraction on homepage HTML.",
+                what_AI_sees="Store is enrolled in ACP via Shopify. Homepage product schema absent (expected).",
+                status="INFORMATIONAL", severity="INFO",
+                fix="No action needed. Product pages carry schema automatically in Shopify.",
+            ),
         )
         return result
 
-    # Evaluate product schema quality
-    issues = []
-    passes = []
-    points = 0.0
+    # Has product schema on homepage — evaluate quality
+    issues, passes, points = [], [], 0.0
+    item   = products[0]
+    offers = item.get("offers", {})
+    if isinstance(offers, list):
+        offers = offers[0] if offers else {}
 
-    for item in products[:3]:  # evaluate up to 3 products
-        offers = item.get("offers", {})
-        if isinstance(offers, list):
-            offers = offers[0] if offers else {}
-
-        # Descriptive title
-        title = item.get("name", "")
-        if title and len(title.split()) >= 3:
-            passes.append("descriptive title")
-            points += 2.5
-        else:
-            issues.append("title too short or missing")
-
-        # GTIN/identifier
-        if any(item.get(f) for f in _GTIN_FIELDS):
-            passes.append("GTIN/MPN")
-            points += 2.5
-        else:
-            issues.append("no GTIN/MPN/SKU")
-
-        # Price
-        if offers.get("price"):
-            passes.append("price in schema")
-            points += 2.5
-        else:
-            issues.append("price missing from schema")
-
-        # Availability
-        if offers.get("availability"):
-            passes.append("availability declared")
-            points += 2.5
-        else:
-            issues.append("availability not declared")
-
-        break  # evaluate only first product for scoring
-
-    score = min(round(points), 10)
-    result["evidence"] = f"passes={passes} issues={issues}"
-
-    if score >= 8:
-        result.update(status="PASS", score=score, detail=f"ACP feed quality good: {passes}")
-    elif score >= 5:
-        result.update(
-            status="WARN", score=score,
-            detail=f"ACP feed partial ({score}/10) — issues: {issues}",
-            fix=f"Fix ACP feed issues:\n" + "\n".join(f"• {i}" for i in issues),
-        )
+    title = item.get("name", "")
+    if title and len(title.split()) >= 3:
+        passes.append("descriptive title"); points += 2.5
     else:
-        result.update(
-            status="FAIL", score=score,
-            detail=f"ACP feed quality low ({score}/10) — issues: {issues}",
-            fix=(
-                "Improve your Shopify product data for ACP feed quality:\n" +
-                "\n".join(f"• {i}" for i in issues) +
-                "\n\nIn Shopify: Products → Edit each product → Fill in all fields including barcode (GTIN)."
-            ),
-        )
+        issues.append("title too short")
+
+    if any(item.get(f) for f in _GTIN_FIELDS):
+        passes.append("GTIN/MPN"); points += 2.5
+    else:
+        issues.append("no GTIN/MPN/SKU")
+
+    if offers.get("price"):
+        passes.append("price in schema"); points += 2.5
+    else:
+        issues.append("price missing from schema")
+
+    if offers.get("availability"):
+        passes.append("availability declared"); points += 2.5
+    else:
+        issues.append("availability not declared")
+
+    info = f"ACP feed info ({round(points)}/10): passes={passes} | issues={issues}"
+    result.update(
+        detail=info,
+        evidence=info,
+        observability=_obs(
+            "R30",
+            raw_evidence=f"Product schema found on homepage. passes={passes} issues={issues}",
+            what_we_did="Evaluated Product schema sub-fields: title, GTIN, price, availability.",
+            what_AI_sees=f"ACP feed partial data. Issues: {issues}",
+            status="INFORMATIONAL", severity="INFO",
+            fix=f"Optional improvements: {', '.join(issues)}" if issues else "",
+        ),
+    )
     return result
 
 
@@ -208,17 +230,12 @@ def check_r30(base_url: str, html: str) -> dict:
 def check_r31(base_url: str, html: str) -> dict:
     """
     R31 — Google Merchant Center readiness signals on homepage.
-
-    4 signals × 2.5 points = max 10:
-      • Google site verification meta tag
-      • og:type = product
-      • Currency pricing visible in HTML
-      • Organization/WebSite schema present
+    4 signals × 2.5 points = max 10. Still scored in v2.
     """
     result = {
         "check": "R31", "tier": "CORRELATED",
         "status": "FAIL", "score": 0,
-        "detail": "", "evidence": "", "fix": "",
+        "detail": "", "evidence": "", "fix": "", "observability": {},
     }
 
     if not html:
@@ -226,9 +243,7 @@ def check_r31(base_url: str, html: str) -> dict:
         return result
 
     soup    = BeautifulSoup(html, "html.parser")
-    signals = []
-    missing = []
-    points  = 0.0
+    signals, missing, points = [], [], 0.0
 
     # 1. Google site verification
     gsite = (
@@ -236,27 +251,24 @@ def check_r31(base_url: str, html: str) -> dict:
         soup.find("meta", attrs={"name": "google_site_verification"})
     )
     if gsite and gsite.get("content"):
-        signals.append("google-site-verification")
-        points += 2.5
+        signals.append("google-site-verification"); points += 2.5
     else:
         missing.append("google-site-verification meta tag")
 
     # 2. og:type = product
     og_type = soup.find("meta", property="og:type")
     if og_type and "product" in og_type.get("content", "").lower():
-        signals.append("og:type=product")
-        points += 2.5
+        signals.append("og:type=product"); points += 2.5
     else:
         missing.append("og:type=product")
 
-    # 3. Currency pricing visible
+    # 3. Currency pricing visible in raw HTML
     price_hits = re.findall(
         r'(?:Rs\.?\s*|INR\s*|[₹$£€¥])\s*[\d,]+(?:\.\d{1,2})?',
         html[:60000]
     )
     if price_hits:
-        signals.append(f"prices visible ({len(price_hits)})")
-        points += 2.5
+        signals.append(f"prices visible ({len(price_hits)})"); points += 2.5
     else:
         missing.append("no currency pricing visible in HTML")
 
@@ -268,36 +280,50 @@ def check_r31(base_url: str, html: str) -> dict:
             for i in data.get("json-ld", [])
         )
         if has_org:
-            signals.append("Organization/WebSite schema")
-            points += 2.5
+            signals.append("Organization/WebSite schema"); points += 2.5
         else:
             missing.append("no Organization/WebSite schema")
     except Exception:
         missing.append("schema parse error")
 
     score = min(round(points), 10)
-    result["evidence"] = f"signals={signals} | missing={missing}"
+    ev    = f"signals={signals} | missing={missing}"
+    result["evidence"] = ev
+
+    fix = (
+        "Improve GMC readiness:\n" +
+        "\n".join(f"• {m}" for m in missing) +
+        "\n\nVerify store with Google Search Console to get site-verification tag."
+    ) if missing else ""
+
+    ai_view = (
+        f"AI/Gemini can surface products from this store ({len(signals)}/4 GMC signals)."
+        if score >= 8
+        else f"Gemini product surfacing limited — only {len(signals)}/4 GMC signals present."
+    )
+
+    obs = _obs(
+        "R31", raw_evidence=ev,
+        what_we_did=(
+            "Checked 4 GMC signals: google-site-verification meta, og:type=product, "
+            "currency price in raw HTML, Organization/WebSite schema.org."
+        ),
+        what_AI_sees=ai_view,
+        status="PASS" if score >= 8 else ("WARN" if score >= 5 else "FAIL"),
+        severity="INFO" if score >= 8 else ("MODERATE" if score >= 5 else "HIGH"),
+        fix=fix,
+    )
+    result["observability"] = obs
 
     if score >= 8:
-        result.update(
-            status="PASS", score=score,
-            detail=f"Strong GMC signals ({len(signals)}/4): {signals}",
-        )
+        result.update(status="PASS", score=score,
+                      detail=f"Strong GMC signals ({len(signals)}/4): {signals}")
     elif score >= 5:
-        result.update(
-            status="WARN", score=score,
-            detail=f"Partial GMC signals ({len(signals)}/4) — missing: {missing}",
-            fix=f"Add missing GMC signals:\n" + "\n".join(f"• {m}" for m in missing),
-        )
+        result.update(status="WARN", score=score,
+                      detail=f"Partial GMC signals ({len(signals)}/4) — missing: {missing}",
+                      fix=fix)
     else:
-        result.update(
-            status="FAIL", score=score,
-            detail=f"Weak GMC signals ({len(signals)}/4) — missing: {missing}",
-            fix=(
-                "Improve GMC readiness:\n" +
-                "\n".join(f"• {m}" for m in missing) +
-                "\n\nVerify store with Google Search Console to get site-verification tag.\n"
-                "Add Organization schema (see R7 fix for template)."
-            ),
-        )
+        result.update(status="FAIL", score=score,
+                      detail=f"Weak GMC signals ({len(signals)}/4) — missing: {missing}",
+                      fix=fix)
     return result

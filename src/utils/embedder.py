@@ -8,6 +8,10 @@ CPU-only — no GPU required.
 Context window: 256 tokens (hard limit — we chunk before embedding).
 """
 
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 import logging
 from typing import List
 
@@ -67,7 +71,7 @@ def cosine_sim(a: np.ndarray, b: np.ndarray) -> float:
     norm_b = np.linalg.norm(b)
     if norm_a == 0 or norm_b == 0:
         return 0.0
-    return float(np.dot(a, b) / (norm_a * norm_b))
+    return float(np.clip(np.dot(a, b) / (norm_a * norm_b), -1.0, 1.0))
 
 
 def chunk_text(text: str, max_sentences: int = 30) -> str:

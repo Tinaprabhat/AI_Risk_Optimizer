@@ -8,6 +8,10 @@ R11 — JSON-LD valid:              CORRELATED  0/1  binary
 All three operate on the same homepage HTML — passed in to avoid re-fetching.
 """
 
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 import json
 import re
 import logging
@@ -94,9 +98,16 @@ def check_r7(base_url: str, html: str) -> dict:
 
     score = min(points, 10)
 
+    # Threshold rationale:
+    # ≥7 = Product + Organization + more (full commerce schema)
+    # ≥4 = Organization + WebSite (acceptable — homepage rarely has Product schema)
+    # ≥1 = minimal schema present
+    # 0  = nothing found at all
     if score >= 7:
         status = "PASS"
-    elif score >= 3:
+    elif score >= 4:
+        status = "WARN"
+    elif score >= 1:
         status = "WARN"
     else:
         status = "FAIL"

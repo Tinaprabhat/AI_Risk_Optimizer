@@ -6,6 +6,10 @@ R5 — bot protection:  CORRELATED 0/1 binary
 R6 — SSL valid:       VERIFIED   0/1 binary
 """
 
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 import re
 import ssl
 import socket
@@ -18,9 +22,30 @@ logger = logging.getLogger(__name__)
 
 # ── R3 — SITEMAP ─────────────────────────────────────────────────────────────
 
+def _fetch_child_sitemap(base_url: str, index_content: str) -> str:
+    """
+    Shopify and most platforms serve a sitemap INDEX at /sitemap.xml.
+    Index contains <loc> tags pointing to child sitemaps:
+      /sitemap_products_1.xml, /sitemap_pages_1.xml etc.
+    Fetch the products child first; fall back to first child if none found.
+    """
+    locs = re.findall(r"<loc>(.*?)</loc>", index_content, re.I)
+    if not locs:
+        return ""
+    product_sitemaps = [l for l in locs if "product" in l.lower()]
+    target = product_sitemaps[0] if product_sitemaps else locs[0]
+    jitter_sleep(0.3, 0.2)
+    child = safe_get(target)
+    return child.text if child.ok else ""
+
+
 def check_r3(base_url: str) -> dict:
     """
     R3 — Does sitemap.xml exist and contain product URLs?
+
+    v2 FIX: Shopify serves a sitemap INDEX at /sitemap.xml — child sitemaps
+    hold actual product URLs. Now follows one level of children so product
+    count is real instead of always 0.
     """
     result = {
         "check": "R3", "tier": "VERIFIED",
@@ -55,28 +80,54 @@ def check_r3(base_url: str) -> dict:
         )
         return result
 
-    content = fetch.text[:10000]
-    result["evidence"] = content[:400]
+    raw = fetch.text[:30000]
+    result["evidence"] = raw[:400]
 
-    # Check it looks like XML, not HTML error page
-    if "<loc>" not in content and "<url>" not in content and "<sitemap>" not in content:
+    if "<loc>" not in raw and "<url>" not in raw and "<sitemap>" not in raw:
         result.update(
-            status="WARN",
-            score=0,
+            status="WARN", score=0,
             detail="sitemap.xml found but appears malformed (no <loc> tags)",
             fix="Regenerate your sitemap. In Shopify: Online Store → Preferences → Resubmit sitemap.",
         )
         return result
 
-    url_count   = content.count("<loc>")
-    products    = len(re.findall(r"/products?/", content, re.I))
-    collections = len(re.findall(r"/collections?/", content, re.I))
-
-    result.update(
-        status="PASS",
-        score=1,
-        detail=f"{url_count} URLs found | products: {products} | collections: {collections}",
+    # Detect sitemap index vs direct sitemap
+    is_index = "<sitemapindex" in raw or (
+        "<sitemap>" in raw and "<url>" not in raw
     )
+
+    if is_index:
+        child_locs = re.findall(r"<loc>(.*?)</loc>", raw, re.I)
+        child_count = len(child_locs)
+        child_content = _fetch_child_sitemap(base_url, raw)
+
+        if child_content:
+            url_count   = child_content.count("<loc>")
+            products    = len(re.findall(r"/products?/", child_content, re.I))
+            collections = len(re.findall(r"/collections?/", child_content, re.I))
+            result.update(
+                status="PASS", score=1,
+                detail=(
+                    f"Sitemap index ({child_count} child sitemaps). "
+                    f"Sampled child: {url_count} URLs | products: {products} | collections: {collections}"
+                ),
+                evidence=f"Child sitemaps: {child_locs[:3]}",
+            )
+        else:
+            result.update(
+                status="PASS", score=1,
+                detail=f"Sitemap index found ({child_count} child sitemaps — child fetch failed)",
+                evidence=raw[:400],
+            )
+    else:
+        url_count   = raw.count("<loc>")
+        products    = len(re.findall(r"/products?/", raw, re.I))
+        collections = len(re.findall(r"/collections?/", raw, re.I))
+        result.update(
+            status="PASS", score=1,
+            detail=f"{url_count} URLs | products: {products} | collections: {collections}",
+        )
+
     return result
 
 

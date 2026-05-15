@@ -300,6 +300,68 @@ for code in CHECK_ORDER:
 
 st.divider()
 
+# ── 3e. OBSERVABILITY — How we checked this ────────────────────────────────────
+st.subheader("🔍 Observability — How we validated each check")
+obs_block = result.get("observability", {})
+
+if obs_block:
+    per_check_traces = obs_block.get("per_check_traces", {})
+    
+    if per_check_traces:
+        st.caption("Expand any check below to see the raw evidence and reasoning behind the result.")
+        
+        for check_code in sorted(per_check_traces.keys()):
+            if check_code.startswith("L"):  # Skip L6_gaps for now
+                continue
+            
+            trace = per_check_traces.get(check_code, {})
+            check_name = CHECK_LABELS.get(check_code, check_code)
+            status = trace.get("status", "?")
+            
+            with st.expander(f"**{check_code}** — {check_name} ({status})", expanded=False):
+                cols = st.columns(2)
+                with cols[0]:
+                    st.markdown("**What we did:**")
+                    st.text(trace.get("what_we_did", "(not recorded)"))
+                with cols[1]:
+                    st.markdown("**What AI sees:**")
+                    st.text(trace.get("what_AI_sees", "(not recorded)"))
+                
+                st.markdown("---")
+                st.markdown("**Raw evidence:**")
+                st.code(trace.get("raw_evidence", "(not recorded)")[:500], language="text")
+    
+    # Gap observability
+    gap_obs = obs_block.get("L6_gaps", {})
+    if gap_obs:
+        st.markdown("**Layer 6 — Semantic Gap Details:**")
+        for gap_name in ["IW", "IS", "WS"]:
+            if gap_name in gap_obs:
+                g = gap_obs[gap_name]
+                with st.expander(f"Gap {gap_name}: {g.get('label', '?')}", expanded=False):
+                    st.caption(g.get("question", ""))
+                    col_a, col_b = st.columns(2)
+                    with col_a:
+                        st.markdown("**Source A:**")
+                        st.caption(g.get("source_A", ""))
+                        st.text(g.get("preview_A", "")[:300])
+                    with col_b:
+                        st.markdown("**Source B:**")
+                        st.caption(g.get("source_B", ""))
+                        st.text(g.get("preview_B", "")[:300])
+else:
+    st.info("Observability data not available for this audit.")
+
+st.divider()
+
+# ── 3f. OBSERVABILITY LOG ─────────────────────────────────────────────────────
+log_path = result.get("log_path", "")
+if log_path:
+    st.caption(f"📄 Observability log written to: `{log_path}`")
+    st.caption("Log contains: raw evidence, causality traces, what AI sees — per check.")
+
+st.divider()
+
 # ═════════════════════════════════════════════════════════════════════════════
 # SECTION 4 — FIX ENGINE
 # ═════════════════════════════════════════════════════════════════════════════

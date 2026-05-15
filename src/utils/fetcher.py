@@ -37,6 +37,44 @@ from requests.exceptions import (
 
 logger = logging.getLogger(__name__)
 
+
+def is_garbage(text: str, sample_size: int = 200) -> bool:
+    """
+    Detect if fetched text is compressed garbage (Brotli/gzip bytes decoded as latin-1).
+
+    Signs of garbage:
+      - High ratio of non-printable / non-ASCII characters in first N chars
+      - Starts with known Brotli/gzip magic bytes decoded as latin-1
+        (gzip magic: \x1f\x8b → ÿ in latin-1, Brotli: \xce\xb2 etc.)
+
+    Returns True if text looks like binary garbage, False if it looks like HTML/text.
+    """
+    if not text:
+        return False
+
+    sample = text[:sample_size]
+
+    # Count non-printable, non-ASCII chars
+    garbage_chars = sum(
+        1 for c in sample
+        if ord(c) > 127 or (ord(c) < 32 and c not in "\n\r\t")
+    )
+    ratio = garbage_chars / max(len(sample), 1)
+
+    # > 15% garbage chars = compressed content decoded wrong
+    if ratio > 0.15:
+        logger.warning(f"Garbage detected in response (ratio={ratio:.2f}). "
+                       f"Likely Brotli/gzip not decompressed. First 50 chars: {repr(sample[:50])}")
+        return True
+
+    # Also check: real HTML always starts with < or whitespace
+    stripped = sample.lstrip()
+    if stripped and not stripped.startswith("<") and ratio > 0.05:
+        logger.warning(f"Response doesn't look like HTML and has high non-ASCII ratio={ratio:.2f}")
+        return True
+
+    return False
+
 # ── USER AGENT ─────────────────────────────────────────────────────────────
 # Standard Chrome UA — avoids trivial bot detection while being honest
 _UA = (
@@ -49,7 +87,7 @@ _HEADERS = {
     "User-Agent": _UA,
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
-    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Encoding": "gzip, deflate",  # br removed — brotli not installed, causes garbage
 }
 
 # ── RETRY CONFIG ───────────────────────────────────────────────────────────

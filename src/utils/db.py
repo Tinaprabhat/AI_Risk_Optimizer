@@ -10,6 +10,10 @@ Tables:
 Write strategy: single write at end of full audit — not per check.
 """
 
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 import sqlite3
 import hashlib
 import json

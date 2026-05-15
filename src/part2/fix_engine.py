@@ -12,6 +12,10 @@ Template lookup: TEMPLATES[check_code] → dict with steps and context
 LLM scope rule: system prompt restricts Gemini/Ollama to current fix topic only
 """
 
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 import logging
 from typing import Optional
 

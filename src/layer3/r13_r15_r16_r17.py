@@ -7,11 +7,16 @@ R16 — Refund window concrete:         CORRELATED  0–10 scored
 R17 — Shipping timeframe concrete:    CORRELATED  0–10 scored
 """
 
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 import re
 import logging
 from typing import Optional
 
 from bs4 import BeautifulSoup
+from src.utils.text_cleaner import extract_clean_text, soup_to_clean_text
 
 from src.utils.fetcher import safe_get, jitter_sleep
 from src.utils.embedder import embed, cosine_sim, chunk_text, embed_batch
@@ -172,8 +177,7 @@ def check_r15(base_url: str) -> dict:
         jitter_sleep(0.4, 0.3)
         fetch = safe_get(base_url.rstrip("/") + path)
         if fetch.ok:
-            soup = BeautifulSoup(fetch.text, "html.parser")
-            faq_text = soup.get_text(separator=" ", strip=True)[:3000]
+            faq_text = extract_clean_text(fetch.text, max_chars=3000)
             result["evidence"] = f"Found FAQ at {path}"
             break
 
@@ -264,8 +268,7 @@ def _fetch_policy_text(base_url: str, paths: list[str]) -> Optional[str]:
         jitter_sleep(0.4, 0.3)
         fetch = safe_get(base_url.rstrip("/") + path)
         if fetch.ok:
-            soup = BeautifulSoup(fetch.text, "html.parser")
-            return soup.get_text(separator=" ", strip=True)[:5000]
+            return extract_clean_text(fetch.text, max_chars=5000)
     return None
 
 
