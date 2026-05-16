@@ -61,20 +61,40 @@ function ScanningPage() {
 
         const payload = {
 
-          url: storeUrl,
+        url: storeUrl,
 
-          merchant_description:
-            questions.differentiator,
+        category:
+          questions.category || "",
 
-          category: questions.category,
+        store_age:
+          questions.store_age || "",
 
-          customer: questions.customer,
+        traffic:
+          questions.traffic || "",
 
-          differentiator:
-            questions.differentiator,
+        challenge:
+          questions.challenge || "",
 
-          tone: questions.tone,
-        };
+        ai_optimization:
+          questions.ai_optimization || "",
+
+      merchant_description: `
+        Store Category:
+        ${questions.category}
+
+        Store Age:
+        ${questions.store_age}
+
+        Monthly Traffic:
+        ${questions.traffic}
+
+        Biggest Challenge:
+        ${questions.challenge}
+
+        AI Optimization Experience:
+        ${questions.ai_optimization}
+      `,
+    };
 
         console.log(
           "AUDIT PAYLOAD:",
