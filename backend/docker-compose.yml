@@ -1,0 +1,22 @@
+services:
+
+  postgres:
+    image: postgres:16
+
+    container_name: ai_visibility_postgres
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ai_visibility
+
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+
+    container_name: ai_visibility_redis
+
+    ports:
+      - "6379:6379"
