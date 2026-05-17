@@ -1,9 +1,14 @@
-import { useState } from "react";
+import {
+  useState,
+} from "react";
 
 import MainLayout from "../../layouts/MainLayout";
 
 import useAuditStore from "../../store/auditStore";
-import { sendChatMessage } from "../../services/chatService";
+
+import {
+  sendChatMessage
+} from "../../services/chatService";
 
 function FixNowPage() {
 
@@ -32,6 +37,9 @@ function FixNowPage() {
   const [input, setInput] =
     useState("");
 
+  const [isThinking, setIsThinking] =
+    useState(false);
+
   // TOGGLE CHECKBOX
   const toggleCheck = (rule) => {
 
@@ -58,70 +66,132 @@ function FixNowPage() {
   // SEND MESSAGE
   const sendMessage = async () => {
 
-  if (!input) return;
+    if (!input || isThinking) return;
 
-  const userMessage = {
-    role: "user",
-    content: input,
-  };
+    const userMessage = {
+      role: "user",
+      content: input,
+    };
 
-  // SHOW USER MESSAGE
-  setMessages((prev) => [
-    ...prev,
-    userMessage,
-  ]);
+    // SHOW USER MESSAGE
+    setMessages((prev) => [
+      ...prev,
+      userMessage,
+    ]);
 
-  const currentInput = input;
+    const currentInput = input;
 
-  setInput("");
+    setInput("");
 
-  try {
+    setIsThinking(true);
 
-    // CALL BACKEND AI
-    const response =
-      await sendChatMessage(
+    try {
 
-        currentInput,
+      // BACKEND AI
+      const response =
+        await sendChatMessage(
 
-        failedChecks.map(
-          (item) => item.check
-        )
+          currentInput,
 
+          failedChecks.map(
+            (item) => item.check
+          )
+
+        );
+
+      const fullText = String(
+        response.response || ""
       );
 
-    // SHOW AI RESPONSE
-    setMessages((prev) => [
+      // HIDE THINKING
+      setIsThinking(false);
 
-      ...prev,
+      // ADD EMPTY MESSAGE
+      setMessages((prev) => [
 
-      {
-        role: "assistant",
-        content:
-          response.response,
-      },
+        ...prev,
 
-    ]);
+        {
+          role: "assistant",
+          content: "",
+        },
 
-  }
+      ]);
 
-  catch (error) {
+      // STREAM IN CHUNKS
+      for (
+        let i = 1;
+        i <= fullText.length;
+        i += 3
+      ) {
 
-    console.error(error);
+        const partialText =
+          fullText.slice(0, i);
 
-    setMessages((prev) => [
+        await new Promise(
+          (resolve) =>
+            setTimeout(resolve, 20)
+        );
 
-      ...prev,
+        setMessages((prev) => {
 
-      {
-        role: "assistant",
-        content:
-          "AI assistant failed. Please try again.",
-      },
+          const updated = [...prev];
 
-    ]);
+          updated[
+            updated.length - 1
+          ] = {
 
-  }
-};
+            role: "assistant",
+
+            content: partialText,
+
+          };
+
+          return updated;
+        });
+      }
+
+      // FINAL FULL TEXT
+      setMessages((prev) => {
+
+        const updated = [...prev];
+
+        updated[
+          updated.length - 1
+        ] = {
+
+          role: "assistant",
+
+          content: fullText,
+
+        };
+
+        return updated;
+      });
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+      setIsThinking(false);
+
+      setMessages((prev) => [
+
+        ...prev,
+
+        {
+          role: "assistant",
+          content:
+            "AI assistant failed. Please try again.",
+        },
+
+      ]);
+
+    }
+  };
+
   return (
 
     <MainLayout>
@@ -162,7 +232,7 @@ function FixNowPage() {
 
         </div>
 
-        {/* MAIN GRID */}
+        {/* GRID */}
         <div className="
           grid
           grid-cols-1
@@ -170,7 +240,7 @@ function FixNowPage() {
           gap-8
         ">
 
-          {/* LEFT SIDE */}
+          {/* LEFT */}
           <div className="
             bg-white/5
             border
@@ -272,7 +342,7 @@ function FixNowPage() {
 
           </div>
 
-          {/* RIGHT SIDE */}
+          {/* RIGHT */}
           <div className="
             bg-white/5
             border
@@ -282,7 +352,7 @@ function FixNowPage() {
             flex
             flex-col
             overflow-hidden
-            min-h-[700px]
+            h-[750px]
           ">
 
             {/* CHAT HEADER */}
@@ -311,12 +381,15 @@ function FixNowPage() {
             </div>
 
             {/* MESSAGES */}
-            <div className="
-              flex-1
-              overflow-y-auto
-              p-6
-              space-y-5
-            ">
+            <div
+              className="
+                flex-1
+                overflow-y-auto
+                p-6
+                space-y-5
+                min-h-0
+              "
+            >
 
               {messages.map(
                 (message, index) => (
@@ -329,6 +402,7 @@ function FixNowPage() {
                       px-5
                       py-4
                       leading-relaxed
+                      whitespace-pre-wrap
                       ${
                         message.role ===
                         "assistant"
@@ -341,6 +415,64 @@ function FixNowPage() {
                   </div>
 
               ))}
+
+              {/* THINKING */}
+              {isThinking && (
+
+                <div className="
+                  max-w-[80%]
+                  rounded-2xl
+                  px-5
+                  py-4
+                  bg-blue-500/10
+                  border
+                  border-blue-500/20
+                  text-gray-300
+                  flex
+                  items-center
+                  gap-3
+                ">
+
+                  <div className="
+                    flex
+                    gap-1
+                  ">
+
+                    <div className="
+                      w-2
+                      h-2
+                      rounded-full
+                      bg-cyan-400
+                      animate-bounce
+                    " />
+
+                    <div className="
+                      w-2
+                      h-2
+                      rounded-full
+                      bg-cyan-400
+                      animate-bounce
+                      [animation-delay:0.15s]
+                    " />
+
+                    <div className="
+                      w-2
+                      h-2
+                      rounded-full
+                      bg-cyan-400
+                      animate-bounce
+                      [animation-delay:0.3s]
+                    " />
+
+                  </div>
+
+                  <div className="text-sm">
+                    AI is thinking...
+                  </div>
+
+                </div>
+
+              )}
 
             </div>
 
@@ -370,16 +502,25 @@ function FixNowPage() {
                   py-4
                   outline-none
                 "
+                onKeyDown={(e) => {
+
+                  if (e.key === "Enter") {
+                    sendMessage();
+                  }
+
+                }}
               />
 
               <button
                 onClick={sendMessage}
+                disabled={isThinking}
                 className="
                   px-8
                   rounded-2xl
                   bg-blue-600
                   hover:bg-blue-500
                   transition-all
+                  disabled:opacity-50
                 "
               >
                 Send
