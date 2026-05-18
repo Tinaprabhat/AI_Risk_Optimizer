@@ -1,0 +1,414 @@
+{
+  "meta": {
+    "store_url": "https://fentybeauty.com/en-in",
+    "domain": "fentybeauty.com",
+    "audit_timestamp": "20260518T124009Z",
+    "merchant_intent": "beauty products",
+    "mcq": {
+      "category": "Beauty",
+      "customer": "Quality-first",
+      "differentiator": "Price",
+      "tone": "Playful / Fun"
+    },
+    "score": {
+      "scored_total": 23.0,
+      "checklist_total": 8.0,
+      "grand_total": 31.0,
+      "max_scored": 60,
+      "max_checklist": 9,
+      "max_total": 69,
+      "pct": 44.9,
+      "breakdown": {
+        "R1": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "No AI crawlers blocked in robots.txt",
+          "is_scored": false
+        },
+        "R3": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "Sitemap index (245 child sitemaps). Sampled child: 802 URLs | products: 1108 | collections: 0",
+          "is_scored": false
+        },
+        "R5": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "No bot protection blocking detected",
+          "is_scored": false
+        },
+        "R6": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "SSL valid for fentybeauty.com",
+          "is_scored": false
+        },
+        "R7": {
+          "score": 3,
+          "max": 10,
+          "status": "WARN",
+          "detail": "Commerce schema score: 3/10 — types: ['Organization']",
+          "is_scored": true
+        },
+        "R9": {
+          "score": 0,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "No price signal found on homepage",
+          "is_scored": true
+        },
+        "R11": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "All 2 JSON-LD block(s) are valid",
+          "is_scored": false
+        },
+        "R13": {
+          "score": 3,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Descriptions are mostly vague (delta=0.09)",
+          "is_scored": true
+        },
+        "R15": {
+          "score": 0,
+          "max": 1,
+          "status": "FAIL",
+          "detail": "FAQ page thin — only 0/6 topics covered",
+          "is_scored": false
+        },
+        "R16": {
+          "score": 2,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Refund policy page exists but no return window is extractable",
+          "is_scored": true
+        },
+        "R17": {
+          "score": 10,
+          "max": 10,
+          "status": "PASS",
+          "detail": "Shipping timeframe found: '4-8 business days'",
+          "is_scored": true
+        },
+        "R23": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "Contact page with branded email: customerservice@fentybeauty.com",
+          "is_scored": false
+        },
+        "R25": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "Brand consistent (100.0%): ['Fenty Beauty', 'Fenty Beauty']",
+          "is_scored": false
+        },
+        "R28": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "UCP profile found. Services: ['dev.ucp.shopping']",
+          "is_scored": false
+        },
+        "R30": {
+          "score": 0,
+          "max": 0,
+          "status": "INFORMATIONAL",
+          "detail": "Shopify confirmed (auto-enrolled in ACP). No Product schema on homepage — normal for Shopify. Product pages have schema by default.",
+          "is_scored": false,
+          "informational": true
+        },
+        "R31": {
+          "score": 5,
+          "max": 10,
+          "status": "WARN",
+          "detail": "Partial GMC signals (2/4) — missing: ['og:type=product', 'no currency pricing visible in HTML']",
+          "is_scored": true
+        }
+      }
+    }
+  },
+  "checks": {
+    "R1": {
+      "check_id": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "No AI crawlers blocked in robots.txt",
+      "raw_evidence": "# we use Shopify as our ecommerce platform\n\n# Google Support Required Format\nUser-agent: Googlebot\nDisallow:\nDisallow: /*.atom\n\nUser-agent: Googlebot-image\nDisallow:\nDisallow: /*.atom\n\n\nUser-agent: *\nDisallow: /a/downloads/-/*\nDisallow: /admin\nDisallow: /cart\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /34134589485/checkouts\nDisallow: /34134589485/orders\nDisallow: /carts\nDisallow: /account\nDisallow: /collections/*sort_by*\nDisallow: /*/collections/*sort_by*\nDisallow: /collections/*+*\nDisallow: /collections/*%2B*\nDisallow: /collections/*%2b*\nDisallow: /*/collections/*+*\nDisallow: /*/collections/*%2B*\nDisallow: /*/collections/*%2b*\nDisallow: */collections/*filter*&*filter*\nDisallow: /blogs/*+*\nDisallow: /blogs/*%2B*\nDisallow: /blogs/*%2b*\nDisallow: /*/blogs/*+*\nDisal",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R1 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R3": {
+      "check_id": "R3",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "Sitemap index (245 child sitemaps). Sampled child: 802 URLs | products: 1108 | collections: 0",
+      "raw_evidence": "Child sitemaps: ['https://fentybeauty.com/sitemap_agentic_discovery.xml', 'https://fentybeauty.com/sitemap_products_1.xml?from=5293582385197&amp;to=15088291872813', 'https://fentybeauty.com/sitemap_pages_1.xml?from=70755156013&amp;to=121044729901']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R3 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R5": {
+      "check_id": "R5",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "No bot protection blocking detected",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R5 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R6": {
+      "check_id": "R6",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "SSL valid for fentybeauty.com",
+      "raw_evidence": "Subject: ((('commonName', 'fentybeauty.com'),),)",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R6 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R7": {
+      "check_id": "R7",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 3,
+      "detail": "Commerce schema score: 3/10 — types: ['Organization']",
+      "raw_evidence": "Types found: ['Organization', 'WebSite']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R7 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add schema.org JSON-LD to your store. Priority order:\n\n1. Organization (if missing):\n   <script type=\"application/ld+json\">\n   {\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\n    \"name\":\"YOUR STORE NAME\",\"url\":\"YOUR URL\"}\n   </script>\n\n2. Product schema on all product pages (Shopify usually adds this automatically).\n\n3. FAQPage schema on your FAQ page.",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R9": {
+      "check_id": "R9",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "No price signal found on homepage",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R9 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add price data to your homepage or product pages using schema.org.\nShopify usually adds this automatically on product pages.\nCheck that your theme is not blocking schema.org output.",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R11": {
+      "check_id": "R11",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "All 2 JSON-LD block(s) are valid",
+      "raw_evidence": "2 JSON-LD block(s) found",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R11 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R13": {
+      "check_id": "R13",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 3,
+      "detail": "Descriptions are mostly vague (delta=0.09)",
+      "raw_evidence": "Vagueness delta: 0.093 | Sample: LEMME KNOW WHEN IT DROPS. SIGN UP TO GET NOTIFIED WHEN GOODIES ARE IN STOCK.",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R13 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Replace vague adjectives with measurable facts.\nInstead of: 'premium quality materials'\nWrite: 'made from 316L surgical stainless steel, 2mm thickness, weight 85g'\n\nAI cannot distinguish you from competitors without specific, factual descriptions.",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R15": {
+      "check_id": "R15",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "FAQ page thin — only 0/6 topics covered",
+      "raw_evidence": "Found FAQ at /pages/help",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R15 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Expand your FAQ to cover: ['returns and refunds policy', 'shipping delivery time', 'sizing guide fit', 'payment methods accepted', 'contact customer support', 'warranty guarantee']",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R16": {
+      "check_id": "R16",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 2,
+      "detail": "Refund policy page exists but no return window is extractable",
+      "raw_evidence": "Refund policy FENTY BEAUTY + FENTY SKIN RETURN POLICY If you don't absolutely love your purchase, we offer free pre-paid returns for all U.S. orders within 30 days of your purchase! You will receive a full refund to the original payment method, not including your original shipping charge. We will only accept items purchased on FentyBeauty.com and FentySkin.com for a return; if your item(s) were pu",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R16 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Your policy page exists but AI cannot extract a return timeframe.\nAdd clearly: 'Returns accepted within [NUMBER] days of delivery.'\nMake the number explicit — not 'a few weeks' or 'reasonable time'.",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R17": {
+      "check_id": "R17",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 10,
+      "detail": "Shipping timeframe found: '4-8 business days'",
+      "raw_evidence": "Shipping policy Free Shipping Below are the free shipping offers on FentyBeauty.com and FentySkin.com. DOMESTIC • FREE Standard Shipping for all contiguous USA merchandise orders for active FentyBeauty.com account holders (please allow 4-8 business days for processing and shipping to receive your order). This benefit does not apply to past orders that were placed prior to having an account. • FREE",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R17 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R23": {
+      "check_id": "R23",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "Contact page with branded email: customerservice@fentybeauty.com",
+      "raw_evidence": "Fetched /pages/contact-us — emails: ['customerservice@fentybeauty.com', 'customerservice@fentybeauty.com', 'customerservice@fentybeauty.com', 'customerservice@fentybeauty.com']",
+      "what_we_did": "Classified email domain against free-provider blocklist.",
+      "what_AI_sees": "AI sees branded email customerservice@fentybeauty.com — strong accountability signal.",
+      "causality": "R23 PASSED — AI sees branded email customerservice@fentybeauty.com — strong accountability signal.",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R25": {
+      "check_id": "R25",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "Brand consistent (100.0%): ['Fenty Beauty', 'Fenty Beauty']",
+      "raw_evidence": "Brand sources found: {'og_site_name': 'Fenty Beauty', 'schema_org': 'Fenty Beauty'}",
+      "what_we_did": "Compared 'og_site_name'='Fenty Beauty' (norm: 'fenty beauty') vs 'schema_org'='Fenty Beauty' (norm: 'fenty beauty'). Fuzzy ratio=100.0%",
+      "what_AI_sees": "AI sees consistent brand 'Fenty Beauty' across sources.",
+      "causality": "R25 PASSED — AI sees consistent brand 'Fenty Beauty' across sources.",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R28": {
+      "check_id": "R28",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "UCP profile found. Services: ['dev.ucp.shopping']",
+      "raw_evidence": "{\"ucp\":{\"version\":\"2026-04-08\",\"supported_versions\":{\"2026-04-08\":\"https:\\/\\/fentybeautyshop.myshopify.com\\/.well-known\\/ucp\\/2026-04-08\",\"2026-01-23\":\"https:\\/\\/fentybeautyshop.myshopify.com\\/.well-known\\/ucp\\/2026-01-23\"},\"services\":{\"dev.ucp.shopping\":[{\"version\":\"2026-04-08\",\"spec\":\"https:\\/\\/ucp.dev\\/2026-04-08\\/specification\\/overview\\/\",\"transport\":\"mcp\",\"endpoint\":\"https:\\/\\/fentybeautysho",
+      "what_we_did": "GET https://fentybeauty.com/.well-known/ucp → 200. Parsed JSON for services.",
+      "what_AI_sees": "AI commerce agents can discover store with services: ['dev.ucp.shopping'].",
+      "causality": "R28 PASSED — AI commerce agents can discover store with services: ['dev.ucp.shopping'].",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R30": {
+      "check_id": "R30",
+      "tier": "VERIFIED",
+      "status": "INFORMATIONAL",
+      "score": 0,
+      "detail": "Shopify confirmed (auto-enrolled in ACP). No Product schema on homepage — normal for Shopify. Product pages have schema by default.",
+      "raw_evidence": "Shopify CDN confirmed. extruct found 0 Product schema on homepage.",
+      "what_we_did": "extruct JSON-LD extraction on homepage HTML.",
+      "what_AI_sees": "Store is enrolled in ACP via Shopify. Homepage product schema absent (expected).",
+      "causality": "R30 INFORMATIONAL — Store is enrolled in ACP via Shopify. Homepage product schema absent (expected).",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    },
+    "R31": {
+      "check_id": "R31",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 5,
+      "detail": "Partial GMC signals (2/4) — missing: ['og:type=product', 'no currency pricing visible in HTML']",
+      "raw_evidence": "signals=['google-site-verification', 'Organization/WebSite schema'] | missing=['og:type=product', 'no currency pricing visible in HTML']",
+      "what_we_did": "Checked 4 GMC signals: google-site-verification meta, og:type=product, currency price in raw HTML, Organization/WebSite schema.org.",
+      "what_AI_sees": "Gemini product surfacing limited — only 2/4 GMC signals present.",
+      "causality": "R31 WARNING — Gemini product surfacing limited — only 2/4 GMC signals present.",
+      "severity": "MODERATE",
+      "fix": "Improve GMC readiness:\n• og:type=product\n• no currency pricing visible in HTML\n\nVerify store with Google Search Console to get site-verification tag.",
+      "timestamp": "2026-05-18T12:40:09.837600+00:00"
+    }
+  },
+  "gap": {
+    "gap_IW": 0.63,
+    "gap_IS": 0.63,
+    "gap_WS": 0.0,
+    "IW_label": "MISALIGNED",
+    "IS_label": "MISALIGNED",
+    "WS_label": "ALIGNED",
+    "schema_source": "CRAWLED_FALLBACK",
+    "intent_text": "beauty products This is a Beauty store. Our primary customer is Quality-first. Our main differentiator is Price. Our brand tone is Playful / Fun.",
+    "website_text": "Fenty Beauty by Rihanna | Beauty for All Skip To Main Content Cancel Online Shopping Available Changing your location may remove some contents from your shopping Bag Ship To: | Save Selection Change Language Change Country/Region Ship To: | Save Selection India | English Open country panel Open mobile menu Fenty Beauty Home Sign In Your cart - New + Bestsellers New + Bestsellers Bestsellers New Arrivals Body Mist Limited Edition Fenty Beauty Exclusives Spring Essentials Fenty Skin Start'rs Fenty",
+    "schema_text": "Fenty Beauty by Rihanna | Beauty for All Skip To Main Content Cancel Online Shopping Available Changing your location may remove some contents from your shopping Bag Ship To: | Save Selection Change Language Change Country/Region Ship To: | Save Selection India | English Open country panel Open mobile menu Fenty Beauty Home Sign In Your cart - New + Bestsellers New + Bestsellers Bestsellers New Arrivals Body Mist Limited Edition Fenty Beauty Exclusives Spring Essentials Fenty Skin Start'rs Fenty",
+    "per_gap_traces": {
+      "IW": {
+        "gap": 0.63,
+        "label": "MISALIGNED",
+        "question": "Does your website reflect what you think your store says?",
+        "source_A": "merchant_intent",
+        "source_B": "website_content",
+        "preview_A": "beauty products This is a Beauty store. Our primary customer is Quality-first. Our main differentiator is Price. Our brand tone is Playful / Fun.",
+        "preview_B": "Fenty Beauty by Rihanna | Beauty for All Skip To Main Content Cancel Online Shopping Available Changing your location may remove some contents from your shopping Bag Ship To: | Save Selection Change L",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "IS": {
+        "gap": 0.63,
+        "label": "MISALIGNED",
+        "question": "Does your structured data (schema/crawl) reflect your intent?",
+        "source_A": "merchant_intent",
+        "source_B": "CRAWLED_FALLBACK",
+        "preview_A": "beauty products This is a Beauty store. Our primary customer is Quality-first. Our main differentiator is Price. Our brand tone is Playful / Fun.",
+        "preview_B": "Fenty Beauty by Rihanna | Beauty for All Skip To Main Content Cancel Online Shopping Available Changing your location may remove some contents from your shopping Bag Ship To: | Save Selection Change L",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "WS": {
+        "gap": 0.0,
+        "label": "ALIGNED",
+        "question": "Are your website content and schema/crawl consistent with each other?",
+        "source_A": "website_content",
+        "source_B": "CRAWLED_FALLBACK",
+        "preview_A": "Fenty Beauty by Rihanna | Beauty for All Skip To Main Content Cancel Online Shopping Available Changing your location may remove some contents from your shopping Bag Ship To: | Save Selection Change L",
+        "preview_B": "Fenty Beauty by Rihanna | Beauty for All Skip To Main Content Cancel Online Shopping Available Changing your location may remove some contents from your shopping Bag Ship To: | Save Selection Change L",
+        "interpretation": "ALIGNED: No action needed."
+      }
+    }
+  },
+  "conclusion": "Your store has several areas for improvement, including vague product descriptions (R13) and a thin FAQ page that covers 0/6 topics (R15). The refund policy page (",
+  "raw_page_texts": {
+    "homepage": "Fenty Beauty by Rihanna | Beauty for All Skip To Main Content Cancel Online Shopping Available Changing your location may remove some contents from your shopping Bag Ship To: | Save Selection Change Language Change Country/Region Ship To: | Save Selection India | English Open country panel Open mobile menu Fenty Beauty Home Sign In Your cart - New + Bestsellers New + Bestsellers Bestsellers New Arrivals Body Mist Limited Edition Fenty Beauty Exclusives Spring Essentials Fenty Skin Start'rs Fenty",
+    "about": "Behind Fenty Hair | Fenty Hair Skip To Main Content Cancel Online Shopping Available Changing your location may remove some contents from your shopping Bag Ship To: | Save Selection Change Language Change Country/Region Ship To: | Save Selection India | English Open country panel Open mobile menu Fenty Beauty Home Sign In Your cart - New + Bestsellers New + Bestsellers Bestsellers New Arrivals Body Mist Limited Edition Fenty Beauty Exclusives Spring Essentials Fenty Skin Start'rs Fenty Hair Bund",
+    "policies": "Refund policy Skip To Main Content Cancel Online Shopping Available Changing your location may remove some contents from your shopping Bag Ship To: | Save Selection Change Language Change Country/Region Ship To: | Save Selection India | English Open country panel Open mobile menu Fenty Beauty Home Sign In Your cart - New + Bestsellers New + Bestsellers Bestsellers New Arrivals Body Mist Limited Edition Fenty Beauty Exclusives Spring Essentials Fenty Skin Start'rs Fenty Hair Bundles Butta Drop Fe"
+  }
+}

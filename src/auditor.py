@@ -18,6 +18,7 @@ from src.utils.fetcher      import safe_get, jitter_sleep, is_garbage
 from src.utils.obs_logger   import write_audit_log
 from src.utils.db           import save_audit, load_audit
 from src.utils.text_cleaner import extract_clean_text
+from src.layer3.r13_r15_r16_r17 import _extract_policy_body as _extract_body
 
 from src.layer1.r1_robots        import check as check_r1
 from src.layer1.r3_r5_r6         import check_r3, check_r5, check_r6
@@ -32,38 +33,77 @@ logger = logging.getLogger(__name__)
 
 # ── PAGE URL DISCOVERY ────────────────────────────────────────────────────────
 
-_ABOUT_KEYWORDS    = re.compile(r'\b(about|our[-_]?story|who[-_]?we[-_]?are|brand)\b', re.I)
-_CONTACT_KEYWORDS  = re.compile(r'\b(contact|get[-_]?in[-_]?touch|reach[-_]?us|support)\b', re.I)
-_POLICY_KEYWORDS   = re.compile(r'\b(refund|return|shipping|delivery)\b', re.I)
+# ── KEYWORD REGEXES — expanded to cover real store URL patterns ──────────────
+
+_ABOUT_KEYWORDS = re.compile(
+    r'(about|our.?story|who.?we.?are|brand|mission|founders?|team|company)',
+    re.I,
+)
+_CONTACT_KEYWORDS = re.compile(
+    r'(contact|get.?in.?touch|reach.?us|support|help|customer.?service|talk.?to.?us)',
+    re.I,
+)
+_POLICY_KEYWORDS = re.compile(
+    r'(refund|return|shipping|delivery|exchange|cancellation)',
+    re.I,
+)
+_FAQ_KEYWORDS = re.compile(
+    r'(faq|faqs|help|questions?|support|help.?centre|help.?center|common.?questions?)',
+    re.I,
+)
 
 
-def _find_page_url(base_url: str, homepage_html: str, keyword_re) -> str | None:
+def _discover_url_from_nav(base_url: str, homepage_html: str, keyword_re) -> str | None:
     """
-    Scan homepage nav/footer links for a URL matching keyword_re.
-    Returns the first matching absolute URL, or None.
-    Falls back to nav/footer <a> tags only — not full-page scan.
+    Scan homepage nav/footer/header links for URL matching keyword_re.
+    Checks both href and link text.
     """
     if not homepage_html:
         return None
     soup = BeautifulSoup(homepage_html, "html.parser")
-    # Look in nav + footer first, then all links
-    candidates = soup.select("nav a, footer a, header a") or soup.find_all("a", href=True)
+    candidates = soup.select("nav a, footer a, header a")
+    if not candidates:
+        candidates = soup.find_all("a", href=True)
     for tag in candidates:
         href = tag.get("href", "")
         text = tag.get_text(strip=True)
         if keyword_re.search(href) or keyword_re.search(text):
             full = urljoin(base_url, href)
-            if full.startswith("http"):
+            if full.startswith("http") and full.rstrip("/") != base_url.rstrip("/"):
                 return full
     return None
 
 
-def _fetch_page(base_url: str, standard_paths: list, homepage_html: str,
-                keyword_re, max_chars: int) -> str:
+def _discover_url_from_sitemap(base_url: str, sitemap_html: str, keyword_re) -> str | None:
     """
-    Try standard paths first. If all 404, scan nav/footer links as fallback.
+    Scan pages sitemap for URL matching keyword_re.
+    Uses the already-fetched sitemap_pages content.
+    """
+    if not sitemap_html:
+        return None
+    locs = re.findall(r"<loc>(.*?)</loc>", sitemap_html, re.I)
+    for loc in locs:
+        if keyword_re.search(loc):
+            return loc.strip()
+    return None
+
+
+def _fetch_page(
+    base_url: str,
+    standard_paths: list,
+    homepage_html: str,
+    keyword_re,
+    max_chars: int,
+    sitemap_pages: str = "",
+) -> str:
+    """
+    Fetch a page using 3-stage discovery:
+      1. Standard hardcoded paths
+      2. Nav/footer link scan
+      3. Pages sitemap scan (if sitemap_pages provided)
     Returns clean text or empty string.
     """
+    # Stage 1: standard paths
     for path in standard_paths:
         jitter_sleep(0.4, 0.3)
         f = safe_get(base_url.rstrip("/") + path)
@@ -73,14 +113,25 @@ def _fetch_page(base_url: str, standard_paths: list, homepage_html: str,
                 continue
             return extract_clean_text(f.text, max_chars=max_chars)
 
-    # Fallback: discover URL from nav/footer
-    discovered = _find_page_url(base_url, homepage_html, keyword_re)
-    if discovered and discovered != base_url:
+    # Stage 2: nav/footer discovery
+    discovered = _discover_url_from_nav(base_url, homepage_html, keyword_re)
+    if discovered:
         jitter_sleep(0.4, 0.3)
         f = safe_get(discovered)
-        if f.ok:
+        if f.ok and not is_garbage(f.text):
             logger.info(f"Found via nav discovery: {discovered}")
             return extract_clean_text(f.text, max_chars=max_chars)
+
+    # Stage 3: sitemap pages discovery
+    if sitemap_pages:
+        discovered = _discover_url_from_sitemap(base_url, sitemap_pages, keyword_re)
+        if discovered:
+            jitter_sleep(0.4, 0.3)
+            f = safe_get(discovered)
+            if f.ok and not is_garbage(f.text):
+                logger.info(f"Found via sitemap discovery: {discovered}")
+                return extract_clean_text(f.text, max_chars=max_chars)
+
     return ""
 
 
@@ -135,6 +186,25 @@ def run_audit(
     r5 = check_r5(base_url, homepage_fetch=homepage_fetch)
     r6 = check_r6(base_url)
 
+    # Fetch pages sitemap for URL discovery (used in page fetching below)
+    _progress("Fetching pages sitemap for URL discovery...")
+    sitemap_pages = ""
+    try:
+        sitemap_index_url = base_url.rstrip("/") + "/sitemap.xml"
+        jitter_sleep(0.3, 0.2)
+        idx = safe_get(sitemap_index_url)
+        if idx.ok:
+            locs = re.findall(r"<loc>(.*?)</loc>", idx.text, re.I)
+            pages_sitemaps = [l for l in locs if "pages" in l.lower()]
+            if pages_sitemaps:
+                jitter_sleep(0.3, 0.2)
+                pg = safe_get(pages_sitemaps[0])
+                if pg.ok:
+                    sitemap_pages = pg.text
+                    logger.info(f"Pages sitemap fetched: {len(locs)} locs in index")
+    except Exception as e:
+        logger.debug(f"Sitemap pages fetch failed: {e}")
+
     # ── Layer 2 ───────────────────────────────────────────────────────────────
     _progress("Layer 2: Structured data...")
     r7  = check_r7(base_url, homepage_html)
@@ -145,7 +215,7 @@ def run_audit(
     _progress("Layer 3: Semantic content...")
     r13 = check_r13(homepage_html)
     jitter_sleep()
-    r15 = check_r15(base_url)
+    r15 = check_r15(base_url, homepage_html=homepage_html, sitemap_pages=sitemap_pages)
     jitter_sleep()
     r16 = check_r16(base_url)
     jitter_sleep()
@@ -155,20 +225,24 @@ def run_audit(
     _progress("Fetching additional pages...")
     about_text = _fetch_page(
         base_url,
-        standard_paths=["/pages/about", "/pages/about-us", "/about", "/about-us"],
+        standard_paths=["/pages/about", "/pages/about-us", "/pages/our-story",
+                        "/pages/about-us", "/about", "/about-us", "/our-story"],
         homepage_html=homepage_html,
         keyword_re=_ABOUT_KEYWORDS,
         max_chars=2000,
+        sitemap_pages=sitemap_pages,
     )
     if about_text:
-        page_texts["about"] = about_text
+        about_body = _extract_body(about_text, max_chars=2000)
+        page_texts["about"] = about_body if about_body else about_text
 
     policy_text = ""
     for paths, kw_re in [
-        (["/policies/refund-policy", "/pages/returns", "/returns"], _POLICY_KEYWORDS),
-        (["/policies/shipping-policy", "/pages/shipping", "/shipping"], _POLICY_KEYWORDS),
+        (["/policies/refund-policy", "/pages/returns", "/pages/return-policy", "/returns"], _POLICY_KEYWORDS),
+        (["/policies/shipping-policy", "/pages/shipping", "/pages/shipping-policy", "/shipping"], _POLICY_KEYWORDS),
     ]:
-        t = _fetch_page(base_url, paths, homepage_html, kw_re, max_chars=1000)
+        t = _fetch_page(base_url, paths, homepage_html, kw_re, max_chars=1000,
+                        sitemap_pages=sitemap_pages)
         if t:
             policy_text += t + " "
     if policy_text:

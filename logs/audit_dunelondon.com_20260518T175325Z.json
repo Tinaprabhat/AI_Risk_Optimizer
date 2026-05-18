@@ -1,0 +1,413 @@
+{
+  "meta": {
+    "store_url": "https://www.dunelondon.com/",
+    "domain": "dunelondon.com",
+    "audit_timestamp": "20260518T175325Z",
+    "merchant_intent": "shoes",
+    "mcq": {
+      "category": "Fashion",
+      "customer": "Budget-conscious",
+      "differentiator": "Price",
+      "tone": "Premium / Luxury"
+    },
+    "score": {
+      "scored_total": 11.0,
+      "checklist_total": 4.0,
+      "grand_total": 15.0,
+      "max_scored": 60,
+      "max_checklist": 9,
+      "max_total": 69,
+      "pct": 21.7,
+      "breakdown": {
+        "R1": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "No AI crawlers blocked in robots.txt",
+          "is_scored": false
+        },
+        "R3": {
+          "score": 0,
+          "max": 1,
+          "status": "FAIL",
+          "detail": "sitemap.xml not found (HTTP 500)",
+          "is_scored": false
+        },
+        "R5": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "No bot protection blocking detected",
+          "is_scored": false
+        },
+        "R6": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "SSL valid for www.dunelondon.com",
+          "is_scored": false
+        },
+        "R7": {
+          "score": 0,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Commerce schema score: 0/10 — types: none",
+          "is_scored": true
+        },
+        "R9": {
+          "score": 4,
+          "max": 10,
+          "status": "WARN",
+          "detail": "Currency prices visible in HTML (1 found): ['£75']",
+          "is_scored": true
+        },
+        "R11": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "All 1 JSON-LD block(s) are valid",
+          "is_scored": false
+        },
+        "R13": {
+          "score": 3,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Descriptions are mostly vague (delta=0.07)",
+          "is_scored": true
+        },
+        "R15": {
+          "score": 0,
+          "max": 1,
+          "status": "FAIL",
+          "detail": "FAQ page thin — only 0/6 topics covered",
+          "is_scored": false
+        },
+        "R16": {
+          "score": 2,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Refund policy page exists but no return window is extractable",
+          "is_scored": true
+        },
+        "R17": {
+          "score": 0,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "No shipping policy page found",
+          "is_scored": true
+        },
+        "R23": {
+          "score": 0,
+          "max": 1,
+          "status": "WARN",
+          "detail": "Contact page exists but no email found",
+          "is_scored": false
+        },
+        "R25": {
+          "score": 0,
+          "max": 1,
+          "status": "UNKNOWN",
+          "detail": "Only 1 source(s) — cannot compare: {'title_ner': ', Boots, Sandals & Accessories'}",
+          "is_scored": false
+        },
+        "R28": {
+          "score": 0,
+          "max": 1,
+          "status": "FORWARD-LOOKING",
+          "detail": "Non-Shopify store — UCP not yet broadly available outside Shopify",
+          "is_scored": false
+        },
+        "R30": {
+          "score": 0,
+          "max": 0,
+          "status": "INFORMATIONAL",
+          "detail": "Not a Shopify store — ACP auto-enrollment not applicable.",
+          "is_scored": false,
+          "informational": true
+        },
+        "R31": {
+          "score": 2,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Weak GMC signals (1/4) — missing: ['google-site-verification meta tag', 'og:type=product', 'no Organization/WebSite schema']",
+          "is_scored": true
+        }
+      }
+    }
+  },
+  "checks": {
+    "R1": {
+      "check_id": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "No AI crawlers blocked in robots.txt",
+      "raw_evidence": "Sitemap: https://www.dunelondon.com/sitemap_index.xml\r\n\r\n# robots.txt file updated by Polaris on 08/01/2026\r\n\r\nUser-agent: *\r\n\r\n\r\nDisallow: */rw/\r\nDisallow: */eu/\r\nAllow: */eu/.html\r\nAllow: */eu/fr\r\nAllow: */eu/de\r\nAllow: */eu/en*\r\nAllow: */ch*\r\n\r\n\r\n# old robots.txt rules\r\n\r\nDisallow: */sign-in/\r\nDisallow: */basket/\r\nDisallow: */wishlist/\r\nDisallow: */checkout/\r\n\r\n\r\n# new robots.txt rules\r\n\r\n# Pages\r\nDisallow: */ajxr_review/\r\nDisallow: *?sessionid=\r\nDisallow: */search?*\r\nDisallow: */myaccount*\r\nDisallow: */login?*\r\nDisallow: */orders*\r\nDisallow: */searchwishlists*\r\nDisallow: */article-artlabout/\r\n\r\n# Files\r\nDisallow: /Product-Variation*\r\nDisallow: */Product-Variation*\r\nDisallow: /Globale-Cache*\r\nDisallow: */Globale-Cache*\r\n\r\nDisallow: *?blog_id=\r\nDisallow: *?size=\r\nDisallow: *?brand=\r\nDisa",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R1 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R3": {
+      "check_id": "R3",
+      "tier": "VERIFIED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "sitemap.xml not found (HTTP 500)",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R3 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add a sitemap.xml to your store root.\nShopify: Settings → Search engine listing → Sitemap is auto-generated at /sitemap.xml\nVerify it is accessible at: https://www.dunelondon.com/sitemap.xml",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R5": {
+      "check_id": "R5",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "No bot protection blocking detected",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R5 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R6": {
+      "check_id": "R6",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "SSL valid for www.dunelondon.com",
+      "raw_evidence": "Subject: ((('commonName', 'www.dunelondon.com'),),)",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R6 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R7": {
+      "check_id": "R7",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "Commerce schema score: 0/10 — types: none",
+      "raw_evidence": "Types found: ['WebPage']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R7 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add schema.org JSON-LD to your store. Priority order:\n\n1. Organization (if missing):\n   <script type=\"application/ld+json\">\n   {\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\n    \"name\":\"YOUR STORE NAME\",\"url\":\"YOUR URL\"}\n   </script>\n\n2. Product schema on all product pages (Shopify usually adds this automatically).\n\n3. FAQPage schema on your FAQ page.",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R9": {
+      "check_id": "R9",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 4,
+      "detail": "Currency prices visible in HTML (1 found): ['£75']",
+      "raw_evidence": "['£75']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R9 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Prices are in HTML but not in structured schema. Add Product schema with price:\n{\"@type\":\"Product\",\"offers\":{\"@type\":\"Offer\",\"price\":\"XX.XX\",\"priceCurrency\":\"INR\"}}",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R11": {
+      "check_id": "R11",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "All 1 JSON-LD block(s) are valid",
+      "raw_evidence": "1 JSON-LD block(s) found",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R11 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R13": {
+      "check_id": "R13",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 3,
+      "detail": "Descriptions are mostly vague (delta=0.07)",
+      "raw_evidence": "Vagueness delta: 0.075 | Sample: Our bestselling Goldens are back in stock. Get them (and the bags that match) before they're gone.",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R13 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Replace vague adjectives with measurable facts.\nInstead of: 'premium quality materials'\nWrite: 'made from 316L surgical stainless steel, 2mm thickness, weight 85g'\n\nAI cannot distinguish you from competitors without specific, factual descriptions.",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R15": {
+      "check_id": "R15",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "FAQ page thin — only 0/6 topics covered",
+      "raw_evidence": "Found FAQ via nav: https://help.dunelondon.com/support/home",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R15 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Expand your FAQ to cover: ['returns and refunds policy', 'shipping delivery time', 'sizing guide fit', 'payment methods accepted', 'contact customer support', 'warranty guarantee']",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R16": {
+      "check_id": "R16",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 2,
+      "detail": "Refund policy page exists but no return window is extractable",
+      "raw_evidence": "Dune London Returns FREE DELIVERY ON ORDERS OVER £75 T&CS APPLY Returns Our Policy Changed your mind? You can return your purchase within 28 days for a refund, provided it meets the terms and conditions outlined on this page. How to Return In-store purchases Items that are unworn or unmarked, and are accompanied by a receipt, will be refunded or exchanged. Online purchases Items can be returned to",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R16 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Your policy page exists but AI cannot extract a return timeframe.\nAdd clearly: 'Returns accepted within [NUMBER] days of delivery.'\nMake the number explicit — not 'a few weeks' or 'reasonable time'.",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R17": {
+      "check_id": "R17",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "No shipping policy page found",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R17 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Create a shipping policy at /policies/shipping-policy.\nMust include: exact delivery timeframe.\n\nTemplate:\n'We ship within 1–2 business days. Delivery typically takes 3–5 business days within India. International orders: 7–14 business days.'",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R23": {
+      "check_id": "R23",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 0,
+      "detail": "Contact page exists but no email found",
+      "raw_evidence": "Fetched https://help.dunelondon.com/support/home — no email pattern matched.",
+      "what_we_did": "Regex for email addresses on contact page text.",
+      "what_AI_sees": "AI sees a contact page but cannot extract accountability email.",
+      "causality": "R23 WARNING — AI sees a contact page but cannot extract accountability email.",
+      "severity": "MODERATE",
+      "fix": "Add branded email (support@yourdomain.com) to the contact page.",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R25": {
+      "check_id": "R25",
+      "tier": "CORRELATED",
+      "status": "UNKNOWN",
+      "score": 0,
+      "detail": "Only 1 source(s) — cannot compare: {'title_ner': ', Boots, Sandals & Accessories'}",
+      "raw_evidence": "Brand sources found: {'title_ner': ', Boots, Sandals & Accessories'}",
+      "what_we_did": "Checked og:site_name, schema.org name, title tag. Found < 2.",
+      "what_AI_sees": "AI cannot verify brand consistency — insufficient markup.",
+      "causality": "R25 UNKNOWN — AI cannot verify brand consistency — insufficient markup.",
+      "severity": "MODERATE",
+      "fix": "Add og:site_name meta tag and schema.org Organization markup to homepage.",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R28": {
+      "check_id": "R28",
+      "tier": "CORRELATED",
+      "status": "FORWARD-LOOKING",
+      "score": 0,
+      "detail": "Non-Shopify store — UCP not yet broadly available outside Shopify",
+      "raw_evidence": "Shopify fingerprint (cdn.shopify.com) not found in HTML.",
+      "what_we_did": "Checked for Shopify CDN fingerprint in homepage HTML.",
+      "what_AI_sees": "Store not on Shopify — UCP not applicable yet.",
+      "causality": "R28 FORWARD-LOOKING — Store not on Shopify — UCP not applicable yet.",
+      "severity": "INFO",
+      "fix": "Monitor https://ucp.shopping for availability on your platform.",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R30": {
+      "check_id": "R30",
+      "tier": "VERIFIED",
+      "status": "INFORMATIONAL",
+      "score": 0,
+      "detail": "Not a Shopify store — ACP auto-enrollment not applicable.",
+      "raw_evidence": "Shopify fingerprint not found.",
+      "what_we_did": "Platform detection via HTML fingerprint.",
+      "what_AI_sees": "Store not enrolled in ACP (not Shopify).",
+      "causality": "R30 INFORMATIONAL — Store not enrolled in ACP (not Shopify).",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    },
+    "R31": {
+      "check_id": "R31",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 2,
+      "detail": "Weak GMC signals (1/4) — missing: ['google-site-verification meta tag', 'og:type=product', 'no Organization/WebSite schema']",
+      "raw_evidence": "signals=['prices visible (1)'] | missing=['google-site-verification meta tag', 'og:type=product', 'no Organization/WebSite schema']",
+      "what_we_did": "Checked 4 GMC signals: google-site-verification meta, og:type=product, currency price in raw HTML, Organization/WebSite schema.org.",
+      "what_AI_sees": "Gemini product surfacing limited — only 1/4 GMC signals present.",
+      "causality": "R31 FAILED — Gemini product surfacing limited — only 1/4 GMC signals present. | How: Checked 4 GMC signals: google-site-verification meta, og:type=product, currency price in raw HTML, Organization/WebSite schema.org.",
+      "severity": "HIGH",
+      "fix": "Improve GMC readiness:\n• google-site-verification meta tag\n• og:type=product\n• no Organization/WebSite schema\n\nVerify store with Google Search Console to get site-verification tag.",
+      "timestamp": "2026-05-18T17:53:25.476096+00:00"
+    }
+  },
+  "gap": {
+    "gap_IW": 0.525,
+    "gap_IS": 0.523,
+    "gap_WS": 0.327,
+    "IW_label": "MISALIGNED",
+    "IS_label": "MISALIGNED",
+    "WS_label": "MISALIGNED",
+    "schema_source": "SCHEMA",
+    "intent_text": "shoes This is a Fashion store. Our primary customer is Budget-conscious. Our main differentiator is Price. Our brand tone is Premium / Luxury.",
+    "website_text": "Shoes, Boots, Sandals & Accessories | Dune London FREE DELIVERY ON ORDERS OVER £75 T&CS APPLY Skip to main content Skip to footer content Search 0 0 View Wishlist View Bag Back New In New In Shop All New Arrivals Women's Bestsellers Women's Women's Shoes Women's Bags Women's Sandals Women's Heels Women's Accessories Men's Coming Soon Shop Women's Shop Bags Shop Men's Shop Women's Summer Summer Shop All Women's All Women's Flat Sandals Heeled Sandals Wedge Sandals Block Heeled Sandals Wide Fit Sa",
+    "schema_text": "The hottest new trends, stand-out shoes and must-have bags. Shop the latest Ladies & Men's footwear from Dune.",
+    "per_gap_traces": {
+      "IW": {
+        "gap": 0.525,
+        "label": "MISALIGNED",
+        "question": "Does your website reflect what you think your store says?",
+        "source_A": "merchant_intent",
+        "source_B": "website_content",
+        "preview_A": "shoes This is a Fashion store. Our primary customer is Budget-conscious. Our main differentiator is Price. Our brand tone is Premium / Luxury.",
+        "preview_B": "Shoes, Boots, Sandals & Accessories | Dune London FREE DELIVERY ON ORDERS OVER £75 T&CS APPLY Skip to main content Skip to footer content Search 0 0 View Wishlist View Bag Back New In New In Shop All ",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "IS": {
+        "gap": 0.523,
+        "label": "MISALIGNED",
+        "question": "Does your structured data (schema/crawl) reflect your intent?",
+        "source_A": "merchant_intent",
+        "source_B": "SCHEMA",
+        "preview_A": "shoes This is a Fashion store. Our primary customer is Budget-conscious. Our main differentiator is Price. Our brand tone is Premium / Luxury.",
+        "preview_B": "The hottest new trends, stand-out shoes and must-have bags. Shop the latest Ladies & Men's footwear from Dune.",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "WS": {
+        "gap": 0.327,
+        "label": "MISALIGNED",
+        "question": "Are your website content and schema/crawl consistent with each other?",
+        "source_A": "website_content",
+        "source_B": "SCHEMA",
+        "preview_A": "Shoes, Boots, Sandals & Accessories | Dune London FREE DELIVERY ON ORDERS OVER £75 T&CS APPLY Skip to main content Skip to footer content Search 0 0 View Wishlist View Bag Back New In New In Shop All ",
+        "preview_B": "The hottest new trends, stand-out shoes and must-have bags. Shop the latest Ladies & Men's footwear from Dune.",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      }
+    }
+  },
+  "conclusion": "Your store's AI visibility is very low, scoring only 15 out of 69 points, which means search engines struggle significantly to understand your products and brand. Critical issues like your missing s",
+  "raw_page_texts": {
+    "homepage": "Shoes, Boots, Sandals & Accessories | Dune London FREE DELIVERY ON ORDERS OVER £75 T&CS APPLY Skip to main content Skip to footer content Search 0 0 View Wishlist View Bag Back New In New In Shop All New Arrivals Women's Bestsellers Women's Women's Shoes Women's Bags Women's Sandals Women's Heels Women's Accessories Men's Coming Soon Shop Women's Shop Bags Shop Men's Shop Women's Summer Summer Shop All Women's All Women's Flat Sandals Heeled Sandals Wedge Sandals Block Heeled Sandals Wide Fit Sa",
+    "policies": "Dune London Returns FREE DELIVERY ON ORDERS OVER £75 T&CS APPLY Skip to main content Skip to footer content Search 0 0 View Wishlist View Bag Back New In New In Shop All New Arrivals Women's Bestsellers Women's Women's Shoes Women's Bags Women's Sandals Women's Heels Women's Accessories Men's Coming Soon Shop Women's Shop Bags Shop Men's Shop Women's Summer Summer Shop All Women's All Women's Flat Sandals Heeled Sandals Wedge Sandals Block Heeled Sandals Wide Fit Sandals Gold Sandals Loupe Holid"
+  }
+}

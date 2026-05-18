@@ -7,19 +7,21 @@ R16 — Refund window concrete:         CORRELATED  0–10 scored
 R17 — Shipping timeframe concrete:    CORRELATED  0–10 scored
 """
 
-import os
-import sys
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-
 import re
 import logging
 from typing import Optional
 
 from bs4 import BeautifulSoup
-from src.utils.text_cleaner import extract_clean_text, soup_to_clean_text
-
-from src.utils.fetcher import safe_get, jitter_sleep
-from src.utils.embedder import embed, cosine_sim, chunk_text, embed_batch
+try:
+    from ..utils.text_cleaner import extract_clean_text, soup_to_clean_text
+    from ..utils.fetcher import safe_get, jitter_sleep
+    from ..utils.embedder import embed, cosine_sim, chunk_text, embed_batch
+except ImportError:
+    import sys, pathlib
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))
+    from src.utils.text_cleaner import extract_clean_text, soup_to_clean_text
+    from src.utils.fetcher import safe_get, jitter_sleep
+    from src.utils.embedder import embed, cosine_sim, chunk_text, embed_batch
 
 logger = logging.getLogger(__name__)
 
@@ -97,12 +99,15 @@ def check_r13(html: str) -> dict:
         or soup.find_all("p")
     )
 
-    # Grab up to 200 words of description text
-    desc_text = " ".join(
-        p.get_text(separator=" ", strip=True)
-        for p in desc_candidates[:10]
-        if len(p.get_text(strip=True)) > 20
-    )[:1000]
+    # Build a mini-soup from candidates and extract clean text (strips inline JSON/scripts)
+    mini_soup = BeautifulSoup(
+        "".join(
+            str(el) for el in desc_candidates[:10]
+            if len(el.get_text(strip=True)) > 20
+        ),
+        "html.parser",
+    )
+    desc_text = soup_to_clean_text(mini_soup, max_chars=1000)
 
     if len(desc_text.split()) < 10:
         result.update(
@@ -158,9 +163,18 @@ _FAQ_TOPIC_CENTROIDS = [
     "warranty guarantee",
 ]
 
-_FAQ_PATHS = ["/pages/faq", "/pages/faqs", "/faq", "/faqs", "/pages/help"]
+_FAQ_PATHS = [
+    "/pages/faq", "/pages/faqs", "/pages/help", "/pages/help-centre",
+    "/pages/help-center", "/pages/common-questions", "/pages/support",
+    "/faq", "/faqs", "/help",
+]
 
-def check_r15(base_url: str) -> dict:
+_FAQ_KW_RE = re.compile(
+    r"\b(faq|faqs|help|questions?|support|help.?centre|help.?center|common.?questions?)\b",
+    re.I,
+)
+
+def check_r15(base_url: str, homepage_html: str = "", sitemap_pages: str = "") -> dict:
     """
     R15 — Does an FAQ page exist and cover the main buyer topics?
     Binary: 1 if FAQ found with ≥3 topics covered, 0 otherwise.
@@ -171,8 +185,10 @@ def check_r15(base_url: str) -> dict:
         "detail": "", "evidence": "", "fix": "",
     }
 
-    # Try to find FAQ page
+    # Try to find FAQ page — 3-stage discovery
     faq_text = None
+
+    # Stage 1: standard paths
     for path in _FAQ_PATHS:
         jitter_sleep(0.4, 0.3)
         fetch = safe_get(base_url.rstrip("/") + path)
@@ -181,10 +197,41 @@ def check_r15(base_url: str) -> dict:
             result["evidence"] = f"Found FAQ at {path}"
             break
 
+    # Stage 2: nav/footer discovery
+    if not faq_text and homepage_html:
+        from urllib.parse import urljoin
+        from bs4 import BeautifulSoup as _BS
+        soup_h = _BS(homepage_html, "html.parser")
+        for tag in soup_h.select("nav a, footer a, header a"):
+            href = tag.get("href", "")
+            txt  = tag.get_text(strip=True)
+            if _FAQ_KW_RE.search(href) or _FAQ_KW_RE.search(txt):
+                full = urljoin(base_url, href)
+                if full.startswith("http") and full.rstrip("/") != base_url.rstrip("/"):
+                    jitter_sleep(0.4, 0.3)
+                    fetch = safe_get(full)
+                    if fetch.ok:
+                        faq_text = extract_clean_text(fetch.text, max_chars=3000)
+                        result["evidence"] = f"Found FAQ via nav: {full}"
+                        break
+
+    # Stage 3: sitemap pages discovery
+    if not faq_text and sitemap_pages:
+        import re as _re
+        locs = _re.findall(r"<loc>(.*?)</loc>", sitemap_pages, _re.I)
+        for loc in locs:
+            if _FAQ_KW_RE.search(loc):
+                jitter_sleep(0.4, 0.3)
+                fetch = safe_get(loc.strip())
+                if fetch.ok:
+                    faq_text = extract_clean_text(fetch.text, max_chars=3000)
+                    result["evidence"] = f"Found FAQ via sitemap: {loc.strip()}"
+                    break
+
     if not faq_text:
         result.update(
             status="FAIL",
-            detail="No FAQ page found at standard paths",
+            detail="No FAQ page found at standard paths, nav links, or sitemap",
             fix=(
                 "Create a FAQ page at /pages/faq covering:\n"
                 "1. Returns & refunds (include exact days)\n"
@@ -236,16 +283,29 @@ def check_r15(base_url: str) -> dict:
 # ── SHARED PATTERN BANKS ──────────────────────────────────────────────────────
 
 _RETURN_PATTERNS_EXACT = [
+    # Days patterns
     r'\b(\d+)\s*[-–]?\s*day\s+(?:return|refund|exchange|money.?back)\b',
     r'\breturn(?:s)?\s+within\s+(\d+)\s+days?\b',
     r'\b(\d+)\s+days?\s+(?:return|refund|money.?back)\b',
     r'\bfree\s+returns?\s+(?:within\s+)?(\d+)\s+days?\b',
+    r'\bwithin\s+(\d+)\s+days?\s+of\s+(?:purchase|delivery|order|receipt)\b',
+    # Months patterns — e.g. "within 6 months", "eligible within 6 months"
+    r'\b(?:eligible\s+)?within\s+(\d+)\s+months?\b',
+    r'\b(\d+)\s+months?\s+(?:return|refund|money.?back|guarantee)\b',
+    r'\b(\d+)\s*[-–]?\s*month\s+(?:return|refund|guarantee|money.?back)\b',
+    # Weeks
+    r'\b(\d+)\s+weeks?\s+(?:return|refund|money.?back)\b',
+    r'\breturn(?:s)?\s+within\s+(\d+)\s+weeks?\b',
+    # Named periods — "60 day money back", "30-day guarantee"
+    r'\b(\d+)[\s-]*day\s+money[\s-]*back\b',
+    r'\b(\d+)[\s-]*day\s+guarantee\b',
 ]
 _RETURN_PATTERNS_VAGUE = [
     r'\breturns?\s+accepted\b',
     r'\bmoney.?back\s+guarantee\b',
     r'\brefundable\b',
     r'\beach\s+item\s+(?:can be|is)\s+returned\b',
+    r'\brefund(?:s)?\s+(?:are\s+)?(?:available|accepted|processed)\b',
 ]
 
 _SHIPPING_PATTERNS_EXACT = [
@@ -262,13 +322,162 @@ _SHIPPING_PATTERNS_VAGUE = [
 ]
 
 
+# Headings that mark the START of actual policy content
+_POLICY_HEADING_RE = re.compile(
+    r'(refund|return|shipping|delivery|exchange|cancellation|warranty)\s*(policy|information|terms|details)?',
+    re.IGNORECASE,
+)
+
+# Noise patterns that indicate we're still in nav/header/promo territory
+_NAV_NOISE_RE = re.compile(
+    r'(free\s+bowl|subscribers|limited\s+time|back\s+in\s+stock|new\s+arrivals|shop\s+all|build\s+your\s+own)',
+    re.IGNORECASE,
+)
+
+
+def _extract_policy_body(html: str, max_chars: int = 5000) -> str:
+    """
+    Extract policy body text from a policy page HTML.
+
+    Problem: Shopify stores use sticky announcement bars / promo divs that
+    repeat throughout the page DOM. They are <div> tags, not <nav>/<header>,
+    so tag-name stripping doesn't remove them. find_all_next(string=True)
+    after a heading picks up ALL subsequent strings including these divs.
+
+    Fix (3-stage):
+      Stage 1: Find semantic content container — <main>, <article>,
+               or any div with class containing 'policy','content','rte','body'.
+               Extract ONLY from that container, ignoring everything outside.
+
+      Stage 2: Within the container, find the policy heading and extract
+               from that point forward, paragraph by paragraph.
+               Skip any paragraph that looks like nav/promo noise.
+
+      Stage 3: Fallback — if no container and no heading found, split on
+               double-newline, filter noise lines, return cleaned body.
+    """
+    from bs4 import BeautifulSoup
+    import re as _re
+
+    if not html:
+        return ""
+
+    soup = BeautifulSoup(html, "html.parser")
+
+    # Always strip these
+    for tag in soup(["script", "style", "noscript", "svg", "nav", "header", "footer"]):
+        tag.decompose()
+
+    # ── Stage 1: Find content container ──────────────────────────────────────
+    container = None
+
+    # Try semantic tags first
+    container = soup.find("main") or soup.find("article")
+
+    # Try Shopify/common CMS content div class names
+    if not container:
+        for cls in ["policy", "rte", "page-content", "content-body",
+                    "article-body", "entry-content", "page__content",
+                    "shopify-policy__body"]:
+            container = soup.find(attrs={"class": _re.compile(cls, _re.I)})
+            if container:
+                break
+
+    # Use full soup if no container found
+    if not container:
+        container = soup
+
+    # ── Stage 2: Find policy heading within container ─────────────────────────
+    for heading in container.find_all(["h1", "h2", "h3"]):
+        heading_text = heading.get_text(strip=True)
+        if not _POLICY_HEADING_RE.search(heading_text):
+            continue
+
+        # Walk siblings of the heading — collect paragraph/text blocks only
+        parts = [heading_text]
+        # Use parent of heading to walk siblings
+        parent = heading.parent
+        found_heading = False
+        for child in parent.children:
+            if child == heading:
+                found_heading = True
+                continue
+            if not found_heading:
+                continue
+            if hasattr(child, "get_text"):
+                block = child.get_text(separator=" ", strip=True)
+            else:
+                block = str(child).strip()
+
+            if not block or len(block) < 3:
+                continue
+            # Skip repeated promo noise blocks
+            if _NAV_NOISE_RE.search(block):
+                continue
+            # Stop if we hit another major section heading unrelated to policy
+            parts.append(block)
+
+        body = " ".join(parts)
+        if len(body) > 100:   # meaningful content found
+            return body[:max_chars]
+
+    # Stage 3: Fallback - filter noise from container text
+    full_text = container.get_text(separator=" ", strip=True)
+    lines = [l.strip() for l in full_text.split("  ") if l.strip()]
+
+    filtered = []
+    policy_started = False
+    for line in lines:
+        if _POLICY_HEADING_RE.search(line):
+            policy_started = True
+            filtered.append(line)
+            continue
+        if not policy_started:
+            continue
+        # Skip repeating promo noise
+        if _NAV_NOISE_RE.search(line):
+            continue
+        if len(line) < 4:
+            continue
+        filtered.append(line)
+
+    if filtered:
+        return " ".join(filtered)[:max_chars]
+
+    # Last resort: return first max_chars of container text, noise included
+    return container.get_text(separator=" ", strip=True)[:max_chars]
+
+
+# Patterns that indicate a login wall / access denied page — not real policy content
+_ACCESS_DENIED_RE = re.compile(
+    r"\b(access\s+denied|invalid\s+password|password\s+required|"
+    r"enable\s+customer\s+accounts|easylockdown|locked\s+down|"
+    r"login\s+required|sign\s+in\s+to\s+view|members?\s+only)\b",
+    re.IGNORECASE,
+)
+
+def _is_access_denied(text: str) -> bool:
+    """Return True if the fetched page is a login wall, not real content."""
+    return bool(_ACCESS_DENIED_RE.search(text[:2000]))
+
+
 def _fetch_policy_text(base_url: str, paths: list[str]) -> Optional[str]:
-    """Try a list of paths and return text of first successful fetch."""
+    """
+    Try a list of paths and return policy body text of first successful fetch.
+    Uses _extract_policy_body() to skip nav/promo header noise.
+    Detects and rejects login-wall / access-denied pages.
+    """
     for path in paths:
         jitter_sleep(0.4, 0.3)
         fetch = safe_get(base_url.rstrip("/") + path)
         if fetch.ok:
-            return extract_clean_text(fetch.text, max_chars=5000)
+            # Reject login walls — EasyLockdown, password-protected pages etc.
+            if _is_access_denied(fetch.text):
+                logger.warning(f"Access-denied page detected at {path} — skipping")
+                continue
+            text = _extract_policy_body(fetch.text, max_chars=5000)
+            if text:
+                return text
     return None
 
 

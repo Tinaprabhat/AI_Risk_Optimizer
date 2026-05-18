@@ -8,10 +8,6 @@ R11 — JSON-LD valid:              CORRELATED  0/1  binary
 All three operate on the same homepage HTML — passed in to avoid re-fetching.
 """
 
-import os
-import sys
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-
 import json
 import re
 import logging
@@ -98,16 +94,9 @@ def check_r7(base_url: str, html: str) -> dict:
 
     score = min(points, 10)
 
-    # Threshold rationale:
-    # ≥7 = Product + Organization + more (full commerce schema)
-    # ≥4 = Organization + WebSite (acceptable — homepage rarely has Product schema)
-    # ≥1 = minimal schema present
-    # 0  = nothing found at all
     if score >= 7:
         status = "PASS"
-    elif score >= 4:
-        status = "WARN"
-    elif score >= 1:
+    elif score >= 3:
         status = "WARN"
     else:
         status = "FAIL"
@@ -187,8 +176,12 @@ def check_r9(base_url: str, html: str) -> dict:
             return result
 
     # 3. Currency-prefixed price in HTML text (score 4)
-    price_pattern = r'(?:Rs\.?\s*|INR\s*|[₹$£€¥])\s*[\d,]+(?:\.\d{1,2})?'
+    # Require at least 1 digit immediately after symbol (no comma/space before digit)
+    # '$,' and '£4' (single char) are template artifacts, not real prices
+    price_pattern = r'(?:Rs\.?\s*|INR\s*|[\u20b9$\xa3\u20ac\xa5])\s*\d[\d,]*(?:\.\d{1,2})?'
     hits = re.findall(price_pattern, html[:60000])
+    # Filter out matches with no meaningful number (e.g. '$,' '£4' single digit artifacts)
+    hits = [h for h in hits if re.search(r'\d{2,}', h)]  # require at least 2 consecutive digits
     if hits:
         result.update(
             status="WARN", score=4,

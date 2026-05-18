@@ -8,10 +8,6 @@ CHANGES FROM v1:
        — Observability trace added to every result
 """
 
-import os
-import sys
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-
 import re
 import logging
 
@@ -172,14 +168,40 @@ def _normalize_brand(name: str) -> str:
     return name
 
 
-def _title_brand(soup: BeautifulSoup) -> str:
-    """Extract brand from <title> — take first segment before separator."""
+def _title_brand_via_ner(soup: BeautifulSoup) -> str:
+    """
+    Extract brand name from <title> using spaCy NER.
+    Only returns a value if spaCy tags an ORG entity in the title.
+    Falls back to empty string if no ORG found — never returns tagline/SEO text.
+
+    spaCy is already loaded in the stack (en_core_web_sm).
+    """
+    try:
+        import spacy
+        nlp = spacy.load("en_core_web_sm")
+    except Exception:
+        return ""
+
     tag = soup.find("title")
     if not tag or not tag.string:
         return ""
-    raw   = tag.string.strip()
-    parts = re.split(r"[–—|·\-]", raw)
-    return parts[0].strip() if parts else ""
+
+    raw = tag.string.strip()
+
+    # Split on common title separators first — check each segment
+    segments = re.split(r"[–—|·]", raw)
+    for segment in segments:
+        segment = segment.strip()
+        if not segment:
+            continue
+        doc = nlp(segment)
+        orgs = [ent.text for ent in doc.ents if ent.label_ == "ORG"]
+        if orgs:
+            # Return shortest ORG (most likely the brand, not a sentence)
+            return min(orgs, key=len)
+
+    # No ORG found in any segment — return empty (honest UNKNOWN, not wrong name)
+    return ""
 
 
 def check_r25(base_url: str, html: str) -> dict:
@@ -227,11 +249,12 @@ def check_r25(base_url: str, html: str) -> dict:
     except Exception as e:
         logger.debug(f"extruct error R25: {e}")
 
-    # 3. <title> fallback — only if still < 2 sources
+    # 3. spaCy NER on title — only if still < 2 sources, only if ORG entity found
+    #    Never use raw title text — taglines cause false fails (e.g. "High Protein, Keto")
     if len(sources) < 2:
-        tb = _title_brand(soup)
+        tb = _title_brand_via_ner(soup)
         if tb and len(tb) > 1:
-            sources["title_tag"] = tb
+            sources["title_ner"] = tb
 
     raw_evidence = f"Brand sources found: {sources}"
     result["evidence"] = raw_evidence
@@ -303,4 +326,4 @@ def check_r25(base_url: str, html: str) -> dict:
                 status="FAIL", severity="HIGH", fix=fix,
             ),
         )
-    return result
+    return result 

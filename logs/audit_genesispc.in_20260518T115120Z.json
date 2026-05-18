@@ -1,0 +1,414 @@
+{
+  "meta": {
+    "store_url": "https://www.genesispc.in/?hl=en-IN",
+    "domain": "genesispc.in",
+    "audit_timestamp": "20260518T115120Z",
+    "merchant_intent": "i'm not sure",
+    "mcq": {
+      "category": "Sports & Fitness",
+      "customer": "Budget-conscious",
+      "differentiator": "Price",
+      "tone": "Friendly / Casual"
+    },
+    "score": {
+      "scored_total": 20.0,
+      "checklist_total": 8.0,
+      "grand_total": 28.0,
+      "max_scored": 60,
+      "max_checklist": 9,
+      "max_total": 69,
+      "pct": 40.6,
+      "breakdown": {
+        "R1": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "No AI crawlers blocked in robots.txt",
+          "is_scored": false
+        },
+        "R3": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "Sitemap index (5 child sitemaps). Sampled child: 267 URLs | products: 266 | collections: 0",
+          "is_scored": false
+        },
+        "R5": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "No bot protection blocking detected",
+          "is_scored": false
+        },
+        "R6": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "SSL valid for www.genesispc.in",
+          "is_scored": false
+        },
+        "R7": {
+          "score": 3,
+          "max": 10,
+          "status": "WARN",
+          "detail": "Commerce schema score: 3/10 — types: ['Organization']",
+          "is_scored": true
+        },
+        "R9": {
+          "score": 0,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "No price signal found on homepage",
+          "is_scored": true
+        },
+        "R11": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "All 2 JSON-LD block(s) are valid",
+          "is_scored": false
+        },
+        "R13": {
+          "score": 0,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Descriptions are very vague (delta=0.15) — AI cannot extract meaningful product facts",
+          "is_scored": true
+        },
+        "R15": {
+          "score": 0,
+          "max": 1,
+          "status": "FAIL",
+          "detail": "No FAQ page found at standard paths",
+          "is_scored": false
+        },
+        "R16": {
+          "score": 2,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Refund policy page exists but no return window is extractable",
+          "is_scored": true
+        },
+        "R17": {
+          "score": 10,
+          "max": 10,
+          "status": "PASS",
+          "detail": "Shipping timeframe found: '1–3 business days'",
+          "is_scored": true
+        },
+        "R23": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "Contact page with branded email: service@genesispc.in",
+          "is_scored": false
+        },
+        "R25": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "Brand consistent (100.0%): ['GenesisPC', 'GenesisPC']",
+          "is_scored": false
+        },
+        "R28": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "UCP profile found. Services: ['dev.ucp.shopping']",
+          "is_scored": false
+        },
+        "R30": {
+          "score": 0,
+          "max": 0,
+          "status": "INFORMATIONAL",
+          "detail": "Shopify confirmed (auto-enrolled in ACP). No Product schema on homepage — normal for Shopify. Product pages have schema by default.",
+          "is_scored": false,
+          "informational": true
+        },
+        "R31": {
+          "score": 5,
+          "max": 10,
+          "status": "WARN",
+          "detail": "Partial GMC signals (2/4) — missing: ['og:type=product', 'no currency pricing visible in HTML']",
+          "is_scored": true
+        }
+      }
+    }
+  },
+  "checks": {
+    "R1": {
+      "check_id": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "No AI crawlers blocked in robots.txt",
+      "raw_evidence": "# we use Shopify as our ecommerce platform\n\n#  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n#  ┃  Robots & Agent policy                                               ┃\n#  ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n#  ┃  Checkouts are for humans.                                           ┃\n#  ┃  * Automated scraping, “buy-for-me” agents, or any end-to-end flow   ┃\n#  ┃    that completes payment without a final human review step is not   ┃\n#  ┃    permitted.                                                        ┃\n#  ┃  * Legitimate integrators must use the official Checkout Kit:        ┃\n#  ┃      https://www.shopify.com/checkout-kit                            ┃\n#  ┃                                                                    ",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R1 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R3": {
+      "check_id": "R3",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "Sitemap index (5 child sitemaps). Sampled child: 267 URLs | products: 266 | collections: 0",
+      "raw_evidence": "Child sitemaps: ['https://www.genesispc.in/sitemap_agentic_discovery.xml', 'https://www.genesispc.in/sitemap_products_1.xml?from=7411894878261&amp;to=8112018849845', 'https://www.genesispc.in/sitemap_pages_1.xml?from=95623643189&amp;to=114657591349']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R3 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R5": {
+      "check_id": "R5",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "No bot protection blocking detected",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R5 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R6": {
+      "check_id": "R6",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "SSL valid for www.genesispc.in",
+      "raw_evidence": "Subject: ((('commonName', 'www.genesispc.in'),),)",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R6 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R7": {
+      "check_id": "R7",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 3,
+      "detail": "Commerce schema score: 3/10 — types: ['Organization']",
+      "raw_evidence": "Types found: ['Organization', 'WebSite']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R7 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add schema.org JSON-LD to your store. Priority order:\n\n1. Organization (if missing):\n   <script type=\"application/ld+json\">\n   {\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\n    \"name\":\"YOUR STORE NAME\",\"url\":\"YOUR URL\"}\n   </script>\n\n2. Product schema on all product pages (Shopify usually adds this automatically).\n\n3. FAQPage schema on your FAQ page.",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R9": {
+      "check_id": "R9",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "No price signal found on homepage",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R9 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add price data to your homepage or product pages using schema.org.\nShopify usually adds this automatically on product pages.\nCheck that your theme is not blocking schema.org output.",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R11": {
+      "check_id": "R11",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "All 2 JSON-LD block(s) are valid",
+      "raw_evidence": "2 JSON-LD block(s) found",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R11 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R13": {
+      "check_id": "R13",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "Descriptions are very vague (delta=0.15) — AI cannot extract meaningful product facts",
+      "raw_evidence": "Vagueness delta: 0.154 | Sample: Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call ",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R13 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Your descriptions contain almost no extractable facts.\nFor each product, include at minimum:\n  • Material composition\n  • Dimensions or weight\n  • Key feature with a number (e.g. '500ml capacity', '30-day battery')\n  • Who it is for / use case",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R15": {
+      "check_id": "R15",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "No FAQ page found at standard paths",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R15 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Create a FAQ page at /pages/faq covering:\n1. Returns & refunds (include exact days)\n2. Shipping times by region\n3. Sizing / compatibility guide\n4. Payment methods\n5. How to contact support\n6. Warranty / guarantee terms\n\nAI agents use FAQ content to answer buyer questions directly.\nMissing FAQ = AI answers 'I don't know' when asked about your store policies.",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R16": {
+      "check_id": "R16",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 2,
+      "detail": "Refund policy page exists but no return window is extractable",
+      "raw_evidence": "Refund policy\n – GenesisPC Skip to content Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Abov",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R16 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Your policy page exists but AI cannot extract a return timeframe.\nAdd clearly: 'Returns accepted within [NUMBER] days of delivery.'\nMake the number explicit — not 'a few weeks' or 'reasonable time'.",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R17": {
+      "check_id": "R17",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 10,
+      "detail": "Shipping timeframe found: '1–3 business days'",
+      "raw_evidence": "Shipping policy\n – GenesisPC Skip to content Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Ab",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R17 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R23": {
+      "check_id": "R23",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "Contact page with branded email: service@genesispc.in",
+      "raw_evidence": "Fetched /pages/contact — emails: ['service@genesispc.in', 'service@genesispc.in', 'service@genesispc.in', 'service@genesispc.in']",
+      "what_we_did": "Classified email domain against free-provider blocklist.",
+      "what_AI_sees": "AI sees branded email service@genesispc.in — strong accountability signal.",
+      "causality": "R23 PASSED — AI sees branded email service@genesispc.in — strong accountability signal.",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R25": {
+      "check_id": "R25",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "Brand consistent (100.0%): ['GenesisPC', 'GenesisPC']",
+      "raw_evidence": "Brand sources found: {'og_site_name': 'GenesisPC', 'schema_org': 'GenesisPC'}",
+      "what_we_did": "Compared 'og_site_name'='GenesisPC' (norm: 'genesispc') vs 'schema_org'='GenesisPC' (norm: 'genesispc'). Fuzzy ratio=100.0%",
+      "what_AI_sees": "AI sees consistent brand 'GenesisPC' across sources.",
+      "causality": "R25 PASSED — AI sees consistent brand 'GenesisPC' across sources.",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R28": {
+      "check_id": "R28",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "UCP profile found. Services: ['dev.ucp.shopping']",
+      "raw_evidence": "{\"ucp\":{\"version\":\"2026-04-08\",\"supported_versions\":{\"2026-04-08\":\"https:\\/\\/724c34-7b.myshopify.com\\/.well-known\\/ucp\\/2026-04-08\",\"2026-01-23\":\"https:\\/\\/724c34-7b.myshopify.com\\/.well-known\\/ucp\\/2026-01-23\"},\"services\":{\"dev.ucp.shopping\":[{\"version\":\"2026-04-08\",\"spec\":\"https:\\/\\/ucp.dev\\/2026-04-08\\/specification\\/overview\\/\",\"transport\":\"mcp\",\"endpoint\":\"https:\\/\\/724c34-7b.myshopify.com\\/a",
+      "what_we_did": "GET https://www.genesispc.in/.well-known/ucp → 200. Parsed JSON for services.",
+      "what_AI_sees": "AI commerce agents can discover store with services: ['dev.ucp.shopping'].",
+      "causality": "R28 PASSED — AI commerce agents can discover store with services: ['dev.ucp.shopping'].",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R30": {
+      "check_id": "R30",
+      "tier": "VERIFIED",
+      "status": "INFORMATIONAL",
+      "score": 0,
+      "detail": "Shopify confirmed (auto-enrolled in ACP). No Product schema on homepage — normal for Shopify. Product pages have schema by default.",
+      "raw_evidence": "Shopify CDN confirmed. extruct found 0 Product schema on homepage.",
+      "what_we_did": "extruct JSON-LD extraction on homepage HTML.",
+      "what_AI_sees": "Store is enrolled in ACP via Shopify. Homepage product schema absent (expected).",
+      "causality": "R30 INFORMATIONAL — Store is enrolled in ACP via Shopify. Homepage product schema absent (expected).",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    },
+    "R31": {
+      "check_id": "R31",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 5,
+      "detail": "Partial GMC signals (2/4) — missing: ['og:type=product', 'no currency pricing visible in HTML']",
+      "raw_evidence": "signals=['google-site-verification', 'Organization/WebSite schema'] | missing=['og:type=product', 'no currency pricing visible in HTML']",
+      "what_we_did": "Checked 4 GMC signals: google-site-verification meta, og:type=product, currency price in raw HTML, Organization/WebSite schema.org.",
+      "what_AI_sees": "Gemini product surfacing limited — only 2/4 GMC signals present.",
+      "causality": "R31 WARNING — Gemini product surfacing limited — only 2/4 GMC signals present.",
+      "severity": "MODERATE",
+      "fix": "Improve GMC readiness:\n• og:type=product\n• no currency pricing visible in HTML\n\nVerify store with Google Search Console to get site-verification tag.",
+      "timestamp": "2026-05-18T11:51:20.931015+00:00"
+    }
+  },
+  "gap": {
+    "gap_IW": 0.77,
+    "gap_IS": 0.75,
+    "gap_WS": 0.076,
+    "IW_label": "MISALIGNED",
+    "IS_label": "MISALIGNED",
+    "WS_label": "ALIGNED",
+    "schema_source": "CRAWLED_FALLBACK",
+    "intent_text": "i'm not sure This is a Sports & Fitness store. Our primary customer is Budget-conscious. Our main differentiator is Price. Our brand tone is Friendly / Casual.",
+    "website_text": "GenesisPC: Gaming and Esports Peripheral Store Skip to content Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! About U",
+    "schema_text": "GenesisPC: Gaming and Esports Peripheral Store Skip to content Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? About Us – GenesisPC Skip to content Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help?",
+    "per_gap_traces": {
+      "IW": {
+        "gap": 0.77,
+        "label": "MISALIGNED",
+        "question": "Does your website reflect what you think your store says?",
+        "source_A": "merchant_intent",
+        "source_B": "website_content",
+        "preview_A": "i'm not sure This is a Sports & Fitness store. Our primary customer is Budget-conscious. Our main differentiator is Price. Our brand tone is Friendly / Casual.",
+        "preview_B": "GenesisPC: Gaming and Esports Peripheral Store Skip to content Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "IS": {
+        "gap": 0.75,
+        "label": "MISALIGNED",
+        "question": "Does your structured data (schema/crawl) reflect your intent?",
+        "source_A": "merchant_intent",
+        "source_B": "CRAWLED_FALLBACK",
+        "preview_A": "i'm not sure This is a Sports & Fitness store. Our primary customer is Budget-conscious. Our main differentiator is Price. Our brand tone is Friendly / Casual.",
+        "preview_B": "GenesisPC: Gaming and Esports Peripheral Store Skip to content Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "WS": {
+        "gap": 0.076,
+        "label": "ALIGNED",
+        "question": "Are your website content and schema/crawl consistent with each other?",
+        "source_A": "website_content",
+        "source_B": "CRAWLED_FALLBACK",
+        "preview_A": "GenesisPC: Gaming and Esports Peripheral Store Skip to content Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price",
+        "preview_B": "GenesisPC: Gaming and Esports Peripheral Store Skip to content Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price",
+        "interpretation": "ALIGNED: No action needed."
+      }
+    }
+  },
+  "conclusion": "Your store's AI visibility is very low at 40.6%, meaning AI struggles to understand what you sell, which severely limits your appearance in relevant customer searches. Critical issues like vague product",
+  "raw_page_texts": {
+    "homepage": "GenesisPC: Gaming and Esports Peripheral Store Skip to content Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free De",
+    "about": "About Us – GenesisPC Skip to content Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Hel",
+    "policies": "Refund policy – GenesisPC Skip to content Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Need Help? - Call us on (+91) 9429693444 Price Match Guarantee!!! Free Delivery Above ₹999 Nee"
+  }
+}
