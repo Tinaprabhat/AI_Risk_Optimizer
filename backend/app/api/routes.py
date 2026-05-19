@@ -5,13 +5,13 @@ from typing import Optional
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-from app.services.auditor import run_audit
-from app.services.fix_engine import (
+from src.auditor import run_audit
+from src.part2.fix_engine import (
     chatbot_first_message,
     chatbot_reply,
     get_fix_template,
 )
-from app.utils.db import (
+from src.utils.db import (
     save_chat_message,
     load_chat_history,
     clear_chat_history,
@@ -193,18 +193,16 @@ def clear_cache(store_url: str):
     Force re-audit by deleting today's cached result for a URL.
     Useful for testing or when merchant updates their store.
     """
-    from app.utils.db import _connect, url_hash
+    from src.utils.db import _connect, url_hash
     conn = _connect()
     try:
-        with conn.cursor() as cur:
-            cur.execute(
-                "DELETE FROM audits WHERE url_hash = %s",
-                (url_hash(store_url),)
-            )
+        conn.execute(
+            "DELETE FROM audits WHERE url_hash = ?",
+            (url_hash(store_url),)
+        )
         conn.commit()
         return {"message": f"Cache cleared for {store_url}"}
     except Exception as e:
-        conn.rollback()
         raise HTTPException(status_code=500, detail=str(e))
     finally:
         conn.close()

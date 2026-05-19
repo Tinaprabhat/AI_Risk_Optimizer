@@ -33,7 +33,7 @@ from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 
 from src.utils.fetcher            import safe_get, jitter_sleep
-from src.utils.db                 import save_audit, load_audit
+from src.utils.db                 import save_audit, load_audit, init_db
 from src.utils.text_cleaner       import extract_clean_text, is_garbage
 from src.utils.semantic_extractor import SemanticExtractor
 from src.utils.obs_logger         import write_audit_log
@@ -46,6 +46,7 @@ from src.layer4.r23_r25           import check_r23, check_r25
 from src.layer5.r28_r30_r31       import check_r28, check_r30, check_r31
 from src.layer6.semantic_gap      import compute_gap
 from src.layer7.aggregator        import compute_score, get_failed_checks, build_conclusion
+from src.part2.fix_engine         import get_fix_template
 
 logger = logging.getLogger(__name__)
 
@@ -70,6 +71,8 @@ def run_audit(
     Returns:
         Full audit result dict.
     """
+    init_db()
+
     # Normalise URL
     if not store_url.startswith("http"):
         store_url = "https://" + store_url
@@ -221,6 +224,13 @@ def run_audit(
         checks, score, gap_summary, merchant_intent, gap_result
     )
 
+    # Part 2 — attach fix templates for each failed check (layer7 output → fix engine)
+    fix_templates = {
+        fc["code"]: get_fix_template(fc["code"])
+        for fc in failed_checks
+        if get_fix_template(fc["code"])
+    }
+
     final_result = {
         "store_url":          base_url,
         "score":              score,
@@ -232,6 +242,7 @@ def run_audit(
         "observability":      obs_block,
         "checks":             checks,
         "semantic_data":      semantic_data,
+        "fix_templates":      fix_templates,
     }
 
     save_audit(base_url, parsed.netloc, final_result)

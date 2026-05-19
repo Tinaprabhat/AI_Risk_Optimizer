@@ -22,7 +22,6 @@ import extruct
 from bs4 import BeautifulSoup
 
 from src.utils.embedder     import embed, cosine_sim, chunk_text
-from src.utils.text_cleaner import soup_to_clean_text
 
 logger = logging.getLogger(__name__)
 

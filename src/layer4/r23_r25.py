@@ -20,7 +20,6 @@ import logging
 from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
-from rapidfuzz import fuzz
 
 from src.utils.fetcher      import safe_get, jitter_sleep
 from src.utils.text_cleaner import extract_clean_text, is_garbage
@@ -197,7 +196,7 @@ def check_r25(semantic_data: dict, homepage_html: str = "") -> dict:
     if consistency < _CONSISTENCY_PASS_THRESHOLD and len(unique_norms) > 1:
         result.update({
             "status": "WARN",
-            "score":  0,
+            "score":  0.5,
             "detail": f"Brand name slightly inconsistent across sources "
                        f"(consistency={consistency:.2f}). "
                        f"Found: {', '.join(all_names[:3])}. "

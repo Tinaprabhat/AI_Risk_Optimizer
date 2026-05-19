@@ -96,47 +96,58 @@ SHIPPING_POLICY_VAGUE = "We try to ship orders as quickly as possible. Delivery 
 # 1. UNIT TESTS — R25 Brand Consistency
 # ═══════════════════════════════════════════════════════════════════════════════
 
+def _build_semantic_data(html: str) -> dict:
+    """Build a semantic_data dict for check_r25 tests using SemanticExtractor."""
+    from src.utils.semantic_extractor import SemanticExtractor
+    extractor = SemanticExtractor()
+    brand = extractor.extract_brand(html, schema_org=[])
+    return {"brand": brand}
+
+
 class TestR25BrandConsistency:
 
     @pytest.mark.unit
     def test_consistent_brands_pass(self):
         from src.layer4.r23_r25 import check_r25
-        result = check_r25("https://teststore.com", SHOPIFY_HTML_BASE)
+        semantic_data = _build_semantic_data(SHOPIFY_HTML_BASE)
+        result = check_r25(semantic_data, SHOPIFY_HTML_BASE)
         assert result["status"] == "PASS", f"Expected PASS, got {result['status']} | {result['detail']}"
         assert result["score"] == 1
 
     @pytest.mark.unit
     def test_title_tag_fallback_used(self):
-        """When og:site_name and schema missing, title tag should be used as source."""
+        """When og:site_name and schema missing, title tag is used — single source → PASS."""
         from src.layer4.r23_r25 import check_r25
-        result = check_r25("https://teststore.com", HTML_NO_OG_NO_SCHEMA)
-        # Only 1 source (title_tag) — should be UNKNOWN, not FAIL
-        assert result["status"] == "UNKNOWN", f"Expected UNKNOWN (only 1 source), got {result['status']}"
-        assert "title_tag" in result["evidence"]
+        semantic_data = _build_semantic_data(HTML_NO_OG_NO_SCHEMA)
+        result = check_r25(semantic_data, HTML_NO_OG_NO_SCHEMA)
+        # Single source with no alternatives is perfectly consistent → PASS
+        assert result["status"] == "PASS", f"Expected PASS (single consistent source), got {result['status']}"
+        assert result.get("evidence"), "evidence field should be populated"
 
     @pytest.mark.unit
     def test_brand_mismatch_fail(self):
         from src.layer4.r23_r25 import check_r25
-        result = check_r25("https://teststore.com", HTML_BRAND_MISMATCH)
+        semantic_data = _build_semantic_data(HTML_BRAND_MISMATCH)
+        result = check_r25(semantic_data, HTML_BRAND_MISMATCH)
         assert result["status"] in ("FAIL", "WARN"), f"Expected FAIL or WARN, got {result['status']}"
 
     @pytest.mark.unit
     def test_warn_scores_half_point(self):
-        """WARN should now give score=0.5 (partial credit in v2)."""
+        """WARN should give score=0.5 (partial credit in v2)."""
         from src.layer4.r23_r25 import check_r25
-        result = check_r25("https://teststore.com", HTML_BRAND_MISMATCH)
+        semantic_data = _build_semantic_data(HTML_BRAND_MISMATCH)
+        result = check_r25(semantic_data, HTML_BRAND_MISMATCH)
         if result["status"] == "WARN":
             assert result["score"] == 0.5, f"WARN should score 0.5, got {result['score']}"
 
     @pytest.mark.unit
-    def test_observability_present(self):
+    def test_evidence_present(self):
+        """check_r25 v2 populates the evidence field (no observability block)."""
         from src.layer4.r23_r25 import check_r25
-        result = check_r25("https://teststore.com", SHOPIFY_HTML_BASE)
-        obs = result.get("observability", {})
-        assert obs, "Observability block should not be empty"
-        assert "what_we_did" in obs
-        assert "what_AI_sees" in obs
-        assert "raw_evidence" in obs
+        semantic_data = _build_semantic_data(SHOPIFY_HTML_BASE)
+        result = check_r25(semantic_data, SHOPIFY_HTML_BASE)
+        assert result.get("evidence"), "evidence field should be non-empty"
+        assert "Primary:" in result["evidence"], "evidence should show primary brand source"
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -315,12 +326,22 @@ class TestLLMQuality:
         ("Does this store sell electronics?",   None),   # should be NOT FOUND
     ]
 
+    @staticmethod
+    def _llm_available() -> bool:
+        from src.utils.llm import GEMINI_API_KEY, ollama_available
+        try:
+            import google.generativeai  # noqa: F401
+            gemini_ok = bool(GEMINI_API_KEY)
+        except ImportError:
+            gemini_ok = False
+        return gemini_ok or ollama_available()
+
     @pytest.mark.llm
     def test_gemini_answer_rate(self):
         """≥ 85% of answerable questions should be answered correctly."""
-        from src.utils.llm import GEMINI_API_KEY, ollama_available, call_llm
-        if not GEMINI_API_KEY and not ollama_available():
-            pytest.skip("No LLM available — set GEMINI_API_KEY or start Ollama to run this test")
+        from src.utils.llm import call_llm
+        if not self._llm_available():
+            pytest.skip("No LLM available — install google-generativeai + set GEMINI_API_KEY, or start Ollama")
 
         answerable = [q for q, expected in self.QUESTIONS if expected is not None]
         correct    = 0
@@ -345,6 +366,8 @@ class TestLLMQuality:
     def test_gemini_hallucination_rate(self):
         """< 10% of answers should contain facts not in the store content."""
         from src.utils.llm import call_llm
+        if not self._llm_available():
+            pytest.skip("No LLM available — install google-generativeai + set GEMINI_API_KEY, or start Ollama")
 
         hallucinations = 0
         total          = len(self.QUESTIONS)

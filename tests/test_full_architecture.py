@@ -82,9 +82,9 @@ def progress_cb(msg):
 # ══════════════════════════════════════════════════════════════════════════════
 # 1. DATABASE INIT
 # ══════════════════════════════════════════════════════════════════════════════
-section("1. DATABASE — PostgreSQL init")
+section("1. DATABASE — SQLite init")
 
-from app.utils.db import (
+from src.utils.db import (
     init_db, save_audit, load_audit,
     save_chat_message, load_chat_history, clear_chat_history,
     _connect, url_hash,
@@ -92,11 +92,10 @@ from app.utils.db import (
 
 try:
     init_db()
-    ok("PostgreSQL connected and tables created (audits, chat_history)")
+    ok("SQLite connected and tables created (audits, chat_history)")
 except Exception as e:
     fail(f"DB init failed: {e}")
-    print("\n  Check DATABASE_URL in your .env file.")
-    print("  Expected format: postgresql://postgres:password@localhost:5432/ai_rep_optimizer")
+    print("\n  Check SQLite path / DATABASE_URL in your .env file.")
     sys.exit(1)
 
 
@@ -107,11 +106,10 @@ section("2. CACHE CLEAR — wipe old colourpop result")
 
 try:
     conn = _connect()
-    with conn.cursor() as cur:
-        cur.execute(
-            "DELETE FROM audits WHERE url_hash = %s",
-            (url_hash(STORE_URL),)
-        )
+    conn.execute(
+        "DELETE FROM audits WHERE url_hash = ?",
+        (url_hash(STORE_URL),)
+    )
     conn.commit()
     conn.close()
 
@@ -129,7 +127,7 @@ except Exception as e:
 # ══════════════════════════════════════════════════════════════════════════════
 section("3. FETCHER — HTTP client test on colourpop.com")
 
-from app.utils.fetcher import safe_get
+from src.utils.fetcher import safe_get
 
 fetch = safe_get(STORE_URL)
 if fetch.ok:
@@ -152,7 +150,7 @@ homepage_html = fetch.text if fetch.ok else ""
 # ══════════════════════════════════════════════════════════════════════════════
 section("4. EMBEDDER — all-MiniLM-L6-v2 singleton")
 
-from app.utils.embedder import embed, cosine_sim, embed_batch
+from src.utils.embedder import embed, cosine_sim, embed_batch
 
 print("  Loading model (first call takes ~2s)...")
 t = time.time()
@@ -175,7 +173,7 @@ ok(f"Batch embed working — shape: {batch.shape}  (expected (3, 384))")
 # ══════════════════════════════════════════════════════════════════════════════
 section("5. LLM — Gemini → Ollama Mistral → fallback chain")
 
-from app.utils.llm import call_llm, ollama_available
+from src.utils.llm import call_llm, ollama_available
 
 # Check Ollama availability
 ollama_up = ollama_available()
@@ -209,7 +207,7 @@ section("6–12. FULL AUDIT — all 7 layers running on colourpop.com")
 print("  This takes 30–60 seconds. Progress:")
 print()
 
-from app.services.auditor import run_audit
+from src.auditor import run_audit
 
 t_audit = time.time()
 result = run_audit(
@@ -407,31 +405,28 @@ if line.strip():
 # ══════════════════════════════════════════════════════════════════════════════
 # 14. DB SAVE VERIFICATION
 # ══════════════════════════════════════════════════════════════════════════════
-section("14. DB SAVE — verifying result stored in PostgreSQL")
+section("14. DB SAVE — verifying result stored in SQLite")
 
 try:
     conn = _connect()
-    with conn.cursor() as cur:
-        cur.execute(
-            """
-            SELECT url, audit_date,
-                   results_json->'score'->>'pct' as pct,
-                   length(results_json::text) as json_size
-            FROM audits WHERE url_hash = %s
-            """,
-            (url_hash(STORE_URL),)
-        )
-        row = cur.fetchone()
+    row = conn.execute(
+        "SELECT url, audit_date, results_json FROM audits WHERE url_hash = ?",
+        (url_hash(STORE_URL),)
+    ).fetchone()
     conn.close()
 
     if row:
-        ok(f"Row saved in PostgreSQL:")
-        ok(f"  url        = {row['url']}")
-        ok(f"  audit_date = {row['audit_date']}")
-        ok(f"  score pct  = {row['pct']}%")
-        ok(f"  JSON size  = {row['json_size']:,} bytes")
+        row_data = dict(row)
+        results  = json.loads(row_data["results_json"])
+        pct      = results.get("score", {}).get("pct", "?")
+        json_size = len(row_data["results_json"])
+        ok(f"Row saved in SQLite:")
+        ok(f"  url        = {row_data['url']}")
+        ok(f"  audit_date = {row_data['audit_date']}")
+        ok(f"  score pct  = {pct}%")
+        ok(f"  JSON size  = {json_size:,} bytes")
     else:
-        fail("Row NOT found in PostgreSQL after audit — save_audit() may have failed")
+        fail("Row NOT found in SQLite after audit — save_audit() may have failed")
 except Exception as e:
     fail(f"DB verification failed: {e}")
 
@@ -502,7 +497,7 @@ else:
 # ══════════════════════════════════════════════════════════════════════════════
 section("17. FIX ENGINE — template + chatbot on first failed check")
 
-from app.services.fix_engine import (
+from src.part2.fix_engine import (
     chatbot_first_message,
     chatbot_reply,
     get_fix_template,

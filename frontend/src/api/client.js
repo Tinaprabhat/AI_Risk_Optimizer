@@ -4,8 +4,11 @@ const BASE = import.meta.env.VITE_API_BASE_URL;
 
 const api = axios.create({
   baseURL: BASE,
-  timeout: 15000,
+  timeout: 15000,   // default — fast endpoints (status, health, templates)
 });
+
+// Higher timeout for endpoints that call the LLM (Ollama can take 30-40s)
+const LLM_TIMEOUT = 60000;
 
 // ── AUDIT ─────────────────────────────────────────────────────────
 
@@ -30,7 +33,7 @@ export const startChat = (storeUrl, checkCode, checkDetail) =>
     store_url: storeUrl,
     check_code: checkCode,
     check_detail: checkDetail,
-  });
+  }, { timeout: LLM_TIMEOUT });
 
 export const sendChatReply = (storeUrl, checkCode, checkDetail, checkFix, userMessage) =>
   api.post("/chat/reply", {
@@ -39,7 +42,7 @@ export const sendChatReply = (storeUrl, checkCode, checkDetail, checkFix, userMe
     check_detail: checkDetail,
     check_fix: checkFix,
     user_message: userMessage,
-  });
+  }, { timeout: LLM_TIMEOUT });
 
 export const getChatHistory = (storeUrl, checkCode) =>
   api.get("/chat/history", {

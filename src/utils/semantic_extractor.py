@@ -317,6 +317,7 @@ class SemanticExtractor:
             "unit": None, "raw": None,
             "found": False, "confidence": 0.0,
             "policy_text_found": False,
+            "tier2_hit": False,
         }
 
         _REFUND_KW = re.compile(r'refund|return|money.back', re.I)
@@ -356,6 +357,7 @@ class SemanticExtractor:
             "unit": None, "raw": None,
             "found": False, "confidence": 0.0,
             "policy_text_found": False,
+            "tier2_hit": False,
         }
 
         _SHIPPING_KW = re.compile(r'shipping|delivery|dispatch', re.I)
@@ -422,8 +424,8 @@ class SemanticExtractor:
         m = re.search(r'<title[^>]*>([^<]+)</title>', homepage_html, re.IGNORECASE)
         if m:
             title = m.group(1).strip()
-            # Take first segment before | or — or -
-            segment = re.split(r'\s*[|—\-]\s*', title)[0].strip()
+            # Take first segment before |, em-dash —, en-dash –, or -
+            segment = re.split(r'\s*[|—–\-]\s*', title)[0].strip()
             if segment and len(segment) >= 2:
                 sources.append(("html_title", segment, 0.75))
 

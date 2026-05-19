@@ -51,6 +51,7 @@ def check_r3(base_url: str) -> dict:
         "check": "R3", "tier": "VERIFIED",
         "status": "FAIL", "score": 0,
         "detail": "", "evidence": "", "fix": "",
+        "product_urls": [],
     }
 
     sitemap_url = base_url.rstrip("/") + "/sitemap.xml"
@@ -105,6 +106,10 @@ def check_r3(base_url: str) -> dict:
             url_count   = child_content.count("<loc>")
             products    = len(re.findall(r"/products?/", child_content, re.I))
             collections = len(re.findall(r"/collections?/", child_content, re.I))
+            product_url_list = re.findall(
+                r"<loc>(https?://[^<]*?/products?/[^<]*)</loc>",
+                child_content, re.I
+            )
             result.update(
                 status="PASS", score=1,
                 detail=(
@@ -112,20 +117,27 @@ def check_r3(base_url: str) -> dict:
                     f"Sampled child: {url_count} URLs | products: {products} | collections: {collections}"
                 ),
                 evidence=f"Child sitemaps: {child_locs[:3]}",
+                product_urls=product_url_list[:5],
             )
         else:
             result.update(
                 status="PASS", score=1,
                 detail=f"Sitemap index found ({child_count} child sitemaps — child fetch failed)",
                 evidence=raw[:400],
+                product_urls=[],
             )
     else:
         url_count   = raw.count("<loc>")
         products    = len(re.findall(r"/products?/", raw, re.I))
         collections = len(re.findall(r"/collections?/", raw, re.I))
+        product_url_list = re.findall(
+            r"<loc>(https?://[^<]*?/products?/[^<]*)</loc>",
+            raw, re.I
+        )
         result.update(
             status="PASS", score=1,
             detail=f"{url_count} URLs | products: {products} | collections: {collections}",
+            product_urls=product_url_list[:5],
         )
 
     return result

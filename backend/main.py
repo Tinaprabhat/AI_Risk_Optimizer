@@ -1,13 +1,14 @@
 import os
 import sys
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# Add project root (parent of backend/) so that src.* modules are importable
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from dotenv import load_dotenv
 load_dotenv()
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.utils.db import init_db
+from src.utils.db import init_db
 from backend.app.api.routes import router
 
 app = FastAPI(

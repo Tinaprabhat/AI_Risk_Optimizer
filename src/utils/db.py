@@ -18,7 +18,7 @@ import sqlite3
 import hashlib
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
@@ -80,7 +80,7 @@ def save_audit(url: str, label: str, results: dict) -> None:
             """INSERT OR REPLACE INTO audits
                (url_hash, url, label, audit_date, results_json)
                VALUES (?, ?, ?, ?, ?)""",
-            (url_hash(url), url, label, datetime.utcnow().isoformat(), json.dumps(results))
+            (url_hash(url), url, label, datetime.now(timezone.utc).isoformat(), json.dumps(results))
         )
         conn.commit()
         logger.info(f"Audit saved for {url}")
@@ -105,7 +105,7 @@ def load_audit(url: str) -> Optional[dict]:
             return None
         # Only use cache if audited today
         audit_date = row["audit_date"][:10]
-        today      = datetime.utcnow().date().isoformat()
+        today      = datetime.now(timezone.utc).date().isoformat()
         if audit_date != today:
             logger.info(f"Cache expired for {url} (audited {audit_date})")
             return None
@@ -125,7 +125,7 @@ def save_chat_message(url: str, check_code: str, role: str, message: str) -> Non
             """INSERT INTO chat_history
                (url_hash, check_code, role, message, created_at)
                VALUES (?, ?, ?, ?, ?)""",
-            (url_hash(url), check_code, role, message, datetime.utcnow().isoformat())
+            (url_hash(url), check_code, role, message, datetime.now(timezone.utc).isoformat())
         )
         conn.commit()
     except Exception as e:

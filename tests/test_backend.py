@@ -37,7 +37,7 @@ MCQ = {
 
 # ── 1. DB INIT ────────────────────────────────────────────────────────────────
 print("\n=== 1. DATABASE ===")
-from app.utils.db import init_db, save_audit, load_audit, save_chat_message, load_chat_history
+from src.utils.db import init_db, save_audit, load_audit, save_chat_message, load_chat_history
 init_db()
 print("✓ DB connected and tables created")
 
@@ -62,7 +62,7 @@ else:
 
 # ── 4. FETCHER ────────────────────────────────────────────────────────────────
 print("\n=== 4. FETCHER ===")
-from app.utils.fetcher import safe_get
+from src.utils.fetcher import safe_get
 fetch = safe_get(STORE_URL)
 if fetch.ok:
     print(f"✓ Fetcher working — got {len(fetch.text)} chars from allbirds.com")
@@ -71,7 +71,7 @@ else:
 
 # ── 5. EMBEDDER ───────────────────────────────────────────────────────────────
 print("\n=== 5. EMBEDDER ===")
-from app.utils.embedder import embed, cosine_sim
+from src.utils.embedder import embed, cosine_sim
 e1 = embed("fashion and apparel store")
 e2 = embed("made from 6061 aircraft grade aluminium")
 e3 = embed("fashion and apparel store")
@@ -81,7 +81,7 @@ print(f"  Different text similarity: {cosine_sim(e1, e2):.3f}  (should be <0.8)"
 
 # ── 6. LLM ────────────────────────────────────────────────────────────────────
 print("\n=== 6. LLM ===")
-from app.utils.llm import call_llm
+from src.utils.llm import call_llm
 response, source = call_llm(
     prompt="Say exactly: LLM is working",
     fallback_text="FALLBACK: LLM unavailable"
@@ -92,7 +92,7 @@ print(f"  Response: {response[:100]}")
 # ── 7. FULL AUDIT — ALL 7 LAYERS ──────────────────────────────────────────────
 print("\n=== 7. FULL AUDIT — allbirds.com (30-60 seconds) ===")
 
-from app.services.auditor import run_audit
+from src.auditor import run_audit
 import time
 
 def progress(msg):
@@ -167,7 +167,7 @@ else:
 
 # ── 9. FIX ENGINE ─────────────────────────────────────────────────────────────
 print("\n=== 9. FIX ENGINE ===")
-from app.services.fix_engine import chatbot_first_message, chatbot_reply, get_fix_template
+from src.part2.fix_engine import chatbot_first_message, chatbot_reply, get_fix_template
 
 # Test on the first failed check from the real audit
 first_failed = failed[0] if failed else {"code": "R1", "detail": "test", "fix": "test fix"}

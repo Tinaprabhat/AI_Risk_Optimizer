@@ -71,8 +71,6 @@ def _extract_schema_items(html: str) -> list:
 # Unchanged from v1.
 
 def check_r7(homepage_html: str, product_pages_html=None) -> dict:
-    if not isinstance(product_pages_html, list):
-        product_pages_html = [product_pages_html] if product_pages_html else []
     """
     R7 — Schema.org structured data presence and completeness.
 
@@ -86,6 +84,8 @@ def check_r7(homepage_html: str, product_pages_html=None) -> dict:
     Returns:
         Check result dict with schema_data field for downstream use.
     """
+    if not isinstance(product_pages_html, list):
+        product_pages_html = [product_pages_html] if product_pages_html else []
     result = {
         "check":       "R7",
         "status":      "FAIL",
@@ -178,10 +178,6 @@ def check_r7(homepage_html: str, product_pages_html=None) -> dict:
 # v2.0: Receives semantic_data["price"] with 4-format detection.
 
 def check_r9(homepage_html: str, product_pages_html=None, semantic_data: dict = None) -> dict:
-    if not isinstance(product_pages_html, list):
-        product_pages_html = [product_pages_html] if product_pages_html else []
-    if semantic_data is None:
-        semantic_data = {}
     """
     R9 — Price contradiction between schema.org and visible HTML.
 
@@ -200,6 +196,10 @@ def check_r9(homepage_html: str, product_pages_html=None, semantic_data: dict = 
     Returns:
         Standard check result dict (binary — contradiction = FAIL, no contradiction = PASS).
     """
+    if not isinstance(product_pages_html, list):
+        product_pages_html = [product_pages_html] if product_pages_html else []
+    if semantic_data is None:
+        semantic_data = {}
     result = {
         "check":    "R9",
         "status":   "PASS",
@@ -269,8 +269,6 @@ def check_r9(homepage_html: str, product_pages_html=None, semantic_data: dict = 
 # Unchanged from v1.
 
 def check_r11(homepage_html: str, product_pages_html=None) -> dict:
-    if not isinstance(product_pages_html, list):
-        product_pages_html = [product_pages_html] if product_pages_html else []
     """
     R11 — JSON-LD blocks are valid JSON and have required @context/@type.
 
@@ -283,6 +281,8 @@ def check_r11(homepage_html: str, product_pages_html=None) -> dict:
     Returns:
         Standard check result dict.
     """
+    if not isinstance(product_pages_html, list):
+        product_pages_html = [product_pages_html] if product_pages_html else []
     result = {
         "check":    "R11",
         "status":   "PASS",

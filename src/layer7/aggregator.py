@@ -12,7 +12,6 @@ CHANGES FROM v1:
                   with per-layer trace summary alongside the conclusion text.
 """
 
-import json
 import logging
 
 from src.utils.llm import call_llm
