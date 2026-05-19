@@ -1,0 +1,414 @@
+{
+  "meta": {
+    "store_url": "https://www.chubbiesshorts.com/",
+    "domain": "chubbiesshorts.com",
+    "audit_timestamp": "20260515T200322Z",
+    "merchant_intent": "We sell summer friendly clothes.",
+    "mcq": {
+      "category": "Fashion",
+      "customer": "Budget-conscious",
+      "differentiator": "Sustainability",
+      "tone": "Playful / Fun"
+    },
+    "score": {
+      "scored_total": 10.0,
+      "checklist_total": 3.0,
+      "grand_total": 13.0,
+      "max_scored": 60,
+      "max_checklist": 9,
+      "max_total": 69,
+      "pct": 18.8,
+      "breakdown": {
+        "R1": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "No AI crawlers blocked in robots.txt",
+          "is_scored": false
+        },
+        "R3": {
+          "score": 0,
+          "max": 1,
+          "status": "WARN",
+          "detail": "sitemap.xml found but appears malformed (no <loc> tags)",
+          "is_scored": false
+        },
+        "R5": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "No bot protection blocking detected",
+          "is_scored": false
+        },
+        "R6": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "SSL valid for www.chubbiesshorts.com",
+          "is_scored": false
+        },
+        "R7": {
+          "score": 0,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Commerce schema score: 0/10 — types: none",
+          "is_scored": true
+        },
+        "R9": {
+          "score": 4,
+          "max": 10,
+          "status": "WARN",
+          "detail": "Currency prices visible in HTML (28 found): ['$,', '£4', '$\\x0b9']",
+          "is_scored": true
+        },
+        "R11": {
+          "score": 0,
+          "max": 1,
+          "status": "FAIL",
+          "detail": "No JSON-LD blocks found in page source",
+          "is_scored": false
+        },
+        "R13": {
+          "score": 0,
+          "max": 10,
+          "status": "UNKNOWN",
+          "detail": "Could not extract product description text from homepage",
+          "is_scored": true
+        },
+        "R15": {
+          "score": 0,
+          "max": 1,
+          "status": "FAIL",
+          "detail": "FAQ page thin — only 0/6 topics covered",
+          "is_scored": false
+        },
+        "R16": {
+          "score": 2,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Refund policy page exists but no return window is extractable",
+          "is_scored": true
+        },
+        "R17": {
+          "score": 2,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Shipping policy page exists but no timeframe extractable",
+          "is_scored": true
+        },
+        "R23": {
+          "score": 0,
+          "max": 1,
+          "status": "FAIL",
+          "detail": "No contact page found at standard paths",
+          "is_scored": false
+        },
+        "R25": {
+          "score": 0,
+          "max": 1,
+          "status": "UNKNOWN",
+          "detail": "Only 0 source(s) — cannot compare: {}",
+          "is_scored": false
+        },
+        "R28": {
+          "score": 0,
+          "max": 1,
+          "status": "FORWARD-LOOKING",
+          "detail": "Non-Shopify store — UCP not yet broadly available outside Shopify",
+          "is_scored": false
+        },
+        "R30": {
+          "score": 0,
+          "max": 0,
+          "status": "INFORMATIONAL",
+          "detail": "Not a Shopify store — ACP auto-enrollment not applicable.",
+          "is_scored": false,
+          "informational": true
+        },
+        "R31": {
+          "score": 2,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Weak GMC signals (1/4) — missing: ['google-site-verification meta tag', 'og:type=product', 'no Organization/WebSite schema']",
+          "is_scored": true
+        }
+      }
+    }
+  },
+  "checks": {
+    "R1": {
+      "check_id": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "No AI crawlers blocked in robots.txt",
+      "raw_evidence": "\u001b\u0001\u0000ds3_£Â½mkÙ}¾\u001d®\tË\u0007.UÒ%!}\u0016àf\tO`w\u0003 \b§'KB\u001bÝqÿ\nnf\t©¸utêFBu \u0000(QW¾¶Î\f¸2U\u0014\u000fÃeÚbøvì&µHh\u0017Uµï{iÚUëÎ\u0011µ\u0018^õ7òS\u001eÓ(Ä\u0005at ,idèÂÑ\u0011DÔÈTòÁ@´¯³7]ã¹¬w±è\u0002D\u0011 ({¹üEåþàÅ5ª},¬\u001bÕ)¡\u0001",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R1 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R3": {
+      "check_id": "R3",
+      "tier": "VERIFIED",
+      "status": "WARN",
+      "score": 0,
+      "detail": "sitemap.xml found but appears malformed (no <loc> tags)",
+      "raw_evidence": "��\u000f\u0000�o���s9��nF�(\u0013B��\u0010����cZa����2��%!�`^4��k)m&�y)��uK��Z��4�E��\u0006�\b�}�\u001c\u0006p\u0001\u0007�1�Q\u0011��\u0018~�T�\u0003�r\u000f!�\u000e>�>��V�ߌ�\u0002��}J�!d��f1$7�\u001c�i�H��\u001b �+V\u0011����{W\u0013\u0006�\u001c�\u000e�4u����\\�|�\u000fu�e\f��\b\r\u0017\r]x�A?�G>�9��U���\n.F?-)f�4\u001c�~����\u0010�05G��\u001cS��^��pi\u0018�d!�< �r���0v�]��G[����\u0001�8�/\u000b�\u001a��\u0014�꽲\"!�\n�t�M���)�W`jʹ���y�'�@�\u0014����6���k�U���f̢����J��H�лH\u0018�TkB�����o��סM5,�}�xɶ���7�L��+�sq@����N)��\u001d]�.$��uh\u0013:o\u0018֟���~j�S��y\u0010���\u0000�C\u001cat�\u0007�hE\u0016T\u001a\u0004�h��bf�2",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R3 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Regenerate your sitemap. In Shopify: Online Store → Preferences → Resubmit sitemap.",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R5": {
+      "check_id": "R5",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "No bot protection blocking detected",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R5 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R6": {
+      "check_id": "R6",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "SSL valid for www.chubbiesshorts.com",
+      "raw_evidence": "Subject: ((('commonName', 'www.chubbiesshorts.com'),),)",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R6 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R7": {
+      "check_id": "R7",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "Commerce schema score: 0/10 — types: none",
+      "raw_evidence": "Types found: []",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R7 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add schema.org JSON-LD to your store. Priority order:\n\n1. Organization (if missing):\n   <script type=\"application/ld+json\">\n   {\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\n    \"name\":\"YOUR STORE NAME\",\"url\":\"YOUR URL\"}\n   </script>\n\n2. Product schema on all product pages (Shopify usually adds this automatically).\n\n3. FAQPage schema on your FAQ page.",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R9": {
+      "check_id": "R9",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 4,
+      "detail": "Currency prices visible in HTML (28 found): ['$,', '£4', '$\\x0b9']",
+      "raw_evidence": "['$,', '£4', '$\\x0b9', '£2', '$5']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R9 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Prices are in HTML but not in structured schema. Add Product schema with price:\n{\"@type\":\"Product\",\"offers\":{\"@type\":\"Offer\",\"price\":\"XX.XX\",\"priceCurrency\":\"INR\"}}",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R11": {
+      "check_id": "R11",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "No JSON-LD blocks found in page source",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R11 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add schema.org JSON-LD markup to your store (see R7 fix for template).",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R13": {
+      "check_id": "R13",
+      "tier": "CORRELATED",
+      "status": "UNKNOWN",
+      "score": 0,
+      "detail": "Could not extract product description text from homepage",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R13 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R15": {
+      "check_id": "R15",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "FAQ page thin — only 0/6 topics covered",
+      "raw_evidence": "Found FAQ at /pages/help",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R15 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Expand your FAQ to cover: ['returns and refunds policy', 'shipping delivery time', 'sizing guide fit', 'payment methods accepted', 'contact customer support', 'warranty guarantee']",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R16": {
+      "check_id": "R16",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 2,
+      "detail": "Refund policy page exists but no return window is extractable",
+      "raw_evidence": "ÿäÈmÓþ®DÔfÅN U÷ >=p 3,­\u0016XÂaípa=ÙÝÆ¶ãiA#\b¬<Mó\u000eýñªÄ%0\u0012o)\\u\u0006 ßño<ºd£%k\u0010\"(@ïôä \u0006ÆÝ½Åböà ýþ\u0015ì.ñ¦\u00182/ )ò¤\u001a\u001a/«n*\u001a\"\u0002E>g6>Òo¬ /.G}\u0005ü63¬ì~\u0012îf²²Ê\u0015 ¦\u0002Ø\u0001Àÿ\u0012E5é\u001a) çïw©Z\u0012¡ðÆ \u0014éEíP»\u0012ÇyiÎ8\u0014H4I@\u00032kâ·A¾Iúõi´¾ÿ½+[me VFHWÒd{â;î&$Î/ ÂvQ ÿo­ò½èÍùq¬H¹ØÈúÿh:\u00160»¡¡ÃÞªjÜ>f\u0010&$,PQng\u0003¨UÌÈ1>Ò¬ËÊ<jÛÝ\u0013ø\u0011£iax9~_ç7\u0017oõ\u0003kÅÔzÅùoI~¶\u0012Ë=äë:·ùöãqÂIXÝXU\u0002,ZwÚ8;= ÄQ9¡2;âÊ6ØÅÇí s`n$<¤Ï·µé",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R16 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Your policy page exists but AI cannot extract a return timeframe.\nAdd clearly: 'Returns accepted within [NUMBER] days of delivery.'\nMake the number explicit — not 'a few weeks' or 'reasonable time'.",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R17": {
+      "check_id": "R17",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 2,
+      "detail": "Shipping policy page exists but no timeframe extractable",
+      "raw_evidence": "ÿäÈmÓþ®DÔfÅN U÷ >=p 3,­\u0016XÂaípa=ÙÝÆ¶ãiA#\b¬<Mó\u000eýñªÄ%0\u0012o)\\u\u0006 ßño<ºd£%k\u0010\"(@ïôä \u0006ÆÝ½Åböà ýþ\u0015ì.ñ¦\u00182/ )ò¤\u001a\u001a/«n*\u001a\"\u0002E>g6>Òo¬ /.G}\u0005ü63¬ì~\u0012îf²²Ê\u0015 ¦\u0002Ø\u0001Àÿ\u0012E5é\u001a) çï÷¿ªYý6\u0015 6\\\u0012(2²([â¤p;ÒlHx ñEa\u0004\u0002\u0018Tp¨/\u0016½öÞµýõ½ö¹Ú2°\u001a!8À\u0005f¯C;GÕSèà¯:$ûÿÖ*ß;}±91>\u000eG (\u0017\u001bYÿÿ\u0012MÓb `è°·ª\u001a·\u0019 Ë$TÛÙ*@EÂdä\u0018 iÖeeÃ¬»[wß3o\u0004ADé ÃóéÇ¶¼½|«7¬\u0013Së\u0015\u0007rv ¾fåùa\u0017ßæaòåZ]¸r÷Áxá%ÌëíÐ4\u0002 Zmµõnz Að?ßÐz è°\u0003ÅÑ9ôÀ l x.Á²æ Nk",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R17 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add an explicit delivery timeframe to your shipping policy.\nExample: 'Orders are processed within 24 hours and delivered within 3–7 business days depending on location.'",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R23": {
+      "check_id": "R23",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "No contact page found at standard paths",
+      "raw_evidence": "Tried: ['/pages/contact', '/pages/contact-us', '/contact', '/contact-us'] — all 404/blocked",
+      "what_we_did": "Sequential GET on standard contact URL paths.",
+      "what_AI_sees": "AI cannot verify merchant accountability — no contact page.",
+      "causality": "R23 FAILED — AI cannot verify merchant accountability — no contact page. | How: Sequential GET on standard contact URL paths.",
+      "severity": "MODERATE",
+      "fix": "Create a contact page at /pages/contact with:\n  • Branded email (support@yourdomain.com)\n  • Response time commitment\nAI agents use contact pages to verify store accountability.",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R25": {
+      "check_id": "R25",
+      "tier": "CORRELATED",
+      "status": "UNKNOWN",
+      "score": 0,
+      "detail": "Only 0 source(s) — cannot compare: {}",
+      "raw_evidence": "Brand sources found: {}",
+      "what_we_did": "Checked og:site_name, schema.org name, title tag. Found < 2.",
+      "what_AI_sees": "AI cannot verify brand consistency — insufficient markup.",
+      "causality": "R25 UNKNOWN — AI cannot verify brand consistency — insufficient markup.",
+      "severity": "MODERATE",
+      "fix": "Add og:site_name meta tag and schema.org Organization markup to homepage.",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R28": {
+      "check_id": "R28",
+      "tier": "CORRELATED",
+      "status": "FORWARD-LOOKING",
+      "score": 0,
+      "detail": "Non-Shopify store — UCP not yet broadly available outside Shopify",
+      "raw_evidence": "Shopify fingerprint (cdn.shopify.com) not found in HTML.",
+      "what_we_did": "Checked for Shopify CDN fingerprint in homepage HTML.",
+      "what_AI_sees": "Store not on Shopify — UCP not applicable yet.",
+      "causality": "R28 FORWARD-LOOKING — Store not on Shopify — UCP not applicable yet.",
+      "severity": "INFO",
+      "fix": "Monitor https://ucp.shopping for availability on your platform.",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R30": {
+      "check_id": "R30",
+      "tier": "VERIFIED",
+      "status": "INFORMATIONAL",
+      "score": 0,
+      "detail": "Not a Shopify store — ACP auto-enrollment not applicable.",
+      "raw_evidence": "Shopify fingerprint not found.",
+      "what_we_did": "Platform detection via HTML fingerprint.",
+      "what_AI_sees": "Store not enrolled in ACP (not Shopify).",
+      "causality": "R30 INFORMATIONAL — Store not enrolled in ACP (not Shopify).",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    },
+    "R31": {
+      "check_id": "R31",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 2,
+      "detail": "Weak GMC signals (1/4) — missing: ['google-site-verification meta tag', 'og:type=product', 'no Organization/WebSite schema']",
+      "raw_evidence": "signals=['prices visible (28)'] | missing=['google-site-verification meta tag', 'og:type=product', 'no Organization/WebSite schema']",
+      "what_we_did": "Checked 4 GMC signals: google-site-verification meta, og:type=product, currency price in raw HTML, Organization/WebSite schema.org.",
+      "what_AI_sees": "Gemini product surfacing limited — only 1/4 GMC signals present.",
+      "causality": "R31 FAILED — Gemini product surfacing limited — only 1/4 GMC signals present. | How: Checked 4 GMC signals: google-site-verification meta, og:type=product, currency price in raw HTML, Organization/WebSite schema.org.",
+      "severity": "HIGH",
+      "fix": "Improve GMC readiness:\n• google-site-verification meta tag\n• og:type=product\n• no Organization/WebSite schema\n\nVerify store with Google Search Console to get site-verification tag.",
+      "timestamp": "2026-05-15T20:03:22.160856+00:00"
+    }
+  },
+  "gap": {
+    "gap_IW": 0.996,
+    "gap_IS": 0.996,
+    "gap_WS": 0.0,
+    "IW_label": "MISALIGNED",
+    "IS_label": "MISALIGNED",
+    "WS_label": "ALIGNED",
+    "schema_source": "CRAWLED_FALLBACK",
+    "intent_text": "We sell summer friendly clothes. This is a Fashion store. Our primary customer is Budget-conscious. Our main differentiator is Sustainability. Our brand tone is Playful / Fun.",
+    "website_text": "ÿäÈmÓþ®DÔfÅN U÷ >=p 3,­\u0016XÂaípa=ÙÝÆ¶ãiA#\b¬<Mó\u000eýñªÄ%0\u0012o)\\u\u0006 ßño<ºd£%k\u0010\"(@ïôä \u0006ÆÝ½Åböà ýþ\u0015ì.ñ¦\u00182/ )ò¤\u001a\u001a/«n*\u001a\"\u0002E>g6>Òo¬ /.G}\u0005ü63¬ì~\u0012îf²²Ê\u0015 ¦\u0002Ø\u0001Àÿ\u0012E5é\u001a) çï÷§ª}ýoª7øé !iMíJ´³ì Ò\u000f\u0011\u0003O$,\u0010 \u0001P´6Ô\u0017~öæÚj}{QËªÅñlW&\u0004<ä³e\u0017¿¡7v\u000eCTØ@iCüÿ÷³<§ºµ]_2r]QrµïÞûÄ§Å|1@Ù|±Ë¡ÅÌ{/?0¿\u0014:=)efÀ\u0016HX&¡ªÜ\"«Q\u0015r#c|¥\u00199²Ëa¶Ý]ïû¦H\u0004ADéÊÃ\u000f§ªìîê-ÐóFL­W\u0019èùÅü)Ê.ÆM8&þ}=ÉÇ\u001bui³Ã{í¸,Ú¡,\u0005ZØ¶Ú8 \u0014Þ\u0018Ý£ ªÆµpê»¯ýä -ádýKa«ád%KîµÁ9õ aË¹\u0001\u0012?R\u000eg!\u0001Ú½ØÂ94\u000fc]°ïµk\u0011FÄ\u0003ª\u001aZná~%3ÖS¸BwFC\u001b­kXî©À^\u0018¬aè§°mu\u000fz0`x]£uÞ| Z\u000eB:h",
+    "schema_text": "ÿäÈmÓþ®DÔfÅN U÷ >=p 3,­\u0016XÂaípa=ÙÝÆ¶ãiA#\b¬<Mó\u000eýñªÄ%0\u0012o)\\u\u0006 ßño<ºd£%k\u0010\"(@ïôä \u0006ÆÝ½Åböà ýþ\u0015ì.ñ¦\u00182/ )ò¤\u001a\u001a/«n*\u001a\"\u0002E>g6>Òo¬ /.G}\u0005ü63¬ì~\u0012îf²²Ê\u0015 ¦\u0002Ø\u0001Àÿ\u0012E5é\u001a) çï÷§ª}ýoª7øé !iMíJ´³ì Ò\u000f\u0011\u0003O$,\u0010 \u0001P´6Ô\u0017~öæÚj}{QËªÅñlW&\u0004<ä³e\u0017¿¡7v\u000eCTØ@iCüÿ÷³<§ºµ]_2r]QrµïÞûÄ§Å|1@Ù|±Ë¡ÅÌ{/?0¿\u0014:=)efÀ\u0016HX&¡ªÜ\"«Q\u0015r#c|¥\u00199²Ëa¶Ý]ïû¦H\u0004ADéÊÃ\u000f§ªìîê-ÐóFL­W\u0019èùÅü)Ê.ÆM8&þ}=ÉÇ\u001bui³Ã{í¸,Ú¡,\u0005ZØ¶Ú8 \u0014Þ\u0018Ý£ ªÆµpê»¯ýä -ádýKa«ád%KîµÁ9õ aË¹\u0001\u0012?R\u000eg!\u0001Ú½ØÂ94\u000fc]°ïµk\u0011FÄ\u0003ª\u001aZná~%3ÖS¸BwFC\u001b­kXî©À^\u0018¬aè§°mu\u000fz0`x]£uÞ| Z\u000eB:h",
+    "per_gap_traces": {
+      "IW": {
+        "gap": 0.996,
+        "label": "MISALIGNED",
+        "question": "Does your website reflect what you think your store says?",
+        "source_A": "merchant_intent",
+        "source_B": "website_content",
+        "preview_A": "We sell summer friendly clothes. This is a Fashion store. Our primary customer is Budget-conscious. Our main differentiator is Sustainability. Our brand tone is Playful / Fun.",
+        "preview_B": "ÿäÈmÓþ®DÔfÅN U÷ >=p 3,­\u0016XÂaípa=ÙÝÆ¶ãiA#\b¬<Mó\u000eýñªÄ%0\u0012o)\\u\u0006 ßño<ºd£%k\u0010\"(@ïôä \u0006ÆÝ½Åböà ýþ\u0015ì.ñ¦\u00182/ )ò¤\u001a\u001a/«n*\u001a\"\u0002E>g6>Òo¬ /.G}\u0005ü63¬ì~\u0012îf²²Ê\u0015 ¦\u0002Ø\u0001Àÿ\u0012E5é\u001a) çï÷§ª}ýoª7øé !iMíJ´³ì Ò\u000f\u0011\u0003O",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "IS": {
+        "gap": 0.996,
+        "label": "MISALIGNED",
+        "question": "Does your structured data (schema/crawl) reflect your intent?",
+        "source_A": "merchant_intent",
+        "source_B": "CRAWLED_FALLBACK",
+        "preview_A": "We sell summer friendly clothes. This is a Fashion store. Our primary customer is Budget-conscious. Our main differentiator is Sustainability. Our brand tone is Playful / Fun.",
+        "preview_B": "ÿäÈmÓþ®DÔfÅN U÷ >=p 3,­\u0016XÂaípa=ÙÝÆ¶ãiA#\b¬<Mó\u000eýñªÄ%0\u0012o)\\u\u0006 ßño<ºd£%k\u0010\"(@ïôä \u0006ÆÝ½Åböà ýþ\u0015ì.ñ¦\u00182/ )ò¤\u001a\u001a/«n*\u001a\"\u0002E>g6>Òo¬ /.G}\u0005ü63¬ì~\u0012îf²²Ê\u0015 ¦\u0002Ø\u0001Àÿ\u0012E5é\u001a) çï÷§ª}ýoª7øé !iMíJ´³ì Ò\u000f\u0011\u0003O",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "WS": {
+        "gap": 0.0,
+        "label": "ALIGNED",
+        "question": "Are your website content and schema/crawl consistent with each other?",
+        "source_A": "website_content",
+        "source_B": "CRAWLED_FALLBACK",
+        "preview_A": "ÿäÈmÓþ®DÔfÅN U÷ >=p 3,­\u0016XÂaípa=ÙÝÆ¶ãiA#\b¬<Mó\u000eýñªÄ%0\u0012o)\\u\u0006 ßño<ºd£%k\u0010\"(@ïôä \u0006ÆÝ½Åböà ýþ\u0015ì.ñ¦\u00182/ )ò¤\u001a\u001a/«n*\u001a\"\u0002E>g6>Òo¬ /.G}\u0005ü63¬ì~\u0012îf²²Ê\u0015 ¦\u0002Ø\u0001Àÿ\u0012E5é\u001a) çï÷§ª}ýoª7øé !iMíJ´³ì Ò\u000f\u0011\u0003O",
+        "preview_B": "ÿäÈmÓþ®DÔfÅN U÷ >=p 3,­\u0016XÂaípa=ÙÝÆ¶ãiA#\b¬<Mó\u000eýñªÄ%0\u0012o)\\u\u0006 ßño<ºd£%k\u0010\"(@ïôä \u0006ÆÝ½Åböà ýþ\u0015ì.ñ¦\u00182/ )ò¤\u001a\u001a/«n*\u001a\"\u0002E>g6>Òo¬ /.G}\u0005ü63¬ì~\u0012îf²²Ê\u0015 ¦\u0002Ø\u0001Àÿ\u0012E5é\u001a) çï÷§ª}ýoª7øé !iMíJ´³ì Ò\u000f\u0011\u0003O",
+        "interpretation": "ALIGNED: No action needed."
+      }
+    }
+  },
+  "conclusion": "The AI struggled to understand anything about your store, reading mostly gibberish instead of \"summer friendly clothes.\" This means search engines can't properly categorize your products or show them to potential customers looking for what you sell. Key information like your refund window (R16), shipping times (R17), and even a basic contact page (R23) are missing or unreadable, making your store appear untrustworthy and hard to interact with for both customers and AI. Your FAQ page (R15) also lacks essential details. To fix this, you must immediately ensure your website content is readable by AI, starting with adding proper structured data (JSON-LD, R11) to clearly tell search engines what your pages are about.",
+  "raw_page_texts": {
+    "homepage": "ÿäÈmÓþ®DÔfÅN U÷ >=p 3,­\u0016XÂaípa=ÙÝÆ¶ãiA#\b¬<Mó\u000eýñªÄ%0\u0012o)\\u\u0006 ßño<ºd£%k\u0010\"(@ïôä \u0006ÆÝ½Åböà ýþ\u0015ì.ñ¦\u00182/ )ò¤\u001a\u001a/«n*\u001a\"\u0002E>g6>Òo¬ /.G}\u0005ü63¬ì~\u0012îf²²Ê\u0015 ¦\u0002Ø\u0001Àÿ\u0012E5é\u001a) çï÷§ª}ýoª7øé !iMíJ´³ì Ò\u000f\u0011\u0003O$,\u0010 \u0001P´6Ô\u0017~öæÚj}{QËªÅñlW&\u0004<ä³e\u0017¿¡7v\u000eCTØ@iCüÿ÷³<§ºµ]_2r]QrµïÞûÄ§Å|1@Ù|±Ë¡ÅÌ{/?0¿\u0014:=)efÀ\u0016HX&¡ªÜ\"«Q\u0015r#c|¥\u00199²Ëa¶Ý]ïû¦H\u0004ADéÊÃ\u000f§ªìîê-ÐóFL­W\u0019èùÅü)Ê.ÆM8&þ}=ÉÇ\u001bui³Ã{í¸,Ú¡,\u0005ZØ¶Ú8 \u0014Þ\u0018Ý£ ªÆµpê»¯ýä -ádýKa«ád%KîµÁ9õ aË¹\u0001\u0012?R\u000eg!\u0001Ú½ØÂ94\u000fc]°ïµk\u0011FÄ\u0003ª\u001aZná~%3ÖS¸BwFC\u001b­kXî©À^\u0018¬aè§°mu\u000fz0`x]£uÞ| Z\u000eB:h",
+    "about": "ÿäÈmÓþ®DÔfÅN U÷ >=p 3,­\u0016XÂaípa=ÙÝÆ¶ãiA#\b¬<Mó\u000eýñªÄ%0\u0012o)\\u\u0006 ßño<ºd£%k\u0010\"(@ïôä \u0006ÆÝ½Åböà ýþ\u0015ì.ñ¦\u00182/ )ò¤\u001a\u001a/«n*\u001a\"\u0002E>g6>Òo¬ /.G}\u0005ü63¬ì~\u0012îf²²Ê\u0015 ¦\u0002Ø\u0001Àÿ\u0012QÑê!FÊÂùûýMµ¯¿¦b¸¢S7È éYÆF \u0003rØP_,úmÚk«ßO­¾~ëØðu+uW÷ÌÈ\u001bØà½7& Ú2c\u0004\u001a@\u000e\u0017þo­ò½ÓÍùçB¬\\ldýÿKôT·\u0018h±\u0004-îxè°·ªº\u0006g÷YØ°LBÅÅH P\u00112#ÇøH³rd£¬v¯³ßs% 1-\u000f7Û»¤u´÷Ö^° Z¯2É·¬µvÖ´Oü ½ùÜ5­ÅË°Ü èbUZtc\u0007S-¡ Xþ g<+K.6¤]skA?Aî7(¦aÌ\\µÝ\u0011^¹q< á6>bïM]Ñ\u0011 Ô\u0012­üHÉ>_ ªUz¦íºëõÚIfe s0f¦´5ùý¹*X\u0006Æe±*-\u0006]PYû4>BÚèY¤ô( Øcµn¿tkBv[@\u000fóØ}ô÷¹Q\u0012÷ßñ",
+    "policies": "ÿäÈmÓþ®DÔfÅN U÷ >=p 3,­\u0016XÂaípa=ÙÝÆ¶ãiA#\b¬<Mó\u000eýñªÄ%0\u0012o)\\u\u0006 ßño<ºd£%k\u0010\"(@ïôä \u0006ÆÝ½Åböà ýþ\u0015ì.ñ¦\u00182/ )ò¤\u001a\u001a/«n*\u001a\"\u0002E>g6>Òo¬ /.G}\u0005ü63¬ì~\u0012îf²²Ê\u0015 ¦\u0002Ø\u0001Àÿ\u0012E5é\u001a) çïw©Z\u0012¡ðÆ \u0014éEíP»\u0012ÇyiÎ8\u0014H4I@\u00032kâ·A¾Iúõi´¾ÿ½+[me VFHWÒd{â;î&$Î/ ÂvQ ÿo­ò½èÍùq¬H¹ØÈúÿh:\u00160»¡¡ÃÞªjÜ>f\u0010&$,PQng\u0003¨UÌÈ1>Ò¬ËÊ<jÛÝ\u0013ø\u0011£iax9~_ç7\u0017oõ\u0003kÅÔzÅùoI~¶\u0012Ë=äë:·ùöãqÂIXÝXU\u0002,ZwÚ8;= ÄQ9¡2;âÊ6ØÅÇí s`n$<¤Ï·µéí\u0001¶ 8êEwÜÀê{è\u0002Ü)k>ÕjÍÑ\u0002po\u00065ÂGãà¡u§\u0007¤G ã ¬sæåj\u0014Ò¡\u0016Y!®³\u0005\u001a\u0003ò2y¦\u00130g\u0019õ?ÿBu;'\u0002¦\u0013¦| +\\l2>äA^ýJ³"
+  }
+}

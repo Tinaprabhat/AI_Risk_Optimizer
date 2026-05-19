@@ -1,0 +1,414 @@
+{
+  "meta": {
+    "store_url": "https://www.fashionnova.com/",
+    "domain": "fashionnova.com",
+    "audit_timestamp": "20260517T203513Z",
+    "merchant_intent": "premium fashion ",
+    "mcq": {
+      "category": "Fashion",
+      "customer": "Quality-first",
+      "differentiator": "Price",
+      "tone": "Friendly / Casual"
+    },
+    "score": {
+      "scored_total": 27.0,
+      "checklist_total": 7.0,
+      "grand_total": 34.0,
+      "max_scored": 60,
+      "max_checklist": 9,
+      "max_total": 69,
+      "pct": 49.3,
+      "breakdown": {
+        "R1": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "No AI crawlers blocked in robots.txt",
+          "is_scored": false
+        },
+        "R3": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "Sitemap index (353 child sitemaps). Sampled child: 5 URLs | products: 10 | collections: 0",
+          "is_scored": false
+        },
+        "R5": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "No bot protection blocking detected",
+          "is_scored": false
+        },
+        "R6": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "SSL valid for www.fashionnova.com",
+          "is_scored": false
+        },
+        "R7": {
+          "score": 3,
+          "max": 10,
+          "status": "WARN",
+          "detail": "Commerce schema score: 3/10 — types: ['Organization']",
+          "is_scored": true
+        },
+        "R9": {
+          "score": 4,
+          "max": 10,
+          "status": "WARN",
+          "detail": "Currency prices visible in HTML (1 found): ['$5']",
+          "is_scored": true
+        },
+        "R11": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "All 1 JSON-LD block(s) are valid",
+          "is_scored": false
+        },
+        "R13": {
+          "score": 3,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Descriptions are mostly vague (delta=0.11)",
+          "is_scored": true
+        },
+        "R15": {
+          "score": 0,
+          "max": 1,
+          "status": "FAIL",
+          "detail": "FAQ page thin — only 0/6 topics covered",
+          "is_scored": false
+        },
+        "R16": {
+          "score": 2,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Refund policy page exists but no return window is extractable",
+          "is_scored": true
+        },
+        "R17": {
+          "score": 10,
+          "max": 10,
+          "status": "PASS",
+          "detail": "Shipping timeframe found: '1-12 business days'",
+          "is_scored": true
+        },
+        "R23": {
+          "score": 0,
+          "max": 1,
+          "status": "WARN",
+          "detail": "Contact page exists but no email found",
+          "is_scored": false
+        },
+        "R25": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "Brand consistent (100.0%): ['Fashion Nova', 'Fashion Nova']",
+          "is_scored": false
+        },
+        "R28": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "UCP profile found. Services: ['dev.ucp.shopping']",
+          "is_scored": false
+        },
+        "R30": {
+          "score": 0,
+          "max": 0,
+          "status": "INFORMATIONAL",
+          "detail": "Shopify confirmed (auto-enrolled in ACP). No Product schema on homepage — normal for Shopify. Product pages have schema by default.",
+          "is_scored": false,
+          "informational": true
+        },
+        "R31": {
+          "score": 5,
+          "max": 10,
+          "status": "WARN",
+          "detail": "Partial GMC signals (2/4) — missing: ['google-site-verification meta tag', 'og:type=product']",
+          "is_scored": true
+        }
+      }
+    }
+  },
+  "checks": {
+    "R1": {
+      "check_id": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "No AI crawlers blocked in robots.txt",
+      "raw_evidence": "User-agent: *\nDisallow: /a/downloads/-/*\nDisallow: /admin\nDisallow: /cart\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /2939277/checkouts\nDisallow: /2939277/orders\nDisallow: /carts\nDisallow: /account\nDisallow: /collections/*sort_by*\nDisallow: /*/collections/*sort_by*\nDisallow: /collections/*+*\nDisallow: /collections/*%2B*\nDisallow: /collections/*%2b*\nDisallow: /*/collections/*+*\nDisallow: /*/collections/*%2B*\nDisallow: /*/collections/*%2b*\nDisallow: */collections/*filter*&*filter*\nDisallow: /blogs/*+*\nDisallow: /blogs/*%2B*\nDisallow: /blogs/*%2b*\nDisallow: /*/blogs/*+*\nDisallow: /*/blogs/*%2B*\nDisallow: /*/blogs/*%2b*\nDisallow: /*?*oseid=*\nDisallow: /*preview_theme_id*\nDisallow: /*preview_script_id*\nDisallow: /policies/\nDisallow: /*/policies/\nDisallow: /*/*?*ls=*&l",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R1 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R3": {
+      "check_id": "R3",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "Sitemap index (353 child sitemaps). Sampled child: 5 URLs | products: 10 | collections: 0",
+      "raw_evidence": "Child sitemaps: ['https://www.fashionnova.com/sitemap/products/1.xml', 'https://www.fashionnova.com/sitemap/products/2.xml', 'https://www.fashionnova.com/sitemap/products/3.xml']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R3 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R5": {
+      "check_id": "R5",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "No bot protection blocking detected",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R5 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R6": {
+      "check_id": "R6",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "SSL valid for www.fashionnova.com",
+      "raw_evidence": "Subject: ((('commonName', 'www.fashionnova.com'),),)",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R6 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R7": {
+      "check_id": "R7",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 3,
+      "detail": "Commerce schema score: 3/10 — types: ['Organization']",
+      "raw_evidence": "Types found: ['Organization']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R7 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add schema.org JSON-LD to your store. Priority order:\n\n1. Organization (if missing):\n   <script type=\"application/ld+json\">\n   {\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\n    \"name\":\"YOUR STORE NAME\",\"url\":\"YOUR URL\"}\n   </script>\n\n2. Product schema on all product pages (Shopify usually adds this automatically).\n\n3. FAQPage schema on your FAQ page.",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R9": {
+      "check_id": "R9",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 4,
+      "detail": "Currency prices visible in HTML (1 found): ['$5']",
+      "raw_evidence": "['$5']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R9 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Prices are in HTML but not in structured schema. Add Product schema with price:\n{\"@type\":\"Product\",\"offers\":{\"@type\":\"Offer\",\"price\":\"XX.XX\",\"priceCurrency\":\"INR\"}}",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R11": {
+      "check_id": "R11",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "All 1 JSON-LD block(s) are valid",
+      "raw_evidence": "1 JSON-LD block(s) found",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R11 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R13": {
+      "check_id": "R13",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 3,
+      "detail": "Descriptions are mostly vague (delta=0.11)",
+      "raw_evidence": "Vagueness delta: 0.114 | Sample: $5 GRAPHICS, TOPS & SHORTS! TODAY ONLY! $5 GRAPHICS, TOPS & SHORTS!",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R13 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Replace vague adjectives with measurable facts.\nInstead of: 'premium quality materials'\nWrite: 'made from 316L surgical stainless steel, 2mm thickness, weight 85g'\n\nAI cannot distinguish you from competitors without specific, factual descriptions.",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R15": {
+      "check_id": "R15",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "FAQ page thin — only 0/6 topics covered",
+      "raw_evidence": "Found FAQ at /pages/faq",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R15 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Expand your FAQ to cover: ['returns and refunds policy', 'shipping delivery time', 'sizing guide fit', 'payment methods accepted', 'contact customer support', 'warranty guarantee']",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R16": {
+      "check_id": "R16",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 2,
+      "detail": "Refund policy page exists but no return window is extractable",
+      "raw_evidence": "Easy Returns",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R16 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Your policy page exists but AI cannot extract a return timeframe.\nAdd clearly: 'Returns accepted within [NUMBER] days of delivery.'\nMake the number explicit — not 'a few weeks' or 'reasonable time'.",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R17": {
+      "check_id": "R17",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 10,
+      "detail": "Shipping timeframe found: '1-12 business days'",
+      "raw_evidence": "Shipping Policy Spend $75 or more to unlock FREE SHIPPING! Shop New WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY Search within Women's Clothing ðºð¸ WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY New In Clothing Novadeals Swimwear Dresses Matching Sets Tops Graphics Jeans Jumpsuits & Rompers Shoes Formal Shop Bottoms Accessories Lingerie & Sleep Jackets & Sweaters Sale Nova Luxe Sport Search within ",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R17 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R23": {
+      "check_id": "R23",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 0,
+      "detail": "Contact page exists but no email found",
+      "raw_evidence": "Fetched /pages/contact — no email pattern matched.",
+      "what_we_did": "Regex for email addresses on contact page text.",
+      "what_AI_sees": "AI sees a contact page but cannot extract accountability email.",
+      "causality": "R23 WARNING — AI sees a contact page but cannot extract accountability email.",
+      "severity": "MODERATE",
+      "fix": "Add branded email (support@yourdomain.com) to the contact page.",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R25": {
+      "check_id": "R25",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "Brand consistent (100.0%): ['Fashion Nova', 'Fashion Nova']",
+      "raw_evidence": "Brand sources found: {'schema_org': 'Fashion Nova', 'title_tag': 'Fashion Nova'}",
+      "what_we_did": "Compared 'schema_org'='Fashion Nova' (norm: 'fashion nova') vs 'title_tag'='Fashion Nova' (norm: 'fashion nova'). Fuzzy ratio=100.0%",
+      "what_AI_sees": "AI sees consistent brand 'Fashion Nova' across sources.",
+      "causality": "R25 PASSED — AI sees consistent brand 'Fashion Nova' across sources.",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R28": {
+      "check_id": "R28",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "UCP profile found. Services: ['dev.ucp.shopping']",
+      "raw_evidence": "{\"ucp\":{\"version\":\"2026-04-08\",\"supported_versions\":{\"2026-04-08\":\"https:\\/\\/fnova.myshopify.com\\/.well-known\\/ucp\\/2026-04-08\",\"2026-01-23\":\"https:\\/\\/fnova.myshopify.com\\/.well-known\\/ucp\\/2026-01-23\"},\"services\":{\"dev.ucp.shopping\":[{\"version\":\"2026-04-08\",\"spec\":\"https:\\/\\/ucp.dev\\/2026-04-08\\/specification\\/overview\\/\",\"transport\":\"mcp\",\"endpoint\":\"https:\\/\\/fnova.myshopify.com\\/api\\/ucp\\/mcp",
+      "what_we_did": "GET https://www.fashionnova.com/.well-known/ucp → 200. Parsed JSON for services.",
+      "what_AI_sees": "AI commerce agents can discover store with services: ['dev.ucp.shopping'].",
+      "causality": "R28 PASSED — AI commerce agents can discover store with services: ['dev.ucp.shopping'].",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R30": {
+      "check_id": "R30",
+      "tier": "VERIFIED",
+      "status": "INFORMATIONAL",
+      "score": 0,
+      "detail": "Shopify confirmed (auto-enrolled in ACP). No Product schema on homepage — normal for Shopify. Product pages have schema by default.",
+      "raw_evidence": "Shopify CDN confirmed. extruct found 0 Product schema on homepage.",
+      "what_we_did": "extruct JSON-LD extraction on homepage HTML.",
+      "what_AI_sees": "Store is enrolled in ACP via Shopify. Homepage product schema absent (expected).",
+      "causality": "R30 INFORMATIONAL — Store is enrolled in ACP via Shopify. Homepage product schema absent (expected).",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    },
+    "R31": {
+      "check_id": "R31",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 5,
+      "detail": "Partial GMC signals (2/4) — missing: ['google-site-verification meta tag', 'og:type=product']",
+      "raw_evidence": "signals=['prices visible (1)', 'Organization/WebSite schema'] | missing=['google-site-verification meta tag', 'og:type=product']",
+      "what_we_did": "Checked 4 GMC signals: google-site-verification meta, og:type=product, currency price in raw HTML, Organization/WebSite schema.org.",
+      "what_AI_sees": "Gemini product surfacing limited — only 2/4 GMC signals present.",
+      "causality": "R31 WARNING — Gemini product surfacing limited — only 2/4 GMC signals present.",
+      "severity": "MODERATE",
+      "fix": "Improve GMC readiness:\n• google-site-verification meta tag\n• og:type=product\n\nVerify store with Google Search Console to get site-verification tag.",
+      "timestamp": "2026-05-17T20:35:13.081816+00:00"
+    }
+  },
+  "gap": {
+    "gap_IW": 0.565,
+    "gap_IS": 0.567,
+    "gap_WS": 0.306,
+    "IW_label": "MISALIGNED",
+    "IS_label": "MISALIGNED",
+    "WS_label": "MISALIGNED",
+    "schema_source": "SCHEMA",
+    "intent_text": "premium fashion This is a Fashion store. Our primary customer is Quality-first. Our main differentiator is Price. Our brand tone is Friendly / Casual.",
+    "website_text": "Fashion Nova | Fashion Online For Women | Affordable Women's Clothing | Fashion Nova FINAL HOURS! 50% Off Everything! Code: HEAT50 + $5 GRAPHICS, TOPS & SHORTS! 0 2 1 0 0 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 h : 0 5 4 3 2 1 0 0 9 8 7 6 5 4 3 2 1 0 m : 0 5 4 3 2 1 0 0 9 8 7 6 5 4 3 2 1 0 s Shop Now WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY Search within Women's Clothing ðºð¸ WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY New In Clothing Novadeals Swimwear Dresses Matching Sets Tops Gr",
+    "schema_text": "Fashion Nova is the top online fashion store for women. Shop sexy club dresses, jeans, shoes, bodysuits, skirts and more. Affordable fashion online! Fashion Nova is the top online fashion store for women. Shop sexy club dresses, jeans, shoes, bodysuits, skirts and more. Affordable fashion online!",
+    "per_gap_traces": {
+      "IW": {
+        "gap": 0.565,
+        "label": "MISALIGNED",
+        "question": "Does your website reflect what you think your store says?",
+        "source_A": "merchant_intent",
+        "source_B": "website_content",
+        "preview_A": "premium fashion This is a Fashion store. Our primary customer is Quality-first. Our main differentiator is Price. Our brand tone is Friendly / Casual.",
+        "preview_B": "Fashion Nova | Fashion Online For Women | Affordable Women's Clothing | Fashion Nova FINAL HOURS! 50% Off Everything! Code: HEAT50 + $5 GRAPHICS, TOPS & SHORTS! 0 2 1 0 0 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "IS": {
+        "gap": 0.567,
+        "label": "MISALIGNED",
+        "question": "Does your structured data (schema/crawl) reflect your intent?",
+        "source_A": "merchant_intent",
+        "source_B": "SCHEMA",
+        "preview_A": "premium fashion This is a Fashion store. Our primary customer is Quality-first. Our main differentiator is Price. Our brand tone is Friendly / Casual.",
+        "preview_B": "Fashion Nova is the top online fashion store for women. Shop sexy club dresses, jeans, shoes, bodysuits, skirts and more. Affordable fashion online! Fashion Nova is the top online fashion store for wo",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "WS": {
+        "gap": 0.306,
+        "label": "MISALIGNED",
+        "question": "Are your website content and schema/crawl consistent with each other?",
+        "source_A": "website_content",
+        "source_B": "SCHEMA",
+        "preview_A": "Fashion Nova | Fashion Online For Women | Affordable Women's Clothing | Fashion Nova FINAL HOURS! 50% Off Everything! Code: HEAT50 + $5 GRAPHICS, TOPS & SHORTS! 0 2 1 0 0 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9",
+        "preview_B": "Fashion Nova is the top online fashion store for women. Shop sexy club dresses, jeans, shoes, bodysuits, skirts and more. Affordable fashion online! Fashion Nova is the top online fashion store for wo",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      }
+    }
+  },
+  "conclusion": "Your store's AI visibility score of 49.3% is severely impacted because AI systems are misreading your website, seeing \"Fashion Nova\" and discount messaging instead of your premium fashion brand.",
+  "raw_page_texts": {
+    "homepage": "Fashion Nova | Fashion Online For Women | Affordable Women's Clothing | Fashion Nova FINAL HOURS! 50% Off Everything! Code: HEAT50 + $5 GRAPHICS, TOPS & SHORTS! 0 2 1 0 0 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 h : 0 5 4 3 2 1 0 0 9 8 7 6 5 4 3 2 1 0 m : 0 5 4 3 2 1 0 0 9 8 7 6 5 4 3 2 1 0 s Shop Now WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY Search within Women's Clothing ðºð¸ WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY New In Clothing Novadeals Swimwear Dresses Matching Sets Tops Gr",
+    "about": "Fashion Nova | Fashion Online For Women | Affordable Women's Clothing | Fashion Nova Spend $75 or more to unlock FREE SHIPPING! Shop New WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY Search within Women's Clothing ðºð¸ WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY New In Clothing Novadeals Swimwear Dresses Matching Sets Tops Graphics Jeans Jumpsuits & Rompers Shoes Formal Shop Bottoms Accessories Lingerie & Sleep Jackets & Sweaters Sale Nova Luxe Sport Search within Women's Clothing we are a globa",
+    "policies": "Easy Returns Fashion Nova | Fashion Online For Women | Affordable Women's Clothing | Fashion Nova FINAL HOURS! 50% Off Everything! Code: HEAT50 + $5 GRAPHICS, TOPS & SHORTS! 0 2 1 0 0 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 h : 0 5 4 3 2 1 0 0 9 8 7 6 5 4 3 2 1 0 m : 0 5 4 3 2 1 0 0 9 8 7 6 5 4 3 2 1 0 s Shop Now WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY Search within Women's Clothing ðºð¸ WOMEN PLUS+CURVE MEN NEW SPORT KIDS BEAUTY New In Clothing Novadeals Swimwear Dresses Matching"
+  }
+}

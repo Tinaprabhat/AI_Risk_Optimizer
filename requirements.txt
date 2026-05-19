@@ -8,3 +8,16 @@ spacy==3.7.5
 textstat==0.7.4
 google-generativeai==0.8.3
 ollama==0.3.3
+fastapi
+uvicorn[standard]
+requests
+beautifulsoup4
+extruct
+rapidfuzz
+sentence-transformers
+numpy
+google-generativeai
+ollama
+python-dotenv
+pydantic
+psycopg2-binary

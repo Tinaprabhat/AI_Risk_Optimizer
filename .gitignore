@@ -1,64 +1,115 @@
-# ── PYTHON / BACKEND ──────────────────────────────────────
+# =========================================================
+# PYTHON / BACKEND
+# =========================================================
+
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 .Python
-*.egg-info/
-dist/
-build/
 *.egg
+*.egg-info/
 
-# Virtual environment (if you ever create one)
+# Virtual environments
 venv/
 env/
 .venv/
-.env/
 
-# Environment variables — NEVER commit these
+# Python build artifacts
+build/
+dist/
+
+# =========================================================
+# ENVIRONMENT VARIABLES / SECRETS
+# =========================================================
+
+.env
+.env.*
+!.env.example
+
 backend/.env
 frontend/.env
 
-# Database files
-backend/db/audits.db
+# Security-sensitive files
+*.pem
+*.key
+*.cert
+
+# =========================================================
+# DATABASES
+# =========================================================
+
 *.db
 *.sqlite
 *.sqlite3
 
-# Observability logs — can be huge
+db/
+backend/db/
+
+# =========================================================
+# LOGS & OBSERVABILITY
+# =========================================================
+
+logs/
 backend/logs/
 
-# Embedding model cache (downloads automatically)
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# =========================================================
+# AI / ML CACHE FILES
+# =========================================================
+
 .cache/
+sentence_transformers/
+
 *.bin
 *.pt
 
-# Sentence transformers cache
-sentence_transformers/
+# =========================================================
+# NODE / FRONTEND
+# =========================================================
 
-# ── NODE / FRONTEND ───────────────────────────────────────
+node_modules/
 frontend/node_modules/
+
 frontend/dist/
+dist/
+dist-ssr/
+
 frontend/.vite/
 
-# ── GENERAL ───────────────────────────────────────────────
-.DS_Store
-Thumbs.db
-*.log
-*.tmp
-*.swp
+# =========================================================
+# EDITOR / IDE FILES
+# =========================================================
+
+.vscode/*
+!.vscode/extensions.json
+
 .idea/
-.vscode/
+
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+*.tmp
 *.code-workspace
 
-# ── SECURITY ──────────────────────────────────────────────
-*.pem
-*.key
-*.cert
-.env
-.env.local
-.env.production
-.env.development
+# =========================================================
+# OS FILES
+# =========================================================
 
-db/
-*.db
+.DS_Store
+Thumbs.db
+
+# =========================================================
+# LOCAL CONFIG FILES
+# =========================================================
+
+*.local

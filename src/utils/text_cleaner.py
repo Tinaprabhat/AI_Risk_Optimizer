@@ -68,6 +68,18 @@ def soup_to_clean_text(soup: BeautifulSoup, max_chars: int = 0) -> str:
     return text
 
 
+def is_garbage(text: str, threshold: float = 0.10) -> bool:
+    """
+    Return True if text looks like compressed/binary garbage rather than HTML.
+    Triggers when >10% of the first 2000 chars are non-printable non-ASCII.
+    """
+    if not text or len(text) < 50:
+        return False
+    sample = text[:2000]
+    non_printable = sum(1 for c in sample if ord(c) > 127 and not c.isprintable())
+    return (non_printable / len(sample)) > threshold
+
+
 def extract_clean_text(html: str, max_chars: int = 0) -> str:
     """
     Parse HTML and extract clean text in one call.

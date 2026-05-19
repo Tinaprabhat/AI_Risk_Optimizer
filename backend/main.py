@@ -7,8 +7,8 @@ load_dotenv()
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from AI_Risk_Optimizer.backend.app.utils.db import init_db
-from AI_Risk_Optimizer.backend.app.api.routes import router
+from backend.app.utils.db import init_db
+from backend.app.api.routes import router
 
 app = FastAPI(
     title="AI Rep Optimizer",

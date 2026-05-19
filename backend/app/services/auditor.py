@@ -14,19 +14,19 @@ from urllib.parse import urlparse, urljoin
 
 from bs4 import BeautifulSoup
 
-from AI_Risk_Optimizer.backend.app.utils.fetcher      import safe_get, jitter_sleep, is_garbage
-from AI_Risk_Optimizer.backend.app.utils.obs_logger   import write_audit_log
-from AI_Risk_Optimizer.backend.app.utils.db           import save_audit, load_audit
-from AI_Risk_Optimizer.backend.app.utils.text_cleaner import extract_clean_text
+from backend.app.utils.fetcher      import safe_get, jitter_sleep, is_garbage
+from backend.app.utils.obs_logger   import write_audit_log
+from backend.app.utils.db           import save_audit, load_audit
+from backend.app.utils.text_cleaner import extract_clean_text
 
-from AI_Risk_Optimizer.backend.app.layers.layer1.r1_robots        import check as check_r1
-from AI_Risk_Optimizer.backend.app.layers.layer1.r3_r5_r6         import check_r3, check_r5, check_r6
-from AI_Risk_Optimizer.backend.app.layers.layer2.r7_r9_r11        import check_r7, check_r9, check_r11
-from AI_Risk_Optimizer.backend.app.layers.layer3.r13_r15_r16_r17  import check_r13, check_r15, check_r16, check_r17
-from AI_Risk_Optimizer.backend.app.layers.layer4.r23_r25          import check_r23, check_r25
-from AI_Risk_Optimizer.backend.app.layers.layer5.r28_r30_r31      import check_r28, check_r30, check_r31
-from AI_Risk_Optimizer.backend.app.layers.layer6.semantic_gap     import compute_gap
-from AI_Risk_Optimizer.backend.app.layers.layer7.aggregator       import compute_score, get_failed_checks, build_conclusion
+from backend.app.layers.layer1.r1_robots        import check as check_r1
+from backend.app.layers.layer1.r3_r5_r6         import check_r3, check_r5, check_r6
+from backend.app.layers.layer2.r7_r9_r11        import check_r7, check_r9, check_r11
+from backend.app.layers.layer3.r13_r15_r16_r17  import check_r13, check_r15, check_r16, check_r17
+from backend.app.layers.layer4.r23_r25          import check_r23, check_r25
+from backend.app.layers.layer5.r28_r30_r31      import check_r28, check_r30, check_r31
+from backend.app.layers.layer6.semantic_gap     import compute_gap
+from backend.app.layers.layer7.aggregator       import compute_score, get_failed_checks, build_conclusion
 
 logger = logging.getLogger(__name__)
 

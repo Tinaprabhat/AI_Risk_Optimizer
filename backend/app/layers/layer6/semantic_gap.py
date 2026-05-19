@@ -21,8 +21,8 @@ from typing import Optional
 import extruct
 from bs4 import BeautifulSoup
 
-from AI_Risk_Optimizer.backend.app.utils.embedder     import embed, cosine_sim, chunk_text
-from AI_Risk_Optimizer.backend.app.utils.text_cleaner import soup_to_clean_text
+from backend.app.utils.embedder     import embed, cosine_sim, chunk_text
+from backend.app.utils.text_cleaner import soup_to_clean_text
 
 logger = logging.getLogger(__name__)
 
