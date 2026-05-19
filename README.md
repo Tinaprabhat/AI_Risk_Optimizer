@@ -605,7 +605,7 @@ This is for **debugging and transparency** — the app functions entirely from P
 
 ---
 
-## 🗺 Roadmap
+## 🗺 Future-Roadmap
 
 - [ ] Redis job queue for production multi-user support
 - [ ] Product page audit (not just homepage)
@@ -616,11 +616,6 @@ This is for **debugging and transparency** — the app functions entirely from P
 
 ---
 
-## 📄 License
-
-MIT License — see `LICENSE` for details.
-
----
 
 <p align="center">
   Built to make every Shopify store AI-visible.<br/>
