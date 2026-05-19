@@ -1,8 +1,8 @@
-# 🪞 AI Rep Optimizer
+#  AI Risk Optimizer
 
 > **Find out exactly why AI shopping agents aren't recommending your Shopify store — and fix it.**
 
-AI Rep Optimizer is a full-stack audit platform that runs a Shopify store URL through 7 layers of AI-readiness checks, computes semantic alignment gaps between how a merchant perceives their store vs how AI actually reads it, and provides a step-by-step guided fix engine powered by an LLM chatbot.
+AI Risk Optimizer is a full-stack audit platform that runs a Shopify store URL through 7 layers of AI-readiness checks, computes semantic alignment gaps between how a merchant perceives their store vs how AI actually reads it, and provides a step-by-step guided fix engine powered by an LLM chatbot.
 
 ---
 
