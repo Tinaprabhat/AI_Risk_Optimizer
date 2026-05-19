@@ -1,46 +1,26 @@
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuditProvider } from "./context/AuditContext";
+import Landing  from "./screens/Landing";
+import McqForm  from "./screens/McqForm";
+import Scanning from "./screens/Scanning";
+import Results  from "./screens/Results";
+import AiMirror from "./screens/AiMirror";
+import FixNow   from "./screens/FixNow";
 
-import LandingPage from "./screens/Landing/LandingPage";
-
-import QuestionsPage from "./screens/Questions/QuestionsPage";
-
-import ScanningPage from "./screens/Scanning/ScanningPage";
-
-import ResultsPage from "./screens/Results/ResultsPage";
-
-import FixNowPage from "./screens/FixAssistant/FixNowPage";
-
-function App() {
+export default function App() {
   return (
-    <Routes>
-
-      <Route
-        path="/"
-        element={<LandingPage />}
-      />
-
-      <Route
-        path="/questions"
-        element={<QuestionsPage />}
-      />
-
-      <Route
-        path="/scanning"
-        element={<ScanningPage />}
-      />
-
-      <Route
-        path="/results"
-        element={<ResultsPage />}
-      />
-
-      <Route
-        path="/fix"
-        element={<FixNowPage />}
-      />
-
-    </Routes>
+    <AuditProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/"        element={<Landing />}  />
+          <Route path="/mcq"     element={<McqForm />}  />
+          <Route path="/scan"    element={<Scanning />} />
+          <Route path="/results" element={<Results />}  />
+          <Route path="/mirror"  element={<AiMirror />} />
+          <Route path="/fix"     element={<FixNow />}   />
+          <Route path="*"        element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AuditProvider>
   );
 }
-
-export default App;

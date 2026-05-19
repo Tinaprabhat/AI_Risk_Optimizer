@@ -1,0 +1,414 @@
+{
+  "meta": {
+    "store_url": "https://www.allbirds.com/",
+    "domain": "allbirds.com",
+    "audit_timestamp": "20260518T171005Z",
+    "merchant_intent": "Fashion and apparel store. Established 1 to 3 years. Currently getting 500 to 5000 visitors per month. Main goal is getting more traffic. Customers have a little familiarity with AI shopping.",
+    "mcq": {
+      "category": "fashion and apparel",
+      "customer": "shoppers with a little familiarity with AI shopping",
+      "differentiator": "getting more traffic and growing brand visibility",
+      "tone": "modern and sustainable"
+    },
+    "score": {
+      "scored_total": 13.0,
+      "checklist_total": 6.0,
+      "grand_total": 19.0,
+      "max_scored": 60,
+      "max_checklist": 9,
+      "max_total": 69,
+      "pct": 27.5,
+      "breakdown": {
+        "R1": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "No AI crawlers blocked in robots.txt",
+          "is_scored": false
+        },
+        "R3": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "Sitemap index (6 child sitemaps). Sampled child: 993 URLs | products: 1014 | collections: 0",
+          "is_scored": false
+        },
+        "R5": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "No bot protection blocking detected",
+          "is_scored": false
+        },
+        "R6": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "SSL valid for www.allbirds.com",
+          "is_scored": false
+        },
+        "R7": {
+          "score": 0,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Commerce schema score: 0/10 — types: none",
+          "is_scored": true
+        },
+        "R9": {
+          "score": 4,
+          "max": 10,
+          "status": "WARN",
+          "detail": "Currency prices visible in HTML (3 found): ['$2', '$3', '$5']",
+          "is_scored": true
+        },
+        "R11": {
+          "score": 0,
+          "max": 1,
+          "status": "FAIL",
+          "detail": "No JSON-LD blocks found in page source",
+          "is_scored": false
+        },
+        "R13": {
+          "score": 0,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Descriptions are very vague (delta=0.20) — AI cannot extract meaningful product facts",
+          "is_scored": true
+        },
+        "R15": {
+          "score": 0,
+          "max": 1,
+          "status": "FAIL",
+          "detail": "FAQ page thin — only 0/6 topics covered",
+          "is_scored": false
+        },
+        "R16": {
+          "score": 2,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Refund policy page exists but no return window is extractable",
+          "is_scored": true
+        },
+        "R17": {
+          "score": 2,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Shipping policy page exists but no timeframe extractable",
+          "is_scored": true
+        },
+        "R23": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "Contact page with branded email: help@allbirds.com",
+          "is_scored": false
+        },
+        "R25": {
+          "score": 0,
+          "max": 1,
+          "status": "FAIL",
+          "detail": "Inconsistent brand names (29.629629629629626%): ['Allbirds', 'Allbirds: Comfortable, Sustainable Shoes & Apparel']",
+          "is_scored": false
+        },
+        "R28": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "UCP profile found. Services: ['dev.ucp.shopping']",
+          "is_scored": false
+        },
+        "R30": {
+          "score": 0,
+          "max": 0,
+          "status": "INFORMATIONAL",
+          "detail": "Shopify confirmed (auto-enrolled in ACP). No Product schema on homepage — normal for Shopify. Product pages have schema by default.",
+          "is_scored": false,
+          "informational": true
+        },
+        "R31": {
+          "score": 5,
+          "max": 10,
+          "status": "WARN",
+          "detail": "Partial GMC signals (2/4) — missing: ['og:type=product', 'no Organization/WebSite schema']",
+          "is_scored": true
+        }
+      }
+    }
+  },
+  "checks": {
+    "R1": {
+      "check_id": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "No AI crawlers blocked in robots.txt",
+      "raw_evidence": "\nUser-agent: *\nDisallow: /a/downloads/-/*\nDisallow: /admin\nDisallow: /cart\nDisallow: /orders\nDisallow: /checkouts/\nDisallow: /checkout\nDisallow: /11044168/checkouts\nDisallow: /11044168/orders\nDisallow: /carts\nDisallow: /account\nDisallow: /collections/*sort_by*\nDisallow: /*/collections/*sort_by*\nDisallow: /collections/*+*\nDisallow: /collections/*%2B*\nDisallow: /collections/*%2b*\nDisallow: /*/collections/*+*\nDisallow: /*/collections/*%2B*\nDisallow: /*/collections/*%2b*\nDisallow: */collections/*filter*&*filter*\nDisallow: /blogs/*+*\nDisallow: /blogs/*%2B*\nDisallow: /blogs/*%2b*\nDisallow: /*/blogs/*+*\nDisallow: /*/blogs/*%2B*\nDisallow: /*/blogs/*%2b*\nDisallow: /*?*oseid=*\nDisallow: /*preview_theme_id*\nDisallow: /*preview_script_id*\nDisallow: /policies/\nDisallow: /*/policies/\nDisallow: /*/*?*ls=",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R1 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T17:10:05.334106+00:00"
+    },
+    "R3": {
+      "check_id": "R3",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "Sitemap index (6 child sitemaps). Sampled child: 993 URLs | products: 1014 | collections: 0",
+      "raw_evidence": "Child sitemaps: ['https://www.allbirds.com/sitemap_agentic_discovery.xml', 'https://www.allbirds.com/sitemap_products_1.xml?from=1878189441093&amp;to=7351264608336', 'https://www.allbirds.com/sitemap_pages_1.xml?from=248230535&amp;to=94891114576']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R3 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T17:10:05.334106+00:00"
+    },
+    "R5": {
+      "check_id": "R5",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "No bot protection blocking detected",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R5 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T17:10:05.334106+00:00"
+    },
+    "R6": {
+      "check_id": "R6",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "SSL valid for www.allbirds.com",
+      "raw_evidence": "Subject: ((('commonName', 'www.allbirds.com'),),)",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R6 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T17:10:05.334106+00:00"
+    },
+    "R7": {
+      "check_id": "R7",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "Commerce schema score: 0/10 — types: none",
+      "raw_evidence": "Types found: []",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R7 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add schema.org JSON-LD to your store. Priority order:\n\n1. Organization (if missing):\n   <script type=\"application/ld+json\">\n   {\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\n    \"name\":\"YOUR STORE NAME\",\"url\":\"YOUR URL\"}\n   </script>\n\n2. Product schema on all product pages (Shopify usually adds this automatically).\n\n3. FAQPage schema on your FAQ page.",
+      "timestamp": "2026-05-18T17:10:05.334106+00:00"
+    },
+    "R9": {
+      "check_id": "R9",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 4,
+      "detail": "Currency prices visible in HTML (3 found): ['$2', '$3', '$5']",
+      "raw_evidence": "['$2', '$3', '$5']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R9 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Prices are in HTML but not in structured schema. Add Product schema with price:\n{\"@type\":\"Product\",\"offers\":{\"@type\":\"Offer\",\"price\":\"XX.XX\",\"priceCurrency\":\"INR\"}}",
+      "timestamp": "2026-05-18T17:10:05.334106+00:00"
+    },
+    "R11": {
+      "check_id": "R11",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "No JSON-LD blocks found in page source",
+      "raw_evidence": "",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R11 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add schema.org JSON-LD markup to your store (see R7 fix for template).",
+      "timestamp": "2026-05-18T17:10:05.334106+00:00"
+    },
+    "R13": {
+      "check_id": "R13",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "Descriptions are very vague (delta=0.20) — AI cannot extract meaningful product facts",
+      "raw_evidence": "Vagueness delta: 0.205 | Sample: Free Shipping on Orders over $75. Easy Returns. Spend more to earn free shipping!",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R13 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Your descriptions contain almost no extractable facts.\nFor each product, include at minimum:\n  • Material composition\n  • Dimensions or weight\n  • Key feature with a number (e.g. '500ml capacity', '30-day battery')\n  • Who it is for / use case",
+      "timestamp": "2026-05-18T17:10:05.334565+00:00"
+    },
+    "R15": {
+      "check_id": "R15",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "FAQ page thin — only 0/6 topics covered",
+      "raw_evidence": "Found FAQ at /pages/help",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R15 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Expand your FAQ to cover: ['returns and refunds policy', 'shipping delivery time', 'sizing guide fit', 'payment methods accepted', 'contact customer support', 'warranty guarantee']",
+      "timestamp": "2026-05-18T17:10:05.334565+00:00"
+    },
+    "R16": {
+      "check_id": "R16",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 2,
+      "detail": "Refund policy page exists but no return window is extractable",
+      "raw_evidence": "Free Shipping on Orders over $75. Easy Returns. Skip to Content Men Women Sale About Shoes Socks & Apparel Sale Allbirds x Pantone Dasher NZ Collection Terralux™ Collection Varsity Collection New Arrivals Bestsellers Men's Shoes Shop All Sneakers Slip Ons Slippers All-Weather Sandals Customer Favorites Tree Runner NZ Canvas Cruiser The Original Tree Runner Varsity Dasher NZ Cruiser Apparel & Acces",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R16 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Your policy page exists but AI cannot extract a return timeframe.\nAdd clearly: 'Returns accepted within [NUMBER] days of delivery.'\nMake the number explicit — not 'a few weeks' or 'reasonable time'.",
+      "timestamp": "2026-05-18T17:10:05.334565+00:00"
+    },
+    "R17": {
+      "check_id": "R17",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 2,
+      "detail": "Shipping policy page exists but no timeframe extractable",
+      "raw_evidence": "Free Shipping on Orders over $75. Easy Returns. Skip to Content Men Women Sale About Shoes Socks & Apparel Sale Allbirds x Pantone Dasher NZ Collection Terralux™ Collection Varsity Collection New Arrivals Bestsellers Men's Shoes Shop All Sneakers Slip Ons Slippers All-Weather Sandals Customer Favorites Tree Runner NZ Canvas Cruiser The Original Tree Runner Varsity Dasher NZ Cruiser Apparel & Acces",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R17 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add an explicit delivery timeframe to your shipping policy.\nExample: 'Orders are processed within 24 hours and delivered within 3–7 business days depending on location.'",
+      "timestamp": "2026-05-18T17:10:05.334565+00:00"
+    },
+    "R23": {
+      "check_id": "R23",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "Contact page with branded email: help@allbirds.com",
+      "raw_evidence": "Fetched https://www.allbirds.com/pages/help — emails: ['help@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'privacy@allbirds.com', 'bulkorders@allbirds.com', 'privacy@allbirds.com', 'help@allbirds.com', 'legal@allbirds.com', 'legal@allbirds.com', 'legal@allbirds.com', 'legal@allbirds.com']",
+      "what_we_did": "Classified email domain against free-provider blocklist.",
+      "what_AI_sees": "AI sees branded email help@allbirds.com — strong accountability signal.",
+      "causality": "R23 PASSED — AI sees branded email help@allbirds.com — strong accountability signal.",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T17:10:05.334565+00:00"
+    },
+    "R25": {
+      "check_id": "R25",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "Inconsistent brand names (29.629629629629626%): ['Allbirds', 'Allbirds: Comfortable, Sustainable Shoes & Apparel']",
+      "raw_evidence": "Brand sources found: {'og_site_name': 'Allbirds', 'title_tag': 'Allbirds: Comfortable, Sustainable Shoes & Apparel'}",
+      "what_we_did": "Compared 'og_site_name'='Allbirds' (norm: 'allbirds') vs 'title_tag'='Allbirds: Comfortable, Sustainable Shoes & Apparel' (norm: 'allbirds comfortable sustainable shoes apparel'). Fuzzy ratio=29.629629629629626%",
+      "what_AI_sees": "AI cannot attribute products to a single brand — 'Allbirds' vs 'Allbirds: Comfortable, Sustainable Shoes & Apparel'.",
+      "causality": "R25 FAILED — AI cannot attribute products to a single brand — 'Allbirds' vs 'Allbirds: Comfortable, Sustainable Shoes & Apparel'. | How: Compared 'og_site_name'='Allbirds' (norm: 'allbirds') vs 'title_tag'='Allbirds: Comfortable, Sustainable Shoes & Apparel' (norm: 'allbirds comfortable sustainable shoes apparel'). Fuzzy ratio=29.629629629629626%",
+      "severity": "HIGH",
+      "fix": "AI sees your store as multiple entities.\nFound: ['Allbirds', 'Allbirds: Comfortable, Sustainable Shoes & Apparel']\nUse one consistent name in: og:site_name, schema.org Organization, title tag.",
+      "timestamp": "2026-05-18T17:10:05.334565+00:00"
+    },
+    "R28": {
+      "check_id": "R28",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "UCP profile found. Services: ['dev.ucp.shopping']",
+      "raw_evidence": "{\"ucp\":{\"version\":\"2026-04-08\",\"supported_versions\":{\"2026-04-08\":\"https:\\/\\/weareallbirds.myshopify.com\\/.well-known\\/ucp\\/2026-04-08\",\"2026-01-23\":\"https:\\/\\/weareallbirds.myshopify.com\\/.well-known\\/ucp\\/2026-01-23\"},\"services\":{\"dev.ucp.shopping\":[{\"version\":\"2026-04-08\",\"spec\":\"https:\\/\\/ucp.dev\\/2026-04-08\\/specification\\/overview\\/\",\"transport\":\"mcp\",\"endpoint\":\"https:\\/\\/weareallbirds.mysh",
+      "what_we_did": "GET https://www.allbirds.com/.well-known/ucp → 200. Parsed JSON for services.",
+      "what_AI_sees": "AI commerce agents can discover store with services: ['dev.ucp.shopping'].",
+      "causality": "R28 PASSED — AI commerce agents can discover store with services: ['dev.ucp.shopping'].",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T17:10:05.334565+00:00"
+    },
+    "R30": {
+      "check_id": "R30",
+      "tier": "VERIFIED",
+      "status": "INFORMATIONAL",
+      "score": 0,
+      "detail": "Shopify confirmed (auto-enrolled in ACP). No Product schema on homepage — normal for Shopify. Product pages have schema by default.",
+      "raw_evidence": "Shopify CDN confirmed. extruct found 0 Product schema on homepage.",
+      "what_we_did": "extruct JSON-LD extraction on homepage HTML.",
+      "what_AI_sees": "Store is enrolled in ACP via Shopify. Homepage product schema absent (expected).",
+      "causality": "R30 INFORMATIONAL — Store is enrolled in ACP via Shopify. Homepage product schema absent (expected).",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-18T17:10:05.334565+00:00"
+    },
+    "R31": {
+      "check_id": "R31",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 5,
+      "detail": "Partial GMC signals (2/4) — missing: ['og:type=product', 'no Organization/WebSite schema']",
+      "raw_evidence": "signals=['google-site-verification', 'prices visible (3)'] | missing=['og:type=product', 'no Organization/WebSite schema']",
+      "what_we_did": "Checked 4 GMC signals: google-site-verification meta, og:type=product, currency price in raw HTML, Organization/WebSite schema.org.",
+      "what_AI_sees": "Gemini product surfacing limited — only 2/4 GMC signals present.",
+      "causality": "R31 WARNING — Gemini product surfacing limited — only 2/4 GMC signals present.",
+      "severity": "MODERATE",
+      "fix": "Improve GMC readiness:\n• og:type=product\n• no Organization/WebSite schema\n\nVerify store with Google Search Console to get site-verification tag.",
+      "timestamp": "2026-05-18T17:10:05.334565+00:00"
+    }
+  },
+  "gap": {
+    "gap_IW": 0.719,
+    "gap_IS": 0.719,
+    "gap_WS": 0.0,
+    "IW_label": "MISALIGNED",
+    "IS_label": "MISALIGNED",
+    "WS_label": "ALIGNED",
+    "schema_source": "CRAWLED_FALLBACK",
+    "intent_text": "Fashion and apparel store. Established 1 to 3 years. Currently getting 500 to 5000 visitors per month. Main goal is getting more traffic. Customers have a little familiarity with AI shopping. This is a fashion and apparel store. Our primary customer is shoppers with a little familiarity with AI shopping. Our main differentiator is getting more traffic and growing brand visibility. Our brand tone is modern and sustainable.",
+    "website_text": "Allbirds: Comfortable, Sustainable Shoes & Apparel Free Shipping on Orders over $75. Easy Returns. Skip to Content Men's Women's New Arrivals Bestsellers Men Women Sale About Shoes Socks & Apparel Sale Allbirds x Pantone Dasher NZ Collection Terralux™ Collection Varsity Collection New Arrivals Bestsellers Men's Shoes Shop All Sneakers Slip Ons Slippers All-Weather Sandals Customer Favorites Tree Runner NZ Canvas Cruiser The Original Tree Runner Varsity Dasher NZ Cruiser Apparel & Accessories Soc",
+    "schema_text": "Allbirds: Comfortable, Sustainable Shoes & Apparel Free Shipping on Orders over $75. Easy Returns. Skip to Content Men's Women's New Arrivals Bestsellers Men Women Sale About Shoes Socks & Apparel Sale Allbirds x Pantone Dasher NZ Collection Terralux™ Collection Varsity Collection New Arrivals Bestsellers Men's Shoes Shop All Sneakers Slip Ons Slippers All-Weather Sandals Customer Favorites Tree Runner NZ Canvas Cruiser The Original Tree Runner Varsity Dasher NZ Cruiser Apparel & Accessories Soc",
+    "per_gap_traces": {
+      "IW": {
+        "gap": 0.719,
+        "label": "MISALIGNED",
+        "question": "Does your website reflect what you think your store says?",
+        "source_A": "merchant_intent",
+        "source_B": "website_content",
+        "preview_A": "Fashion and apparel store. Established 1 to 3 years. Currently getting 500 to 5000 visitors per month. Main goal is getting more traffic. Customers have a little familiarity with AI shopping. This is ",
+        "preview_B": "Allbirds: Comfortable, Sustainable Shoes & Apparel Free Shipping on Orders over $75. Easy Returns. Skip to Content Men's Women's New Arrivals Bestsellers Men Women Sale About Shoes Socks & Apparel Sal",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "IS": {
+        "gap": 0.719,
+        "label": "MISALIGNED",
+        "question": "Does your structured data (schema/crawl) reflect your intent?",
+        "source_A": "merchant_intent",
+        "source_B": "CRAWLED_FALLBACK",
+        "preview_A": "Fashion and apparel store. Established 1 to 3 years. Currently getting 500 to 5000 visitors per month. Main goal is getting more traffic. Customers have a little familiarity with AI shopping. This is ",
+        "preview_B": "Allbirds: Comfortable, Sustainable Shoes & Apparel Free Shipping on Orders over $75. Easy Returns. Skip to Content Men's Women's New Arrivals Bestsellers Men Women Sale About Shoes Socks & Apparel Sal",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "WS": {
+        "gap": 0.0,
+        "label": "ALIGNED",
+        "question": "Are your website content and schema/crawl consistent with each other?",
+        "source_A": "website_content",
+        "source_B": "CRAWLED_FALLBACK",
+        "preview_A": "Allbirds: Comfortable, Sustainable Shoes & Apparel Free Shipping on Orders over $75. Easy Returns. Skip to Content Men's Women's New Arrivals Bestsellers Men Women Sale About Shoes Socks & Apparel Sal",
+        "preview_B": "Allbirds: Comfortable, Sustainable Shoes & Apparel Free Shipping on Orders over $75. Easy Returns. Skip to Content Men's Women's New Arrivals Bestsellers Men Women Sale About Shoes Socks & Apparel Sal",
+        "interpretation": "ALIGNED: No action needed."
+      }
+    }
+  },
+  "conclusion": "Your store's AI visibility score of 19.0/69 is very low, meaning AI tools struggle to understand what you sell and how you operate. Specifically, the lack of structured data (R11) and your vague product descriptions (R13) prevent AI from extracting key facts about your fashion items. This directly hurts your goal of getting more traffic because AI can't effectively recommend your products or answer basic customer questions about shipping and returns. To fix this, your most important step is to rewrite all product descriptions to be clear, detailed, and fact-rich.",
+  "raw_page_texts": {
+    "homepage": "Allbirds: Comfortable, Sustainable Shoes & Apparel Free Shipping on Orders over $75. Easy Returns. Skip to Content Men's Women's New Arrivals Bestsellers Men Women Sale About Shoes Socks & Apparel Sale Allbirds x Pantone Dasher NZ Collection Terralux™ Collection Varsity Collection New Arrivals Bestsellers Men's Shoes Shop All Sneakers Slip Ons Slippers All-Weather Sandals Customer Favorites Tree Runner NZ Canvas Cruiser The Original Tree Runner Varsity Dasher NZ Cruiser Apparel & Accessories Soc",
+    "about": "Our Story | Sustainable Shoes & Apparel | Allbirds Free Shipping on Orders over $75. Easy Returns. Skip to Content Men Women Sale About Shoes Socks & Apparel Sale Allbirds x Pantone Dasher NZ Collection Terralux™ Collection Varsity Collection New Arrivals Bestsellers Men's Shoes Shop All Sneakers Slip Ons Slippers All-Weather Sandals Customer Favorites Tree Runner NZ Canvas Cruiser The Original Tree Runner Varsity Dasher NZ Cruiser Apparel & Accessories Socks Apparel Bags Laces Insoles Socks No ",
+    "policies": "Free Shipping on Orders over $75. Easy Returns. Skip to Content Men Women Sale About Shoes Socks & Apparel Sale Allbirds x Pantone Dasher NZ Collection Terralux™ Collection Varsity Collection New Arrivals Bestsellers Men's Shoes Shop All Sneakers Slip Ons Slippers All-Weather Sandals Customer Favorites Tree Runner NZ Canvas Cruiser The Original Tree Runner Varsity Dasher NZ Cruiser Apparel & Accessories Socks Apparel Bags Laces Insoles Socks No Show Ankle Crew All Socks Men's Apparel Tees Sweats"
+  }
+}

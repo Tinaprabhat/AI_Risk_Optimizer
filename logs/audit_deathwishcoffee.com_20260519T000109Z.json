@@ -1,0 +1,414 @@
+{
+  "meta": {
+    "store_url": "https://www.deathwishcoffee.com/",
+    "domain": "deathwishcoffee.com",
+    "audit_timestamp": "20260519T000109Z",
+    "merchant_intent": "Good coffee beans online store",
+    "mcq": {
+      "category": "Food & Beverages",
+      "customer": "Parents & families",
+      "differentiator": "Premium / luxury quality",
+      "tone": "Bold & edgy"
+    },
+    "score": {
+      "scored_total": 30.0,
+      "checklist_total": 6.0,
+      "grand_total": 36.0,
+      "max_scored": 60,
+      "max_checklist": 9,
+      "max_total": 69,
+      "pct": 52.2,
+      "breakdown": {
+        "R1": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "No AI crawlers blocked in robots.txt",
+          "is_scored": false
+        },
+        "R3": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "Sitemap index (5 child sitemaps). Sampled child: 137 URLs | products: 142 | collections: 0",
+          "is_scored": false
+        },
+        "R5": {
+          "score": 0,
+          "max": 1,
+          "status": "WARN",
+          "detail": "Possible bot challenge page detected — markers: ['captcha']",
+          "is_scored": false
+        },
+        "R6": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "SSL valid for www.deathwishcoffee.com",
+          "is_scored": false
+        },
+        "R7": {
+          "score": 3,
+          "max": 10,
+          "status": "WARN",
+          "detail": "Commerce schema score: 3/10 — types: ['Organization']",
+          "is_scored": true
+        },
+        "R9": {
+          "score": 4,
+          "max": 10,
+          "status": "WARN",
+          "detail": "Currency prices visible in HTML (1 found): ['$,']",
+          "is_scored": true
+        },
+        "R11": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "All 2 JSON-LD block(s) are valid",
+          "is_scored": false
+        },
+        "R13": {
+          "score": 3,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Descriptions are mostly vague (delta=0.07)",
+          "is_scored": true
+        },
+        "R15": {
+          "score": 0,
+          "max": 1,
+          "status": "FAIL",
+          "detail": "FAQ page thin — only 1/6 topics covered",
+          "is_scored": false
+        },
+        "R16": {
+          "score": 10,
+          "max": 10,
+          "status": "PASS",
+          "detail": "Concrete return window found: '60 day money back'",
+          "is_scored": true
+        },
+        "R17": {
+          "score": 2,
+          "max": 10,
+          "status": "FAIL",
+          "detail": "Shipping policy page exists but no timeframe extractable",
+          "is_scored": true
+        },
+        "R23": {
+          "score": 0,
+          "max": 1,
+          "status": "FAIL",
+          "detail": "No contact page found at standard paths",
+          "is_scored": false
+        },
+        "R25": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "Brand consistent (100.0%): ['Death Wish Coffee', 'Death Wish Coffee']",
+          "is_scored": false
+        },
+        "R28": {
+          "score": 1,
+          "max": 1,
+          "status": "PASS",
+          "detail": "UCP profile found. Services: ['dev.ucp.shopping']",
+          "is_scored": false
+        },
+        "R30": {
+          "score": 0,
+          "max": 0,
+          "status": "INFORMATIONAL",
+          "detail": "Shopify confirmed (auto-enrolled in ACP). No Product schema on homepage — normal for Shopify. Product pages have schema by default.",
+          "is_scored": false,
+          "informational": true
+        },
+        "R31": {
+          "score": 8,
+          "max": 10,
+          "status": "PASS",
+          "detail": "Strong GMC signals (3/4): ['google-site-verification', 'prices visible (1)', 'Organization/WebSite schema']",
+          "is_scored": true
+        }
+      }
+    }
+  },
+  "checks": {
+    "R1": {
+      "check_id": "R1",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "No AI crawlers blocked in robots.txt",
+      "raw_evidence": "# we use Shopify as our ecommerce platform\n\n#  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n#  ┃  Robots & Agent policy                                               ┃\n#  ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n#  ┃  Checkouts are for humans.                                           ┃\n#  ┃  * Automated scraping, “buy-for-me” agents, or any end-to-end flow   ┃\n#  ┃    that completes payment without a final human review step is not   ┃\n#  ┃    permitted.                                                        ┃\n#  ┃  * Legitimate integrators must use the official Checkout Kit:        ┃\n#  ┃      https://www.shopify.com/checkout-kit                            ┃\n#  ┃                                                                    ",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R1 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R3": {
+      "check_id": "R3",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "Sitemap index (5 child sitemaps). Sampled child: 137 URLs | products: 142 | collections: 0",
+      "raw_evidence": "Child sitemaps: ['https://www.deathwishcoffee.com/sitemap_agentic_discovery.xml', 'https://www.deathwishcoffee.com/sitemap_products_1.xml?from=171104582&amp;to=7450190970935', 'https://www.deathwishcoffee.com/sitemap_pages_1.xml?from=11767228&amp;to=103431241783']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R3 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R5": {
+      "check_id": "R5",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 0,
+      "detail": "Possible bot challenge page detected — markers: ['captcha']",
+      "raw_evidence": "['captcha']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R5 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Cloudflare may be serving a challenge page to AI crawlers.\nFix: Cloudflare Dashboard → Security → Bots → Bot Fight Mode → Disable or whitelist.",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R6": {
+      "check_id": "R6",
+      "tier": "VERIFIED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "SSL valid for www.deathwishcoffee.com",
+      "raw_evidence": "Subject: ((('commonName', 'www.deathwishcoffee.com'),),)",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R6 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R7": {
+      "check_id": "R7",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 3,
+      "detail": "Commerce schema score: 3/10 — types: ['Organization']",
+      "raw_evidence": "Types found: ['Organization', 'WebSite']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R7 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add schema.org JSON-LD to your store. Priority order:\n\n1. Organization (if missing):\n   <script type=\"application/ld+json\">\n   {\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\n    \"name\":\"YOUR STORE NAME\",\"url\":\"YOUR URL\"}\n   </script>\n\n2. Product schema on all product pages (Shopify usually adds this automatically).\n\n3. FAQPage schema on your FAQ page.",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R9": {
+      "check_id": "R9",
+      "tier": "CORRELATED",
+      "status": "WARN",
+      "score": 4,
+      "detail": "Currency prices visible in HTML (1 found): ['$,']",
+      "raw_evidence": "['$,']",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R9 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Prices are in HTML but not in structured schema. Add Product schema with price:\n{\"@type\":\"Product\",\"offers\":{\"@type\":\"Offer\",\"price\":\"XX.XX\",\"priceCurrency\":\"INR\"}}",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R11": {
+      "check_id": "R11",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "All 2 JSON-LD block(s) are valid",
+      "raw_evidence": "2 JSON-LD block(s) found",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R11 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R13": {
+      "check_id": "R13",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 3,
+      "detail": "Descriptions are mostly vague (delta=0.07)",
+      "raw_evidence": "Vagueness delta: 0.070 | Sample: ENTER FOR A CHANCE TO WIN A DENEEN POTTERY SPOON REST MILITARY, FIRST RESPONDERS + TEACHERS: SAVE 15%  WITH GOVXID Born from the elements and built for endurance, this naturally high caffeine brew is ",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R13 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Replace vague adjectives with measurable facts.\nInstead of: 'premium quality materials'\nWrite: 'made from 316L surgical stainless steel, 2mm thickness, weight 85g'\n\nAI cannot distinguish you from competitors without specific, factual descriptions.",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R15": {
+      "check_id": "R15",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "FAQ page thin — only 1/6 topics covered",
+      "raw_evidence": "Found FAQ at /pages/faq",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R15 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Expand your FAQ to cover: ['returns and refunds policy', 'shipping delivery time', 'sizing guide fit', 'payment methods accepted', 'warranty guarantee']",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R16": {
+      "check_id": "R16",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 10,
+      "detail": "Concrete return window found: '60 day money back'",
+      "raw_evidence": "Refund policy – Death Wish Coffee Skip to content ENTER FOR A CHANCE TO WIN A DENEEN POTTERY SPOON REST MILITARY, FIRST RESPONDERS + TEACHERS: SAVE 15% WITH GOVXID Coffee Coffee Subscribe & Save Subscription Perks Choose Your Coffee Society Exclusive Merch Build Your Own Bundle Save Up to 15% Off Brew Format Ground/Whole Bean Single-Serve Pods Canned Lattes Cold Brew Espresso Capsules Instant Orga",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R16 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R17": {
+      "check_id": "R17",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 2,
+      "detail": "Shipping policy page exists but no timeframe extractable",
+      "raw_evidence": "Shipping policy – Death Wish Coffee Skip to content ENTER FOR A CHANCE TO WIN A DENEEN POTTERY SPOON REST MILITARY, FIRST RESPONDERS + TEACHERS: SAVE 15% WITH GOVXID Coffee Coffee Subscribe & Save Subscription Perks Choose Your Coffee Society Exclusive Merch Build Your Own Bundle Save Up to 15% Off Brew Format Ground/Whole Bean Single-Serve Pods Canned Lattes Cold Brew Espresso Capsules Instant Or",
+      "what_we_did": "(not recorded)",
+      "what_AI_sees": "(not recorded)",
+      "causality": "R17 UNKNOWN — ",
+      "severity": "INFO",
+      "fix": "Add an explicit delivery timeframe to your shipping policy.\nExample: 'Orders are processed within 24 hours and delivered within 3–7 business days depending on location.'",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R23": {
+      "check_id": "R23",
+      "tier": "CORRELATED",
+      "status": "FAIL",
+      "score": 0,
+      "detail": "No contact page found at standard paths",
+      "raw_evidence": "Tried: ['/pages/contact', '/pages/contact-us', '/contact', '/contact-us'] — all 404/blocked",
+      "what_we_did": "Sequential GET on standard contact URL paths.",
+      "what_AI_sees": "AI cannot verify merchant accountability — no contact page.",
+      "causality": "R23 FAILED — AI cannot verify merchant accountability — no contact page. | How: Sequential GET on standard contact URL paths.",
+      "severity": "MODERATE",
+      "fix": "Create a contact page at /pages/contact with:\n  • Branded email (support@yourdomain.com)\n  • Response time commitment\nAI agents use contact pages to verify store accountability.",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R25": {
+      "check_id": "R25",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "Brand consistent (100.0%): ['Death Wish Coffee', 'Death Wish Coffee']",
+      "raw_evidence": "Brand sources found: {'og_site_name': 'Death Wish Coffee', 'schema_org': 'Death Wish Coffee'}",
+      "what_we_did": "Compared 'og_site_name'='Death Wish Coffee' (norm: 'death wish coffee') vs 'schema_org'='Death Wish Coffee' (norm: 'death wish coffee'). Fuzzy ratio=100.0%",
+      "what_AI_sees": "AI sees consistent brand 'Death Wish Coffee' across sources.",
+      "causality": "R25 PASSED — AI sees consistent brand 'Death Wish Coffee' across sources.",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R28": {
+      "check_id": "R28",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 1,
+      "detail": "UCP profile found. Services: ['dev.ucp.shopping']",
+      "raw_evidence": "{\"ucp\":{\"version\":\"2026-04-08\",\"supported_versions\":{\"2026-04-08\":\"https:\\/\\/deathwishcoffee.myshopify.com\\/.well-known\\/ucp\\/2026-04-08\",\"2026-01-23\":\"https:\\/\\/deathwishcoffee.myshopify.com\\/.well-known\\/ucp\\/2026-01-23\"},\"services\":{\"dev.ucp.shopping\":[{\"version\":\"2026-04-08\",\"spec\":\"https:\\/\\/ucp.dev\\/2026-04-08\\/specification\\/overview\\/\",\"transport\":\"mcp\",\"endpoint\":\"https:\\/\\/deathwishcoffe",
+      "what_we_did": "GET https://www.deathwishcoffee.com/.well-known/ucp → 200. Parsed JSON for services.",
+      "what_AI_sees": "AI commerce agents can discover store with services: ['dev.ucp.shopping'].",
+      "causality": "R28 PASSED — AI commerce agents can discover store with services: ['dev.ucp.shopping'].",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R30": {
+      "check_id": "R30",
+      "tier": "VERIFIED",
+      "status": "INFORMATIONAL",
+      "score": 0,
+      "detail": "Shopify confirmed (auto-enrolled in ACP). No Product schema on homepage — normal for Shopify. Product pages have schema by default.",
+      "raw_evidence": "Shopify CDN confirmed. extruct found 0 Product schema on homepage.",
+      "what_we_did": "extruct JSON-LD extraction on homepage HTML.",
+      "what_AI_sees": "Store is enrolled in ACP via Shopify. Homepage product schema absent (expected).",
+      "causality": "R30 INFORMATIONAL — Store is enrolled in ACP via Shopify. Homepage product schema absent (expected).",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    },
+    "R31": {
+      "check_id": "R31",
+      "tier": "CORRELATED",
+      "status": "PASS",
+      "score": 8,
+      "detail": "Strong GMC signals (3/4): ['google-site-verification', 'prices visible (1)', 'Organization/WebSite schema']",
+      "raw_evidence": "signals=['google-site-verification', 'prices visible (1)', 'Organization/WebSite schema'] | missing=['og:type=product']",
+      "what_we_did": "Checked 4 GMC signals: google-site-verification meta, og:type=product, currency price in raw HTML, Organization/WebSite schema.org.",
+      "what_AI_sees": "AI/Gemini can surface products from this store (3/4 GMC signals).",
+      "causality": "R31 PASSED — AI/Gemini can surface products from this store (3/4 GMC signals).",
+      "severity": "INFO",
+      "fix": "",
+      "timestamp": "2026-05-19T00:01:09.968399+00:00"
+    }
+  },
+  "gap": {
+    "gap_IW": 0.545,
+    "gap_IS": 0.545,
+    "gap_WS": 0.0,
+    "IW_label": "MISALIGNED",
+    "IS_label": "MISALIGNED",
+    "WS_label": "ALIGNED",
+    "schema_source": "CRAWLED_FALLBACK",
+    "intent_text": "Good coffee beans online store This is a Food & Beverages store. Our primary customer is Parents & families. Our main differentiator is Premium / luxury quality. Our brand tone is Bold & edgy.",
+    "website_text": "#1 Organic and #1 Fair Trade Coffee – Death Wish Coffee Skip to content ENTER FOR A CHANCE TO WIN A DENEEN POTTERY SPOON REST MILITARY, FIRST RESPONDERS + TEACHERS: SAVE 15% WITH GOVXID Coffee Coffee Subscribe & Save Subscription Perks Choose Your Coffee Society Exclusive Merch Build Your Own Bundle Save Up to 15% Off Brew Format Ground/Whole Bean Single-Serve Pods Canned Lattes Cold Brew Espresso Capsules Instant Organic Coffee Dark Roast Espresso Roast Light Roast Medium Roast Power Surge Valh",
+    "schema_text": "#1 Organic and #1 Fair Trade Coffee – Death Wish Coffee Skip to content ENTER FOR A CHANCE TO WIN A DENEEN POTTERY SPOON REST MILITARY, FIRST RESPONDERS + TEACHERS: SAVE 15% WITH GOVXID Coffee Coffee Subscribe & Save Subscription Perks Choose Your Coffee Society Exclusive Merch Build Your Own Bundle Save Up to 15% Off Brew Format Ground/Whole Bean Single-Serve Pods Canned Lattes Cold Brew Espresso Capsules Instant Organic Coffee Dark Roast Espresso Roast Light Roast Medium Roast Power Surge Valh",
+    "per_gap_traces": {
+      "IW": {
+        "gap": 0.545,
+        "label": "MISALIGNED",
+        "question": "Does your website reflect what you think your store says?",
+        "source_A": "merchant_intent",
+        "source_B": "website_content",
+        "preview_A": "Good coffee beans online store This is a Food & Beverages store. Our primary customer is Parents & families. Our main differentiator is Premium / luxury quality. Our brand tone is Bold & edgy.",
+        "preview_B": "#1 Organic and #1 Fair Trade Coffee – Death Wish Coffee Skip to content ENTER FOR A CHANCE TO WIN A DENEEN POTTERY SPOON REST MILITARY, FIRST RESPONDERS + TEACHERS: SAVE 15% WITH GOVXID Coffee Coffee ",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "IS": {
+        "gap": 0.545,
+        "label": "MISALIGNED",
+        "question": "Does your structured data (schema/crawl) reflect your intent?",
+        "source_A": "merchant_intent",
+        "source_B": "CRAWLED_FALLBACK",
+        "preview_A": "Good coffee beans online store This is a Food & Beverages store. Our primary customer is Parents & families. Our main differentiator is Premium / luxury quality. Our brand tone is Bold & edgy.",
+        "preview_B": "#1 Organic and #1 Fair Trade Coffee – Death Wish Coffee Skip to content ENTER FOR A CHANCE TO WIN A DENEEN POTTERY SPOON REST MILITARY, FIRST RESPONDERS + TEACHERS: SAVE 15% WITH GOVXID Coffee Coffee ",
+        "interpretation": "MISALIGNED: Review sources below — they describe different things."
+      },
+      "WS": {
+        "gap": 0.0,
+        "label": "ALIGNED",
+        "question": "Are your website content and schema/crawl consistent with each other?",
+        "source_A": "website_content",
+        "source_B": "CRAWLED_FALLBACK",
+        "preview_A": "#1 Organic and #1 Fair Trade Coffee – Death Wish Coffee Skip to content ENTER FOR A CHANCE TO WIN A DENEEN POTTERY SPOON REST MILITARY, FIRST RESPONDERS + TEACHERS: SAVE 15% WITH GOVXID Coffee Coffee ",
+        "preview_B": "#1 Organic and #1 Fair Trade Coffee – Death Wish Coffee Skip to content ENTER FOR A CHANCE TO WIN A DENEEN POTTERY SPOON REST MILITARY, FIRST RESPONDERS + TEACHERS: SAVE 15% WITH GOVXID Coffee Coffee ",
+        "interpretation": "ALIGNED: No action needed."
+      }
+    }
+  },
+  "conclusion": "Your store's AI visibility is currently low at 52.2%, primarily because AI encountered a bot challenge (R5: captcha) preventing it from fully reading your site. This",
+  "raw_page_texts": {
+    "homepage": "#1 Organic and #1 Fair Trade Coffee – Death Wish Coffee Skip to content ENTER FOR A CHANCE TO WIN A DENEEN POTTERY SPOON REST MILITARY, FIRST RESPONDERS + TEACHERS: SAVE 15% WITH GOVXID Coffee Coffee Subscribe & Save Subscription Perks Choose Your Coffee Society Exclusive Merch Build Your Own Bundle Save Up to 15% Off Brew Format Ground/Whole Bean Single-Serve Pods Canned Lattes Cold Brew Espresso Capsules Instant Organic Coffee Dark Roast Espresso Roast Light Roast Medium Roast Power Surge Valh",
+    "about": "About Us – Death Wish Coffee Skip to content ENTER FOR A CHANCE TO WIN A DENEEN POTTERY SPOON REST MILITARY, FIRST RESPONDERS + TEACHERS: SAVE 15% WITH GOVXID Coffee Coffee Subscribe & Save Subscription Perks Choose Your Coffee Society Exclusive Merch Build Your Own Bundle Save Up to 15% Off Brew Format Ground/Whole Bean Single-Serve Pods Canned Lattes Cold Brew Espresso Capsules Instant Organic Coffee Dark Roast Espresso Roast Light Roast Medium Roast Power Surge Valhalla Java Odinforce Blend O",
+    "policies": "Refund policy – Death Wish Coffee Skip to content ENTER FOR A CHANCE TO WIN A DENEEN POTTERY SPOON REST MILITARY, FIRST RESPONDERS + TEACHERS: SAVE 15% WITH GOVXID Coffee Coffee Subscribe & Save Subscription Perks Choose Your Coffee Society Exclusive Merch Build Your Own Bundle Save Up to 15% Off Brew Format Ground/Whole Bean Single-Serve Pods Canned Lattes Cold Brew Espresso Capsules Instant Organic Coffee Dark Roast Espresso Roast Light Roast Medium Roast Power Surge Valhalla Java Odinforce Bl"
+  }
+}

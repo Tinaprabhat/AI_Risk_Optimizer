@@ -1,8 +1,13 @@
-from sqlalchemy import text
+import psycopg2
 
-from app.db.session import engine
+conn = psycopg2.connect(
+    host="localhost",
+    port=5433,
+    database="ai_rep_optimizer",
+    user="postgres",
+    password="YOURPASSWORD"
+)
 
-with engine.connect() as conn:
-    result = conn.execute(text("SELECT 1"))
+print("Database connected successfully!")
 
-    print(result.scalar())
+conn.close()
