@@ -139,14 +139,14 @@ MERCHANT INPUT
   │    ├── L2  Structured Data       R7 R9 R11           scored 0–10
   │    ├── L3  Semantic Content      R13 R15 R16 R17     scored 0–10
   │    ├── L4  Trust Signals         R23 R25             binary 0/1
-  │    ├── L5  AI-Era Protocols      R28 R30 R31         scored 0–10
+  │    ├── L5  AI-Era Protocols      R28 R30 R31         scored 0–10 (R30 will score if shopify user, else 0)
   │    ├── L6  Semantic Gap Engine   (pure embeddings, 0 LLM calls)
   │    │    V1 = merchant intent     (MCQ answers + free text)
   │    │    V2 = website content     (crawled + cleaned HTML)
   │    │    V3 = schema content      (JSON-LD extracted by extruct)
-  │    │    gap_IW, gap_IS, gap_WS → 4×3 dimension-page matrix
+  │    │    gap_IW, gap_IS, gap_WS → 4×5 dimension-page matrix
   │    └── L7  Aggregation & Output  (1 Gemini call)
-  │         X/79 score + ranked blockers + AI Mirror display
+  │         X/69 score + ranked blockers + AI Mirror display
   │         + conclusion paragraph
   │         Fallback: Ollama → hardcoded template
   │
@@ -199,13 +199,13 @@ observed across 24 stores). R16 and R17 ★ are the strongest predictors.
 | **R30** | ACP feed quality — Shopify only | L5 | VERIFIED | Scored |
 | **R31** | GMC homepage signals | L5 | CORRELATED | Scored |
 
-**Scoring system: X / 79**
+**Scoring system: X / 69**
 
 | Type | Checks | Max Points |
 |---|---|---|
-| Scored (0–10 continuous) | R7, R9, R13, R16, R17, R30, R31 | 70 points |
+| Scored (0–10 continuous) | R7, R9, R13, R16, R17, R30(If shopify user, else 0), R31 | 60 points |
 | Binary (0 or 1) | R1, R3, R5, R6, R11, R15, R23, R25, R28 | 9 points |
-| **Total** | **16** | **79** |
+| **Total** | **16** | **69** |
 
 Rules: WARN → partial score (proportional, not zero). UNKNOWN → 0
 (conservative). Non-Shopify R28 and R30 → 0, not excluded from denominator.
@@ -517,7 +517,7 @@ Thresholds:
 - gap 0.15–0.30 → DRIFT (meaningful divergence — show raw text to merchant)
 - gap > 0.30 → MISALIGNED (genuinely different meaning)
 
-### The 4×3 Dimension-Page Matrix
+### The 4×5 Dimension-Page Matrix
 
 A single gap score is not enough. It collapses WHERE the gap is.
 
@@ -525,7 +525,7 @@ Merchant intent is decomposed into 4 dimensions from the MCQ answers:
 Tone, Category, Customer, Differentiator.
 
 Website content is split into 3 page types:
-About, Homepage, Policies.
+About, Homepage, Policies, FAQs, Product.
 
 Each of the 4 intent dimensions is compared against each of the
 3 page vectors — producing 12 independent gap scores.
@@ -580,9 +580,9 @@ def compute_score(layer_results: dict) -> AuditScore:
     scored_checks = [R7, R9, R13, R16, R17, R30, R31]
     binary_checks = [R1, R3, R5, R6, R11, R15, R23, R25, R28]
 
-    scored_total = sum(check.score for check in scored_checks)   # max 70
+    scored_total = sum(check.score for check in scored_checks)   # max 60
     binary_total = sum(check.score for check in binary_checks)   # max 9
-    total = scored_total + binary_total                           # max 79
+    total = scored_total + binary_total                           # max 69
 
     # Blocker ranking: by impact weight, not by layer order
     blockers = sorted(failures, key=lambda c: IMPACT_WEIGHTS[c.code], reverse=True)
@@ -600,7 +600,7 @@ You are an AI readiness advisor. Based on this audit data:
 {json.dumps(layer_results)}
 
 Write one paragraph for a non-technical Shopify merchant explaining:
-- Their current AI visibility score ({score}/79)
+- Their current AI visibility score ({score}/69)
 - The 2-3 most critical issues blocking AI recommendation
 - One sentence of encouragement about what they're doing right
 
@@ -703,8 +703,8 @@ can close and resume. The LLM receives the full history on each turn.
 | Hardcoded templates first | Fully LLM-generated fixes | Hardcoded + LLM for dialogue only | Hardcoded = zero hallucination, instant response, works offline |
 | Sequential fetching | Parallel HTTP requests | Sequential + ±500ms jitter | Parallel triggers Cloudflare after 3–5 hits on same domain |
 | Embedding model | GPT-4 embeddings, Ollama local | all-MiniLM-L6-v2 (CPU, 80MB) | Deterministic, zero cost, already in stack for L3 |
-| 4×3 gap matrix | Single cosine similarity score | 4 dimensions × 3 page types | One number hides WHERE the gap is — matrix makes it actionable |
-| Raw score /79 | Percentage /100 | Raw number only | /100 invites comparison to SEO tools that give everything 85+ |
+| 4×5 gap matrix | Single cosine similarity score | 4 dimensions × 5 page types | One number hides WHERE the gap is — matrix makes it actionable |
+| Raw score /69 | Percentage /100 | Raw number only | /100 invites comparison to SEO tools that give everything 85+ |
 | WARN ≠ FAIL | Binary pass/fail | Partial credit on scored checks | A store with a 14-day refund window is meaningfully better than one with none |
 | Tier 2 → WARN not PASS | Embeddings confirm policy exists | WARN only without a number | Without an extractable value, we cannot confirm the timeframe is sufficient |
 
