@@ -254,16 +254,15 @@ Full interactive docs: `http://localhost:8000/docs` (Swagger UI auto-generated b
 ---
 
 ## Live Demo & Documentation
-
 | Resource | Link |
 |---|---|
-| Demo video (3–5 min walkthrough) | [YouTube — unlisted](#) |
-| Product Document | [`/docs/AI_Rep_Optimizer_ProductDoc.pdf`](docs/) |
-| Technical Document | [`/docs/AI_Rep_Optimizer_TechDoc.pdf`](docs/) |
+| Demo Video Walkthrough | [Google Drive](https://drive.google.com/file/d/1hIM0Sx8hBT7EkJ1GAiXSTlndZ2o1dH7b/view?usp=sharing) |
+| Product Document | [Google Drive](https://drive.google.com/file/d/1hIM0Sx8hBT7EkJ1GAiXSTlndZ2o1dH7b/view?usp=sharing) |
+| Technical Document | [Google Drive](https://drive.google.com/file/d/1bz5X4DvPJNF8RADxSr6oLIAFAqZhB17X/view?usp=sharing) |
+| Product Walkthrough Document | [Google Drive](https://drive.google.com/file/d/1COzKWvczI0HeaLrrZ21h6K6X_mpF4IML/view?usp=sharing) |
+| Team Contribution Document | [Google Drive](https://drive.google.com/file/d/140Gy6ST_8-5j8URBhhRPgFjWuoEBObtl/view?usp=sharing) |
 | Decision Log | [`DECISIONS.md`](DECISIONS.md) |
 | API Docs (local) | `http://localhost:8000/docs` |
-
----
 
 ## Cost Model
 
@@ -322,5 +321,3 @@ MIT License — see [LICENSE](LICENSE)
 ---
 
 *AI Representation Optimizer · v2.0 · 2026 · Built for Kasparro Track 5*
-READMEEOF
-echo "Done"
