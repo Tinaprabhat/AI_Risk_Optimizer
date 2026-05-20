@@ -239,9 +239,9 @@ Subtitle: *"3 different views of your store — yours, your website's, and what 
 - `Your Intent vs AI Data` — same scale
 - `Website vs AI Data` — same scale
 
-**Dimension Gap Matrix (4×3 grid):**  
+**Dimension Gap Matrix (4×5 grid):**  
 Rows: Tone · Category · Customer · Differentiator  
-Columns: About · Homepage · Policies  
+Columns: About · Homepage · Policies · Products · FAQs
 Each cell shows gap score + status label (MIS / DRIFT / OK).  
 Lower score = worse alignment.
 
@@ -577,7 +577,7 @@ CREATE TABLE audits (
     created_at      TIMESTAMPTZ DEFAULT NOW(),
     expires_at      TIMESTAMPTZ,            -- NULL = no expiry
     score           INTEGER,
-    max_score       INTEGER DEFAULT 79,
+    max_score       INTEGER DEFAULT 69,
     score_pct       FLOAT,
     grade           TEXT,                   -- POOR / FAIR / GOOD / EXCELLENT
     payload         JSONB,                  -- Full AuditRequest (url + MCQ answers)
@@ -605,7 +605,7 @@ CREATE TABLE semantic_gaps (
     gap_iw          FLOAT,                 -- Intent vs Website
     gap_is          FLOAT,                 -- Intent vs Schema
     gap_ws          FLOAT,                 -- Website vs Schema
-    matrix          JSONB,                 -- 4x3 dimension gap matrix
+    matrix          JSONB,                 -- 4x5 dimension gap matrix
     overall_status  TEXT                   -- ALIGNED | DRIFT | MISALIGNED
 );
 
