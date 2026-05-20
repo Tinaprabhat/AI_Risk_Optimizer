@@ -496,7 +496,7 @@ class CheckResult:
 5. Breaks intent into 4 dimensions (Tone, Category, Customer, Differentiator) and computes per-dimension distances against 3 page types (About, Homepage, Policies)
 6. Returns the 4×3 gap matrix + three summary gap scores
 
-**`layer7/aggregator.py`** receives all layer results, computes the weighted X/79 score, ranks blockers by impact weight, and calls `llm.py` for the conclusion paragraph.
+**`layer7/aggregator.py`** receives all layer results, computes the weighted X/69 score, ranks blockers by impact weight, and calls `llm.py` for the conclusion paragraph.
 
 ---
 
