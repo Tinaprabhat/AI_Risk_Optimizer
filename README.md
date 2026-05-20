@@ -1,6 +1,6 @@
 # AI Representation Optimizer — Full Stack Reference
 
-> **Branch: `final`** — Production-ready full stack.  
+> **Branch: `frontend-Backend`** — Production-ready full stack.  
 > FastAPI backend · PostgreSQL · React frontend · 7-layer audit engine · Gemini → Ollama → Template fallback chain.
 
 ---
