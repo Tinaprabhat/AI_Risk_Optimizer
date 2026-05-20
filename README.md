@@ -1,623 +1,847 @@
-#  AI Risk Optimizer
+# AI Logic Branch
 
-> **Find out exactly why AI shopping agents aren't recommending your Shopify store — and fix it.**
-
-AI Risk Optimizer is a full-stack audit platform that runs a Shopify store URL through 7 layers of AI-readiness checks, computes semantic alignment gaps between how a merchant perceives their store vs how AI actually reads it, and provides a step-by-step guided fix engine powered by an LLM chatbot.
-
----
-
-## 📌 Table of Contents
-
-- [The Problem](#-the-problem)
-- [The Idea](#-the-idea)
-- [Live Demo Flow](#-live-demo-flow)
-- [Architecture](#-architecture)
-- [The 7 Layers](#-the-7-layers)
-- [AI Mirror](#-ai-mirror)
-- [Scoring System](#-scoring-system)
-- [Fix Engine](#-fix-engine)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Prerequisites](#-prerequisites)
-- [Installation](#-installation)
-- [Environment Variables](#-environment-variables)
-- [Running the App](#-running-the-app)
-- [API Endpoints](#-api-endpoints)
-- [Caching](#-caching)
-- [LLM Fallback Chain](#-llm-fallback-chain)
-- [Observability](#-observability)
-- [Known Limitations](#-known-limitations)
+> **Branch: `AI_logic`**  
+> The full AI reasoning engine behind the audit — 7 layers, 16 checkpoints,  
+> 3-tier semantic extraction, the AI Mirror, and the Fix Engine.  
+> Built in Python. Runs entirely on CPU. Costs $0 at prototype scale.
 
 ---
 
-## 🧩 The Problem
+## Table of Contents
 
-AI shopping agents like ChatGPT, Gemini, Perplexity, and Claude are increasingly being used by consumers to discover and buy products. These agents crawl stores, read structured data, and make recommendations — but most Shopify merchants have no visibility into why their store is or isn't being recommended.
-
-Common reasons AI ignores a store:
-
-- `robots.txt` blocks AI crawlers like `GPTBot` or `ClaudeBot`
-- No `schema.org` structured data — AI cannot extract product facts
-- Vague product descriptions — AI cannot differentiate the store from competitors
-- No FAQ page — AI answers "I don't know" to buyer questions
-- Missing refund/shipping timeframes — AI cannot answer policy questions
-- No UCP profile — AI commerce agents cannot transact on behalf of buyers
-- Brand name inconsistency — AI treats the store as multiple different entities
-
----
-
-## 💡 The Idea
-
-The core insight is that there are **three different versions** of every store:
-
-1. **What the merchant thinks their store says** — their own description and intent
-2. **What AI reads from the website HTML** — crawled page text
-3. **What AI reads from structured data** — JSON-LD schema
-
-When these three are **aligned**, AI recommends the store confidently.
-When they **drift or misalign**, AI gets confused, gives incomplete answers, or skips the store entirely.
-
-AI Rep Optimizer measures all three, computes the gaps between them, scores the store across 15 checks, and provides actionable fixes with a guided LLM chatbot.
+1. [What This Branch Is](#what-this-branch-is)
+2. [The Journey — v0 → v1 → v2](#the-journey--v0--v1--v2)
+3. [Architecture Overview](#architecture-overview)
+4. [The 16 Checkpoints](#the-16-checkpoints)
+5. [Layer by Layer](#layer-by-layer)
+6. [Semantic Extraction Layer](#semantic-extraction-layer)
+7. [The AI Mirror — L6](#the-ai-mirror--l6)
+8. [Aggregation & Output — L7](#aggregation--output--l7)
+9. [The Fix Engine — Part 2](#the-fix-engine--part-2)
+10. [Key Design Decisions](#key-design-decisions)
+11. [What We Ditched and Why](#what-we-ditched-and-why)
+12. [What We Broke and Fixed](#what-we-broke-and-fixed)
+13. [Known Limitations](#known-limitations)
+14. [Stack](#stack)
 
 ---
 
-## 🎬 Live Demo Flow
+## What This Branch Is
 
-```
-Screen 1 — Landing
-  Enter your Shopify store URL
+This branch contains the core AI reasoning layer of the product — everything
+that happens between receiving a merchant's URL and producing a scored,
+ranked, fixable audit output.
 
-Screen 2 — MCQ Form
-  4 multiple-choice questions about your store:
-    • Category (Fashion, Beauty, Electronics, etc.)
-    • Primary customer (Young adults, Parents, etc.)
-    • Differentiator (Affordable, Premium, Fast delivery, etc.)
-    • Brand tone (Playful, Minimal, Luxury, etc.)
-  + Free text description of your store
+It is not a wrapper around an LLM. The vast majority of the system —
+16 checkpoints, semantic extraction, embedding-based gap analysis — is
+deterministic, reproducible, and runs at $0. The LLM (Gemini 2.5 Flash)
+is called exactly once per audit, for the conclusion paragraph only.
 
-Screen 3 — Scanning
-  Live progress animation while backend runs all 7 layers
-  Shows which layer is currently running
-  Detects cache hit (same URL = instant result)
-
-Screen 4 — Results
-  Overall AI readiness score (X/69)
-  Layer-by-layer breakdown (L1–L5)
-  Each rule is clickable — shows evidence, what AI sees, fix instructions
-  AI-generated conclusion paragraph (via Gemini or Ollama)
-  Two buttons: AI Mirror and Fix Now
-
-Screen 5 — AI Mirror
-  3 perception cards side by side:
-    🧑‍💼 Your Perception — what you described
-    🌐 HTML Perception — what AI reads from your website
-    🤖 AI Perception   — what AI reads from your schema/structured data
-  Gap scores with ALIGNED / DRIFT / MISALIGNED labels
-  Dimension matrix — how each MCQ dimension aligns per page
-
-Screen 6 — Fix Now
-  Left panel: all failed/warn checks with checkboxes
-  Right panel: LLM chatbot that fixes one issue at a time
-    • Gives one step at a time (not the whole answer at once)
-    • Remembers conversation history (resumable after browser close)
-    • User manually ticks checkbox when a fix is applied
-    • Moving to next check loads a fresh conversation
-```
+The Streamlit prototype in this branch was the working proof-of-concept
+before the full-stack frontend was built by the teammate. Everything you
+see in the final UI started here.
 
 ---
 
-## 🏗 Architecture
+## The Journey — v0 → v1 → v2
+
+Understanding how the system evolved matters more than just reading what
+it does now. Each version answered a problem the previous one created.
+
+### v0 — The Hypothesis (35 Reasons)
+
+The first question was simple: why does AI skip stores? We mapped every
+plausible reason into 6 layers and arrived at 35 checkpoints.
+
+The problem with v0: all 35 reasons were treated with equal confidence.
+Verified mechanistic facts sat alongside weak speculation — with no
+distinction between them. A tool that audits things that don't actually
+affect AI recommendation behaviour misleads merchants instead of helping them.
+
+We also had a Layer 6 that asked Gemini to roleplay as a ChatGPT shopping
+agent — simulating what another AI would conclude about a store.
+
+> *"Gemini has no access to ChatGPT's weights, retrieval index, ranking  
+> logic, or tool-use pipeline. What it produced was creative writing  
+> dressed as evaluation."*
+
+That entire layer was scrapped.
+
+### v1 — Validation Before Building
+
+Before writing a single line of production code, we ran an empirical
+validation study. The method:
+
+- Query 3 AI shopping agents (Gemini, Perplexity, ChatGPT) × 3 times
+  each across 5 product categories
+- Identify the most-recommended stores per category
+- Run 14 checkpoints on each winner and measure pass rate
+- Cross-validate against 24 live Shopify stores across 9 checkpoints
+
+**Result:** Pass rate ≥ 10/14 across 4/5 categories — directionally confirmed.
+R16 (refund window) and R17 (shipping timeframe) emerged as the strongest
+predictors. Checks with no signal correlation were re-tiered or dropped.
+
+35 checkpoints → 16. Zero speculative. All either VERIFIED or CORRELATED.
+
+Six architecture issues were also identified and resolved in v1:
+
+| Issue | Resolution |
+|---|---|
+| Causal claims unverified | 35 checks tiered: VERIFIED / CORRELATED / DERIVATIVE / SPECULATIVE |
+| Gemini roleplay is not simulation | Replaced with embedding-based gap analysis (honest, verifiable) |
+| Semantic gap collapsed to one number | Decomposed into 4×5 dimension-page matrix |
+| UCP/llms.txt severity miscalibrated | Moved to FORWARD-LOOKING tier — not scored, not a blocker |
+| JS-heavy stores treated as dead ends | Sequential + jitter fetching, static Shopify endpoint fallback |
+| Parallel requests trigger Cloudflare | All fetches sequential with ±500ms jitter |
+
+### v2 — The Regex Problem
+
+After v1 validation on real stores, a second failure mode emerged.
+Stores with perfectly valid refund and shipping policies were being
+flagged as FAIL — not because the data was absent, but because their
+phrasing didn't match hardcoded regex.
+
+| Checkpoint | False Negative Rate | Example Missed Phrase |
+|---|---|---|
+| R9 — Price signal | ~15% | 'USD 99', '99 EUR', '99 dollars' |
+| R16 — Refund timeframe | ~20% | 'fortnight', '30-day guarantee', 'one month' |
+| R17 — Shipping timeframe | ~20% | '1-2 weeks', 'Arrives in 5-7 days' |
+| R15 — FAQ discovery | ~25% | '/customer-support', '/knowledgebase', '/help-centre' |
+
+**Combined: ~18% of stores with correct, complete data were failing
+checkpoints because they wrote naturally instead of robotically.**
+
+The fix was architectural. v2.0 introduced a Semantic Extraction Layer
+that runs once before all checkpoints, extracts structured meaning, and
+feeds it downstream. Checkpoints no longer search HTML — they score
+pre-extracted data.
+
+Result: false negative rate dropped from ~18% to ~5–8%. +3 seconds to
+audit time. $0 additional cost.
+
+---
+
+## Architecture Overview
 
 ```
 MERCHANT INPUT
-  Store URL + Free text description + 4 MCQ answers
-        │
-        ▼
-┌─────────────────────────────────────────────────────────┐
-│                      BACKEND (FastAPI)                  │
-│                                                         │
-│  POST /api/audit/start  →  returns job_id immediately   │
-│  GET  /api/audit/status/{job_id}  →  poll every 2s      │
-│                                                         │
-│  Background thread runs:                                │
-│                                                         │
-│  Layer 1  Crawlability      R1 R3 R5 R6    binary       │
-│  Layer 2  Structured Data   R7 R9 R11      scored       │
-│  Layer 3  Semantic Content  R13 R15 R16 R17 scored      │
-│  Layer 4  Trust Signals     R23 R25        binary       │
-│  Layer 5  AI-Era Protocols  R28 R30 R31    scored       │
-│      │                                                  │
-│      ▼                                                  │
-│  Layer 6  Semantic Gap      gap_IW gap_IS gap_WS        │
-│      │    (embeddings via all-MiniLM-L6-v2)             │
-│      ▼                                                  │
-│  Layer 7  Aggregator        Score + LLM Conclusion      │
-│                             (Gemini → Ollama → fallback)│
-│                                                         │
-│  Result saved to PostgreSQL (cache)                     │
-│  Observability log written to logs/                     │
-└─────────────────────────────────────────────────────────┘
-        │
-        ▼
-┌─────────────────────────────────────────────────────────┐
-│                    FRONTEND (React + Vite)              │
-│                                                         │
-│  6 screens navigated via React Router                   │
-│  Global state via React Context                         │
-│  All API calls via axios through api/client.js          │
-└─────────────────────────────────────────────────────────┘
+  URL + free text description + 4 MCQs
+  │
+  ├── SEMANTIC EXTRACTOR  (runs once, feeds L1–L5)
+  │    Tier 1: spaCy NER + numeric regex + SPELLED_NUMBERS map
+  │    Tier 2: all-MiniLM-L6-v2 embeddings vs POLICY_EXISTS_EXEMPLARS
+  │    Tier 3: Gemini 2.5 Flash structured JSON  [v3 — not yet live]
+  │    Output: {refund, shipping, brand, faq, price} structured dict
+  │
+  ├── PART 1 — AUDIT ENGINE
+  │    ├── L1  Crawlability          R1 R3 R5 R6         binary 0/1
+  │    ├── L2  Structured Data       R7 R9 R11           scored 0–10
+  │    ├── L3  Semantic Content      R13 R15 R16 R17     scored 0–10
+  │    ├── L4  Trust Signals         R23 R25             binary 0/1
+  │    ├── L5  AI-Era Protocols      R28 R30 R31         scored 0–10
+  │    ├── L6  Semantic Gap Engine   (pure embeddings, 0 LLM calls)
+  │    │    V1 = merchant intent     (MCQ answers + free text)
+  │    │    V2 = website content     (crawled + cleaned HTML)
+  │    │    V3 = schema content      (JSON-LD extracted by extruct)
+  │    │    gap_IW, gap_IS, gap_WS → 4×3 dimension-page matrix
+  │    └── L7  Aggregation & Output  (1 Gemini call)
+  │         X/79 score + ranked blockers + AI Mirror display
+  │         + conclusion paragraph
+  │         Fallback: Ollama → hardcoded template
+  │
+  └── PART 2 — FIX ENGINE
+       Ranked blocker list → hardcoded fix template → Gemini chatbot
+       Fallback: Ollama → template only (zero hallucination guaranteed)
 ```
+
+### The AI / Deterministic Boundary
+
+This boundary is the most important architectural decision in the system.
+
+| Component | Type | LLM | Cost |
+|---|---|---|---|
+| Semantic Extractor Tier 1 | Deterministic | spaCy (local NLP) | $0 |
+| Semantic Extractor Tier 2 | Deterministic | MiniLM embeddings (CPU) | $0 |
+| L1–L5: 16 checkpoints | Deterministic | None | $0 |
+| L6: Semantic Gap | Deterministic | MiniLM embeddings (CPU) | $0 |
+| L7: Conclusion paragraph | LLM | Gemini → Ollama → Template | ~$0.017 |
+| Part 2: Fix Chatbot | LLM | Gemini → Ollama → Template | ~$0.05/session |
+
+Everything upstream of L7 is fully reproducible with no internet
+connection. The same URL always produces the same checkpoint scores.
+Gemini is never a hard dependency.
 
 ---
 
-## 🔬 The 7 Layers
+## The 16 Checkpoints
 
-### Layer 1 — Crawlability
-Checks if AI crawlers can physically access the store.
+Final checkpoint set after validation. Every check is VERIFIED
+(mechanistic causal link, documented source) or CORRELATED (empirically
+observed across 24 stores). R16 and R17 ★ are the strongest predictors.
 
-| Rule | What it checks | Type |
-|------|----------------|------|
-| R1 | `robots.txt` — are AI agents (GPTBot, ClaudeBot, Google-Extended etc.) blocked? | Binary |
-| R3 | `sitemap.xml` — does it exist and contain product URLs? | Binary |
-| R5 | Bot protection — is Cloudflare or similar blocking AI crawlers? | Binary |
-| R6 | SSL certificate — is HTTPS valid and not expired? | Binary |
+| Code | Checkpoint | Layer | Evidence | Type |
+|---|---|---|---|---|
+| **R1** | robots.txt — AI crawler access | L1 | VERIFIED | Binary |
+| **R3** | sitemap.xml — exists + product URLs | L1 | VERIFIED | Binary |
+| **R5** | Bot protection blocking AI agents | L1 | CORRELATED | Binary |
+| **R6** | SSL certificate valid | L1 | VERIFIED | Binary |
+| **R7** | schema.org commerce types present | L2 | CORRELATED | Scored |
+| **R9** | Price signal visible to crawler | L2 | CORRELATED | Scored |
+| **R11** | JSON-LD valid — not malformed | L2 | CORRELATED | Binary |
+| **R13** | Product descriptions — specific not vague | L3 | CORRELATED | Scored |
+| **R15** | FAQ — exists + covers buyer topics | L3 | CORRELATED | Binary |
+| **R16 ★** | Refund window — concrete days extractable | L3 | CORRELATED | Scored |
+| **R17 ★** | Shipping — concrete timeframe extractable | L3 | CORRELATED | Scored |
+| **R23** | Contact page — exists + branded email | L4 | CORRELATED | Binary |
+| **R25** | Brand name — consistent across pages | L4 | CORRELATED | Binary |
+| **R28** | UCP profile — Shopify scored, non-Shopify 0 | L5 | CORRELATED | Binary |
+| **R30** | ACP feed quality — Shopify only | L5 | VERIFIED | Scored |
+| **R31** | GMC homepage signals | L5 | CORRELATED | Scored |
 
-### Layer 2 — Structured Data
-Checks the quality of machine-readable data on the store.
+**Scoring system: X / 79**
 
-| Rule | What it checks | Type |
-|------|----------------|------|
-| R7 | `schema.org` commerce types (Product, Organization, FAQPage etc.) | Scored 0–10 |
-| R9 | Price signal — is price visible in JSON-LD, meta tags, or HTML? | Scored 0–10 |
-| R11 | JSON-LD validity — are all JSON-LD blocks parseable? | Binary |
+| Type | Checks | Max Points |
+|---|---|---|
+| Scored (0–10 continuous) | R7, R9, R13, R16, R17, R30, R31 | 70 points |
+| Binary (0 or 1) | R1, R3, R5, R6, R11, R15, R23, R25, R28 | 9 points |
+| **Total** | **16** | **79** |
 
-### Layer 3 — Semantic Content
-Checks the quality and specificity of human-readable content.
-
-| Rule | What it checks | Type |
-|------|----------------|------|
-| R13 | Product description vagueness — specific facts vs vague adjectives | Scored 0–10 |
-| R15 | FAQ page — exists and covers 6 core buyer topics | Binary |
-| R16 | Refund policy — states a concrete return window (exact days) | Scored 0–10 |
-| R17 | Shipping policy — states a concrete delivery timeframe | Scored 0–10 |
-
-### Layer 4 — Trust Signals
-Checks signals that help AI verify store accountability.
-
-| Rule | What it checks | Type |
-|------|----------------|------|
-| R23 | Contact page with branded email (not Gmail/Yahoo) | Binary |
-| R25 | Brand name consistency across og:site_name, schema.org, title tag | Binary |
-
-### Layer 5 — AI-Era Protocols
-Checks next-generation AI commerce protocols.
-
-| Rule | What it checks | Type |
-|------|----------------|------|
-| R28 | UCP profile at `/.well-known/ucp` — enables AI commerce agents | Binary |
-| R30 | ACP feed quality — Shopify auto-enrollment status (informational only) | Info |
-| R31 | Google Merchant Center signals — 4 key signals for Gemini surfacing | Scored 0–10 |
-
-### Layer 6 — Semantic Gap (AI Mirror)
-Uses sentence embeddings (`all-MiniLM-L6-v2`) to compute cosine distance between:
-
-- **V1** — Merchant intent vector (free text + MCQ answers)
-- **V2** — Website content vector (crawled page text)
-- **V3** — Schema vector (JSON-LD or crawled fallback)
-
-Three gap scores:
-- `gap_IW` — Intent vs Website (does your site say what you think?)
-- `gap_IS` — Intent vs Schema (does your schema match your intent?)
-- `gap_WS` — Website vs Schema (are your content and schema consistent?)
-
-Labels: `ALIGNED` (< 0.15) | `DRIFT` (0.15–0.30) | `MISALIGNED` (> 0.30)
-
-### Layer 7 — Aggregator
-- Computes final score from all checks
-- Calls Gemini 2.5 Flash (→ Ollama Mistral → rule-based fallback) to generate a 3–4 sentence conclusion
-- Returns full result dict including observability block
+Rules: WARN → partial score (proportional, not zero). UNKNOWN → 0
+(conservative). Non-Shopify R28 and R30 → 0, not excluded from denominator.
 
 ---
 
-## 🪞 AI Mirror
+## Layer by Layer
 
-The AI Mirror is the most unique feature of the platform. It shows three simultaneous "views" of the same store:
+### L1 — Crawlability
 
-```
-┌──────────────────────┐  ┌──────────────────────┐  ┌──────────────────────┐
-│   🧑‍💼 YOUR PERCEPTION  │  │  🌐 HTML PERCEPTION   │  │  🤖 AI PERCEPTION    │
-│                      │  │                      │  │                      │
-│ What you described   │  │ What AI reads from   │  │ What AI reads from   │
-│ in the MCQ form      │  │ your website's HTML  │  │ your JSON-LD schema  │
-│ and free text        │  │ when it crawls       │  │ or crawled fallback  │
-└──────────────────────┘  └──────────────────────┘  └──────────────────────┘
-         │                          │                          │
-         └──────────── gap_IW ──────┘                          │
-         │                                                     │
-         └──────────────────────── gap_IS ─────────────────────┘
-                                    │
-                    ┌───────────────┴───────────────┐
-                    │         gap_WS                │
-                    └───────────────────────────────┘
-```
+**Can AI physically reach the store?**
 
-Also includes a **Dimension Matrix** — how each of the 4 MCQ dimensions (category, customer, differentiator, tone) aligns across each crawled page (homepage, about, policies).
+Output format: binary checklist (not score). Either GPTBot is blocked
+or it isn't. A score of 70/100 would hide a hard block — the checklist
+forces the actual problem to surface.
 
----
+**R1 — robots.txt**  
+`GET /robots.txt` → parsed with `robotparser`. Checked against 20+ AI
+user-agents: GPTBot, OAI-SearchBot, ClaudeBot, Claude-SearchBot,
+Google-Extended, Gemini-Deep-Research, PerplexityBot, CCBot.
+404 on robots.txt = allow all (per RFC spec). 403 = BOT PROTECTION,
+severity CRITICAL, no retry.
 
-## 📊 Scoring System
+**R3 — sitemap.xml**  
+`GET /sitemap.xml` → parse XML. If sitemap index found, follows child
+sitemaps (`/sitemap_pages_1.xml`, etc.) to count actual product URLs.
+v2.0 fix: v1 only checked the index and missed product counts behind
+child sitemaps.
 
-```
-Scored checks (quality 0–10 each):
-  R7   Schema.org commerce types
-  R9   Price signal strength
-  R13  Product description specificity
-  R16  Refund policy concreteness
-  R17  Shipping policy concreteness
-  R31  Google Merchant Center signals
-  ─────────────────────────────────
-  Max: 60 points
+**R5 — Bot protection**  
+Fetches with each AI user-agent. Checks for 403/429/503, Cloudflare
+challenge page markers, CAPTCHA text, `cf-ray` header.
+Distinguishes hard block (CRITICAL) from rate limit (WARN).
 
-Checklist checks (binary 0/1 each):
-  R1   robots.txt allows AI crawlers
-  R3   sitemap.xml present
-  R5   No bot protection blocking
-  R6   SSL valid
-  R11  JSON-LD valid syntax
-  R15  FAQ page covers key topics
-  R23  Contact page + branded email
-  R25  Brand name consistent
-  R28  UCP profile exists
-  ─────────────────────────────────
-  Max: 9 points
+**R6 — SSL**  
+`ssl.get_server_certificate()` — validates cert validity and expiry.
+Expired SSL = instant disqualification from AI recommendation.
 
-R30: Informational only — not scored
-
-TOTAL MAXIMUM: 69 points
-```
-
-Score interpretation:
-- **≥ 80%** — Excellent — well optimised for AI discovery
-- **60–79%** — Good — a few gaps to fix
-- **40–59%** — Average — significant issues reducing visibility
-- **< 40%** — Poor — major issues blocking AI recommendations
+**Retry logic across all L1 checks:**
+- Retry on: 429, 503, 504, ConnectionError, Timeout
+- Backoff: 0s → 2s → 8s + ±500ms jitter
+- No retry on: 404 (definitive missing), 403 (definitive block)
 
 ---
 
-## 🔧 Fix Engine
+### L2 — Structured Data
 
-The Fix Engine (Part 2) provides guided remediation for every failed check.
+**Can AI extract machine-readable facts?**
 
-**How it works:**
-1. Merchant selects a failed check from the left panel
-2. Bot sends an opening message explaining the issue and asking if they're ready
-3. Merchant replies — bot gives **one step at a time** (not the whole fix at once)
-4. Conversation history is saved in PostgreSQL — resumable after browser close
-5. When merchant applies a fix, they manually tick the checkbox
-6. They move to the next check and a fresh conversation starts
+Uses `extruct` to pull JSON-LD, Microdata, and RDFa simultaneously.
+Output: 0–10 score per check + binary flag for contradictions.
 
-**Template coverage:** All 15 checks have hardcoded fix templates with exact steps and copy-paste code snippets. LLM only handles follow-up questions and step explanations.
+**R7 — Commerce schema types**  
+`extruct.extract(html, syntaxes=["json-ld","microdata","rdfa"])`.
+Checks for commerce-relevant types: Product, Organization, WebSite,
+FAQPage, BreadcrumbList. Score = types found / expected types × 10.
 
-**LLM scope rule:** The system prompt restricts the LLM to only answer questions about the current check. Off-topic questions are redirected back to the fix.
+**R9 — Price signal (v2.0 upgraded)**  
+v1: regex on raw HTML for `$`/`£`/`€` symbols only.  
+v2: receives `semantic_data['price']` from the extractor. Detects
+4 currency formats: symbol prefix, code prefix, code suffix, text amount.
+Also checks for schema price vs HTML price contradiction — mismatch
+= CONTRADICTION, severity CRITICAL.
 
----
-
-## 🛠 Tech Stack
-
-### Backend
-| Component | Technology |
-|-----------|------------|
-| API framework | FastAPI + Uvicorn |
-| Database | PostgreSQL (via psycopg2-binary) |
-| Embeddings | `all-MiniLM-L6-v2` via sentence-transformers |
-| Primary LLM | Gemini 2.5 Flash (google-generativeai) |
-| Fallback LLM | Ollama Mistral (local) |
-| HTML parsing | BeautifulSoup4 + extruct |
-| HTTP client | requests (with retry + timeout logic) |
-| Schema parsing | rapidfuzz (brand fuzzy matching) |
-| Logging | Python logging + structured JSON logs |
-
-### Frontend
-| Component | Technology |
-|-----------|------------|
-| Framework | React 18 + Vite |
-| Routing | React Router v6 |
-| State management | React Context API |
-| HTTP client | axios |
-| Styling | Inline styles with CSS variables |
+**R11 — JSON-LD validity**  
+`JSON.parse()` on every `<script type="application/ld+json">` block.
+Malformed JSON-LD is silently ignored by all crawlers — fixing it
+is a zero-effort, high-impact repair. FAIL includes the exact line
+and character position of the parse error.
 
 ---
 
-## 📁 Project Structure
+### L3 — Semantic Content
 
-```
-kasparro/
-├── backend/
-│   ├── main.py                         # FastAPI entry point
-│   ├── requirements.txt
-│   ├── .env                            # Environment variables
-│   ├── db/
-│   │   └── audits.db                   # (if SQLite fallback used)
-│   ├── logs/                           # Observability JSON logs (one per audit)
-│   └── app/
-│       ├── api/
-│       │   └── routes.py               # All API endpoints
-│       ├── services/
-│       │   ├── auditor.py              # Main audit orchestrator
-│       │   └── fix_engine.py           # Fix templates + chatbot
-│       ├── layers/
-│       │   ├── layer1/
-│       │   │   ├── r1_robots.py        # robots.txt check
-│       │   │   └── r3_r5_r6.py        # sitemap, bot protection, SSL
-│       │   ├── layer2/
-│       │   │   └── r7_r9_r11.py       # schema.org, price, JSON-LD
-│       │   ├── layer3/
-│       │   │   └── r13_r15_r16_r17.py # descriptions, FAQ, policies
-│       │   ├── layer4/
-│       │   │   └── r23_r25.py         # contact, brand consistency
-│       │   ├── layer5/
-│       │   │   └── r28_r30_r31.py     # UCP, ACP, GMC signals
-│       │   ├── layer6/
-│       │   │   └── semantic_gap.py    # AI mirror embeddings
-│       │   └── layer7/
-│       │       └── aggregator.py      # scoring + LLM conclusion
-│       └── utils/
-│           ├── db.py                  # PostgreSQL — cache + chat history
-│           ├── embedder.py            # all-MiniLM-L6-v2 singleton
-│           ├── fetcher.py             # HTTP client (retry, timeout, garbage detection)
-│           ├── llm.py                 # Gemini → Ollama → fallback chain
-│           ├── obs_logger.py          # Structured observability logging
-│           └── text_cleaner.py        # Strip JS/JSON blobs from HTML
-│
-└── frontend/
-    ├── .env                           # VITE_API_BASE_URL
-    ├── package.json
-    └── src/
-        ├── main.jsx
-        ├── App.jsx                    # React Router — all 6 screens
-        ├── api/
-        │   └── client.js              # All backend calls in one place
-        ├── context/
-        │   └── AuditContext.jsx       # Global state across all screens
-        ├── screens/
-        │   ├── Landing.jsx            # Screen 1 — URL input
-        │   ├── McqForm.jsx            # Screen 2 — store description
-        │   ├── Scanning.jsx           # Screen 3 — live progress
-        │   ├── Results.jsx            # Screen 4 — scores + layer breakdown
-        │   ├── AiMirror.jsx           # Screen 5 — 3 perception cards
-        │   └── FixNow.jsx             # Screen 6 — chatbot fix engine
-        └── styles/
-            └── index.css
-```
+**Can AI understand what the store means?**
+
+The most NLP-heavy layer. All checks run without LLM calls.
+`all-MiniLM-L6-v2` handles all semantic comparison.
+
+**R13 — Vagueness detection**  
+Embeds each product description sentence. Compares cosine similarity
+against two pre-built exemplar sets:
+- `VAGUE_EXEMPLARS`: "premium quality", "great product", "you'll love it"
+- `SPECIFIC_EXEMPLARS`: "316L surgical steel, 2mm thickness, weight 85g"
+
+`delta = sim_vague - sim_specific`. If delta > 0.20 for more than half
+the sentences → VAGUE FAIL. Score proportional to delta.
+
+This catches the core problem: AI agents cannot distinguish a store
+from its competitors if descriptions contain no extractable specifics.
+
+**R15 — FAQ coverage (v2.0 upgraded)**  
+v1: checked 4 hardcoded paths (/pages/faq, /faq, /help, /pages/help).  
+v2: 3-stage discovery via `semantic_data['faq']`:
+1. Standard paths
+2. Keyword regex on sitemap: `faq|help|qa|support|knowledgebase|help-centre`
+3. Nav link scan on homepage
+
+Once the page is found, 6 topic centroids are pre-embedded (returns,
+shipping, sizing, payment, contact, warranty). Each FAQ answer is
+compared against all 6. Topic score: max cosine similarity ≥ 0.45 =
+covered. Output: `X/6 topics covered`.
+
+**R16 ★ — Refund window (v2.0 upgraded)**  
+v1: regex looking for `(\d+)[\s-]*(day|days)` — missed 'one month',
+'fortnight', '30-day guarantee'.  
+v2: receives `semantic_data['refund']`. Full scoring table:
+
+| Extracted window | Score |
+|---|---|
+| ≥ 30 days (any unit) | 10/10 — PASS |
+| 14–29 days | 9/10 — PASS |
+| 7–13 days | 6/10 — WARN |
+| < 7 days | 3/10 — WARN |
+| Policy exists, no window extractable | 2/10 — FAIL |
+| No policy page | 0/10 — FAIL |
+
+**R17 ★ — Shipping timeframe (v2.0 upgraded)**  
+Same upgrade pattern as R16. Receives `semantic_data['shipping']`.
+Unit normalisation converts all formats to day-equivalents before
+scoring, so "2 weeks" and "14 days" score identically.
 
 ---
 
-## ✅ Prerequisites
+### L4 — Trust Signals
 
-### Backend
-- Python 3.11+
-- PostgreSQL 14+ (installed and running)
-- Ollama (optional — fallback LLM)
+**Will AI risk recommending the store?**
 
-### Frontend
-- Node.js 18+
-- npm 9+
+Output: binary checklist. Trust is binary from an AI perspective —
+a branded contact email either exists or it doesn't.
 
-### API Keys
-- Gemini API key from [Google AI Studio](https://aistudio.google.com) (free tier: 20 req/day)
+**R23 — Contact page**  
+Detects contact page via sitemap + nav link scan. Checks for:
+branded email (not gmail/yahoo), phone number, physical address.
+Non-branded email = WARN not FAIL (still shows accountability).
 
----
+**R25 — Brand consistency (v2.0 upgraded)**  
+v1: string comparison across page titles.  
+v2: receives `semantic_data['brand']`. Multi-source extraction with
+priority ranking:
+- `og:site_name` meta tag (confidence 0.95)
+- `schema.org Organization.name` (confidence 0.90)
+- HTML title first segment (confidence 0.75)
 
-## 🚀 Installation
+NER sanity filter rejects strings with punctuation prefix, `&`
+characters, >40 chars, or >5 words. Consistency score = cosine
+similarity across all source names after normalisation.
 
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/yourusername/kasparro.git
-cd kasparro
-```
-
-### 2. Set up PostgreSQL
-
-```bash
-psql -U postgres
-CREATE DATABASE ai_rep_optimizer;
-\q
-```
-
-### 3. Install backend dependencies
-
-```bash
-cd backend
-pip install -r requirements.txt
-python -m spacy download en_core_web_sm
-```
-
-### 4. Install frontend dependencies
-
-```bash
-cd frontend
-npm install
-```
-
-### 5. Set up Ollama (optional — fallback LLM)
-
-```bash
-# Install from https://ollama.com
-ollama pull mistral
-ollama serve
-```
+Why this matters: 91.7% of stores in the validation study failed R25.
+Inconsistent brand name presentation ("Morphe US" vs "Morphe" vs
+footer plain text) causes AI to treat them as separate entities,
+weakening attribution and recommendation confidence.
 
 ---
 
-## 🔑 Environment Variables
+### L5 — AI-Era Protocols
 
-### `backend/.env`
+**Is the store opted into emerging AI commerce standards?**
 
-```env
-# LLM
-GEMINI_API_KEY=your_gemini_api_key_here
-OLLAMA_HOST=http://localhost:11434
-OLLAMA_MODEL=mistral
+**R28 — UCP profile**  
+`GET /.well-known/ucp` → parse JSON response. Shopify stores get this
+automatically — scored if valid, 0 if non-Shopify (not excluded from
+denominator). One store in validation (madeincookware.com) had a UCP
+endpoint returning invalid JSON — flagged FAIL.
 
-# PostgreSQL
-DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/ai_rep_optimizer
-```
+**R30 — ACP feed quality**  
+Shopify-only check. Validates Agentic Commerce Protocol feed: checks
+for marketing language in titles, price consistency, GTIN presence.
+Non-Shopify stores score 0 (expected behaviour, documented).
 
-### `frontend/.env`
-
-```env
-VITE_API_BASE_URL=http://localhost:8000/api
-```
-
----
-
-## ▶️ Running the App
-
-Open two terminals:
-
-**Terminal 1 — Backend**
-```bash
-cd backend
-uvicorn main:app --reload --port 8000
-```
-
-**Terminal 2 — Frontend**
-```bash
-cd frontend
-npm run dev
-```
-
-Open **http://localhost:5173** in your browser.
-
-Backend API docs available at **http://localhost:8000/docs**
+**R31 — GMC readiness signals**  
+Checks 4 Google Merchant Center signals on homepage:
+`google-site-verification` meta tag, `og:type=product`, currency-formatted
+price in HTML, `Organization` schema type.
+Score = signals found / 4 × 10. Validation found 5/24 stores (21%)
+passed this — lowest pass rate after R25 and R16.
 
 ---
 
-## 📡 API Endpoints
+## Semantic Extraction Layer
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/audit/start` | Start a new audit — returns `job_id` immediately |
-| `GET` | `/api/audit/status/{job_id}` | Poll for audit progress and result |
-| `DELETE` | `/api/audit/cache` | Clear cached result for a URL |
-| `POST` | `/api/chat/start` | Start a fix conversation for a check |
-| `POST` | `/api/chat/reply` | Send a message and get advisor reply |
-| `GET` | `/api/chat/history` | Load full conversation history |
-| `GET` | `/api/fix/template/{check_code}` | Get hardcoded fix template |
-| `GET` | `/api/health` | Health check |
+This is the most significant architectural addition in v2.0.
 
-### Example: Start an audit
+### The Problem It Solves
 
-```bash
-curl -X POST http://localhost:8000/api/audit/start \
-  -H "Content-Type: application/json" \
-  -d '{
-    "store_url": "https://yourstore.myshopify.com",
-    "free_text": "We sell sustainable shoes made from natural materials",
-    "mcq": {
-      "category": "footwear",
-      "customer": "eco-conscious adults",
-      "differentiator": "sustainable natural materials",
-      "tone": "friendly and eco-focused"
+The v1 pipeline was:
+```
+HTML page → regex match → PASS / FAIL
+```
+
+This worked for exact known phrasings and failed for everything else.
+~18% false negative rate on stores with valid, complete data.
+
+The v2 pipeline is:
+```
+HTML page → Semantic Extractor → structured meaning → checkpoint scores
+```
+
+Checkpoints receive pre-extracted structured data. They no longer
+search HTML at all.
+
+### Three-Tier Extraction Strategy
+
+The extractor tries three approaches in sequence, escalating only
+when the previous tier is uncertain:
+
+**Tier 1 — spaCy NER + numeric regex + SPELLED_NUMBERS map**  
+Always runs first. Handles ~85–90% of stores.
+
+```python
+SPELLED_NUMBERS = {
+    'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
+    'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10,
+    'fourteen': 14, 'thirty': 30, 'sixty': 60, 'fortnight': 14,
+    ...
+}
+
+TEMPORAL_MAPPINGS = {
+    'day': 1, 'days': 1,
+    'week': 7, 'weeks': 7,
+    'fortnight': 14,
+    'month': 30, 'months': 30,
+}
+```
+
+If Tier 1 confidence ≥ 0.85 → extraction complete. Otherwise → Tier 2.
+
+**Tier 2 — all-MiniLM-L6-v2 embedding similarity**  
+Handles additional ~7–10% of stores. Compares text against
+`POLICY_EXISTS_EXEMPLARS` pre-built sentence sets. Distinguishes:
+- "Policy exists but timeframe unclear" → WARN (not false FAIL)
+- "No policy at all" → FAIL
+
+Critically: Tier 2 changes FAIL to WARN only. It never changes
+FAIL to PASS without a concrete extracted value. This prevents
+false positives.
+
+**Tier 3 — Gemini 2.5 Flash structured JSON extraction**  
+Designed and documented. Not implemented in v2.0.  
+Expected to handle remaining ~3–5% (legal language, jurisdiction-based
+policies). Scoped to v3 — at prototype scale with English Shopify
+stores, Tier 1 + Tier 2 cover 92%+ of cases.
+
+### What the Extractor Returns
+
+```python
+{
+  'refund':   {value_min, value_max, unit, raw, found, confidence},
+  'shipping': {value_min, value_max, unit, raw, found, confidence},
+  'brand':    {brand_name, source, confidence, alternatives, consistency_score},
+  'faq':      {page_found, page_url, topics_covered, completeness},
+  'price':    {price_in_schema, price_in_html, contradiction, confidence},
+  'pages_crawled': 7,
+  'crawl_time_s':  12.4,
+  'extraction_confidence': 0.87
+}
+```
+
+This dict is passed to every checkpoint that needs it.
+The extractor runs once — not once per checkpoint.
+
+### Observability on Every Extraction
+
+Every extraction is fully logged. Merchants see exactly what
+was extracted and at what confidence:
+
+```
+check_id:         R16
+extraction_tier:  Tier 1 (numeric regex)
+raw_match:        'return your purchase within 28 days for a refund'
+extracted_value:  {value_min: 28, value_max: 28, unit: 'days'}
+confidence:       0.95
+normalised_days:  28
+score:            9 / 10
+status:           PASS
+what_AI_sees:     Merchant offers 28-day return window. AI can extract and cite this.
+```
+
+Compare to v1, which only showed: `status: PASS, detail: 'within 28 days found'`
+
+---
+
+## The AI Mirror — L6
+
+**What does AI actually perceive about this store?**
+
+L6 is the most technically novel component. It measures the semantic
+gap between three sources of store identity:
+
+- **V1 — Merchant intent**: embedded from MCQ answers + free text
+- **V2 — Website content**: embedded from crawled + cleaned HTML
+- **V3 — Schema content**: embedded from JSON-LD extracted by `extruct`
+
+### The Three Gap Scores
+
+```python
+gap_IW = 1 - cosine_sim(V1, V2)
+# "Does your website say what you think it says?"
+
+gap_IS = 1 - cosine_sim(V1, V3)
+# "Does your schema match your intent?"
+
+gap_WS = 1 - cosine_sim(V2, V3)
+# "Are your website and schema consistent with each other?"
+```
+
+Thresholds:
+- gap < 0.15 → ALIGNED (synonym-level variation, not a real problem)
+- gap 0.15–0.30 → DRIFT (meaningful divergence — show raw text to merchant)
+- gap > 0.30 → MISALIGNED (genuinely different meaning)
+
+### The 4×3 Dimension-Page Matrix
+
+A single gap score is not enough. It collapses WHERE the gap is.
+
+Merchant intent is decomposed into 4 dimensions from the MCQ answers:
+Tone, Category, Customer, Differentiator.
+
+Website content is split into 3 page types:
+About, Homepage, Policies.
+
+Each of the 4 intent dimensions is compared against each of the
+3 page vectors — producing 12 independent gap scores.
+
+```
+              About    Homepage   Policies
+Tone          0.798    0.662      0.832
+Category      0.745    0.737      0.748
+Customer      0.868    0.834      0.855
+Differentiator 0.784   0.633      0.820
+```
+
+This tells the merchant exactly which aspect of their brand is
+misrepresented on which page — not just "you have a gap somewhere."
+
+### Why All Embeddings, No LLM
+
+The choice to use embedding similarity instead of asking Gemini to
+evaluate the gap was deliberate. Cosine similarity is:
+- Deterministic — same inputs always produce the same scores
+- Auditable — the exact vectors and distances can be shown to the merchant
+- $0 — the MiniLM model runs on CPU
+
+An LLM evaluating the gap would produce probabilistic, non-reproducible
+assessments that vary run to run. That is not acceptable for a diagnostic tool.
+
+### The 256-Token Limit Fix
+
+`all-MiniLM-L6-v2` has a 256-token context window. In v1, large pages
+were silently truncated — the embedding represented only the first ~200
+words of each page.
+
+v2 fix: content is chunked into page-type slices before embedding.
+Each chunk is explicitly capped at 256 tokens. Truncation is logged,
+not silent. The merchant can see which pages were truncated.
+
+---
+
+## Aggregation & Output — L7
+
+**One Gemini call. Everything else is deterministic.**
+
+L7 receives the full JSON output from all layers and does two things:
+
+1. Computes the weighted X/79 score with ranked blockers
+2. Calls Gemini once for the conclusion paragraph
+
+### Score Computation (deterministic)
+
+```python
+def compute_score(layer_results: dict) -> AuditScore:
+    scored_checks = [R7, R9, R13, R16, R17, R30, R31]
+    binary_checks = [R1, R3, R5, R6, R11, R15, R23, R25, R28]
+
+    scored_total = sum(check.score for check in scored_checks)   # max 70
+    binary_total = sum(check.score for check in binary_checks)   # max 9
+    total = scored_total + binary_total                           # max 79
+
+    # Blocker ranking: by impact weight, not by layer order
+    blockers = sorted(failures, key=lambda c: IMPACT_WEIGHTS[c.code], reverse=True)
+    return AuditScore(total=total, max=79, blockers_ranked=blockers)
+```
+
+R16 and R17 carry the highest impact weights — confirmed by the
+validation study as the strongest predictors.
+
+### Conclusion Paragraph (Gemini → Ollama → Template)
+
+```python
+prompt = f"""
+You are an AI readiness advisor. Based on this audit data:
+{json.dumps(layer_results)}
+
+Write one paragraph for a non-technical Shopify merchant explaining:
+- Their current AI visibility score ({score}/79)
+- The 2-3 most critical issues blocking AI recommendation
+- One sentence of encouragement about what they're doing right
+
+Tone: direct, plain English, no jargon. Max 120 words.
+"""
+result = await llm.generate(prompt)
+# llm.generate() tries Gemini → Ollama → hardcoded template
+```
+
+The `source` field on the result (`gemini_flash`, `ollama_mistral`,
+or `template`) is returned to the frontend and shown to the merchant.
+Transparency about which system generated the conclusion.
+
+---
+
+## The Fix Engine — Part 2
+
+**Hardcoded templates first. LLM second. Always.**
+
+The fix engine activates after the audit. For every failing or warning
+checkpoint, the merchant gets two things:
+
+### 1. Hardcoded Fix Template (instant, zero LLM, zero hallucination)
+
+Every checkpoint has a pre-written fix template. These are not
+generated — they are written once and stored in `fix_engine.py`.
+
+Example for R13:
+
+```python
+TEMPLATES = {
+    "R13": {
+        "title": "Product descriptions — replace vague with specific",
+        "problem": "AI cannot distinguish your products from competitors "
+                   "without factual, measurable descriptions.",
+        "example_before": "premium quality materials",
+        "example_after": "made from 316L surgical stainless steel, "
+                         "2mm thickness, weight 85g",
+        "fix_steps": [
+            "Identify your 5 best-selling products",
+            "For each: add material, dimensions, weight, compatibility",
+            "Remove adjectives that have no factual basis (premium, luxury, best)",
+            "Test: can an AI answer 'what is this made of?' from your description?"
+        ],
+        "why": "AI agents build product representations from factual attributes. "
+               "Vague descriptions produce weak representations — "
+               "the store becomes interchangeable with hundreds of others.",
+        "time_to_fix": "2–4 hours",
+        "impact": "HIGH"
     },
-    "use_cache": true
-  }'
+    "R15": { ... },
+    "R16": { ... },
+    # All 16 checkpoints covered
+}
 ```
 
-Response:
-```json
-{ "job_id": "abc123", "status": "running" }
+The template renders immediately — no API call, no wait, no
+possibility of hallucination. A merchant at 3am with no Gemini
+access gets the same fix guidance as one with full connectivity.
+
+### 2. Gemini Chatbot Layer (conversational adaptation)
+
+The hardcoded template covers the general case. The chatbot handles
+the merchant's specific situation.
+
+```python
+async def build_fix_prompt(template, audit_context, history, message):
+    return f"""
+You are a Shopify AI readiness consultant.
+
+The merchant's store: {audit_context['url']}
+Category: {audit_context['category']}
+The issue: {template['problem']}
+Standard fix: {template['fix_steps']}
+
+Conversation so far:
+{format_history(history)}
+
+Merchant says: {message}
+
+Help them apply the fix to their specific store.
+Be concrete. If they sell {audit_context['category']}, give examples
+from that category. Do not repeat the template — build on it.
+"""
 ```
+
+Fallback chain: Gemini → Ollama → `"Guided fix temporarily unavailable.
+Use the template above — it contains everything you need."`
+
+Chat history is persisted in PostgreSQL per session. A merchant
+can close and resume. The LLM receives the full history on each turn.
 
 ---
 
-## 💾 Caching
+## Key Design Decisions
 
-Audit results are cached in PostgreSQL for **24 hours**.
-
-- Same URL submitted on the same day → instant result from cache (< 1s)
-- Same URL on a different day → full re-audit runs (30–60s)
-- `use_cache: false` in the request → always forces a fresh audit
-
-**Why 24-hour cache?** Store data changes daily — robots.txt, policies, prices, and schema can all update. A day-old audit is considered stale.
-
-Cache hit is visible in the scanning screen as "⚡ Retrieved from cache — instant result" and in the backend terminal as:
-```
-💾 CACHE HIT — https://yourstore.com/
-```
+| Decision | What was considered | What was chosen | Why |
+|---|---|---|---|
+| No LLM in L1–L6 | Gemini call for every layer | Zero LLM in L1–L6 | Deterministic, auditable, $0, no rate-limit exposure |
+| Hardcoded templates first | Fully LLM-generated fixes | Hardcoded + LLM for dialogue only | Hardcoded = zero hallucination, instant response, works offline |
+| Sequential fetching | Parallel HTTP requests | Sequential + ±500ms jitter | Parallel triggers Cloudflare after 3–5 hits on same domain |
+| Embedding model | GPT-4 embeddings, Ollama local | all-MiniLM-L6-v2 (CPU, 80MB) | Deterministic, zero cost, already in stack for L3 |
+| 4×3 gap matrix | Single cosine similarity score | 4 dimensions × 3 page types | One number hides WHERE the gap is — matrix makes it actionable |
+| Raw score /79 | Percentage /100 | Raw number only | /100 invites comparison to SEO tools that give everything 85+ |
+| WARN ≠ FAIL | Binary pass/fail | Partial credit on scored checks | A store with a 14-day refund window is meaningfully better than one with none |
+| Tier 2 → WARN not PASS | Embeddings confirm policy exists | WARN only without a number | Without an extractable value, we cannot confirm the timeframe is sufficient |
 
 ---
 
-## 🤖 LLM Fallback Chain
+## What We Ditched and Why
 
-```
-1. Gemini 2.5 Flash (cloud)
-   ↓ fails if: API key invalid, quota exceeded (20/day free tier), network error
-2. Ollama Mistral (local)
-   ↓ fails if: Ollama not running, mistral not pulled
-3. Rule-based fallback (hardcoded)
-   Always works — generates a deterministic conclusion from score and failed checks
-```
+**Gemini roleplay simulation (v0 Layer 6)**  
+Asked Gemini to pretend to be a ChatGPT shopping agent and predict
+recommendation behaviour. The output looked plausible and was useless.
+Gemini has no access to ChatGPT's weights, retrieval index, or
+ranking logic. It produced creative writing. Replaced entirely with
+embedding-based gap analysis — verifiable, deterministic, honest.
 
-The LLM is only used for:
-- Generating the 3–4 sentence audit conclusion (Layer 7)
-- Responding to fix chatbot messages (Fix Engine)
+**35 original checkpoints → 16**  
+The 19 dropped checks fell into two categories:
+- Speculative (weak or wrong causal logic) — e.g., R14 keyword stuffing
+  detection required assumptions about how LLMs weight repetition
+- Derivative (reasonable inference, no evidence) — e.g., R22 review
+  count thresholds had no correlation in the validation study
 
-All 15 check rules, scoring, and fix templates are deterministic — no LLM required.
+All 19 were either relabelled FORWARD-LOOKING (UCP, llms.txt) or
+dropped entirely.
 
----
+**UCP and llms.txt as scored checkpoints**  
+v0 flagged missing UCP as CRITICAL. A study of 300,000 domains found
+no correlation between llms.txt and AI citations. UCP is gated for
+most small merchants — flagging it as critical for something they
+cannot fix destroys trust in the tool. Both moved to FORWARD-LOOKING.
 
-## 🔍 Observability
+**Ollama as primary LLM**  
+v0 used Ollama running locally. Switched to Gemini 2.5 Flash: 2–4s
+vs 15–25s response time, free tier, better conversational follow-up,
+and no local model dependency for production. Ollama remains as fallback.
 
-Every audit writes a structured JSON log to `backend/logs/`:
-
-```
-logs/
-└── audit_yourstore.com_20260519T031313Z.json
-```
-
-Each log contains:
-- Full per-check trace (what was fetched, what was found, why it passed/failed)
-- Raw evidence for each check
-- What AI sees from each check
-- Causality trace ("R1 PASSED — No AI crawlers blocked")
-- All 3 AI Mirror perception texts
-- Gap scores with labels
-- Full LLM conclusion
-- First 500 chars of each crawled page
-
-This is for **debugging and transparency** — the app functions entirely from PostgreSQL, logs are for developer inspection.
+**Single blended score for all layers**  
+A 70/100 overall score would hide a CRITICAL failure in L1 (GPTBot
+blocked). Mixed model: binary checklist for existence checks, 0–10
+for continuous quality measurements.
 
 ---
 
-## ⚠️ Known Limitations
+## What We Broke and Fixed
 
-| Limitation | Detail |
-|------------|--------|
-| Gemini free tier | 20 requests/day. Upgrade to paid or use Ollama for heavy testing |
-| Shopify-specific | Some checks (R28 UCP, R30 ACP) are Shopify-only. Non-Shopify stores get FORWARD-LOOKING status |
-| Brotli encoding | Some stores serve Brotli-compressed HTML. The fetcher strips `br` from Accept-Encoding to avoid this |
-| R13 on homepage | Product description vagueness is checked on homepage text only, not product pages |
-| Embedding model | `all-MiniLM-L6-v2` has a 256-token context limit. Long texts are chunked before embedding |
-| Single user | In-memory job store (`_jobs` dict in routes.py) is lost on server restart. Use Redis for production multi-user deployment |
-| No auth | No user authentication — suitable for internal/demo use. Add JWT or session auth for production |
+**The Brotli encoding crash**  
+v1 `fetcher.py` included `Accept-Encoding: br` in request headers.
+Some Shopify CDN edges returned Brotli-compressed responses. Python
+`requests` does not decompress Brotli by default — the raw compressed
+bytes were fed to BeautifulSoup, which extracted garbage text.
+Fix: removed `br` from `Accept-Encoding`. Simple one-line fix that
+took an embarrassingly long time to diagnose.
+
+**The child sitemap miss**  
+v1 R3 checked `/sitemap.xml` and counted product URLs in the top-level
+file. Most Shopify stores use sitemap indexes — the top-level file
+contains only pointers to child sitemaps like `/sitemap_products_1.xml`.
+v1 was reporting 0 product URLs for stores with 500+ products because
+it wasn't following the index. Fix: added child sitemap discovery
+in the semantic extractor Phase 1.
+
+**The 256-token silent truncation**  
+v1 L6 embedded entire pages as single vectors. `all-MiniLM-L6-v2`
+has a 256-token window — anything beyond that was silently truncated.
+For a homepage with 2,000 tokens, only the first ~200 words were
+embedded. The semantic gap scores for content-heavy pages were
+computed on headers and hero text only.
+Fix: content chunked by page type, each chunk explicitly capped at
+256 tokens. Truncation logged and surfaced in observability output.
+
+**The Cloudflare parallelism problem**  
+v0 and v1 ran some layer checks in parallel for speed. After 3–5
+rapid requests to the same domain, Cloudflare would return 403
+challenge pages to all subsequent requests — the entire audit failing
+mid-run. Fix: all requests to the same domain are sequential with
+±500ms jitter. Slower, but reliable.
+
+**The confidence threshold for Tier 2**  
+First version of Tier 2 used a cosine similarity threshold of 0.50.
+This produced false WARNs on stores whose policy pages contained a lot
+of legal boilerplate (jurisdiction language, limitation of liability).
+The exemplars were too similar to formal legal text. Threshold adjusted
+to 0.65, and exemplar sets were rewritten to be more specifically
+about timeframes, not just policy existence.
 
 ---
 
-## 🗺 Future-Roadmap
+## Known Limitations
 
-- [ ] Redis job queue for production multi-user support
-- [ ] Product page audit (not just homepage)
-- [ ] Competitor comparison — audit two stores side by side
-- [ ] Weekly automated re-audit with email diff report
-- [ ] Chrome extension — audit any store while browsing
-- [ ] Export audit report as PDF
+- **Non-English stores** — spaCy `en_core_web_sm` is English-only.
+  R16 and R17 may return UNKNOWN on non-English policy text.
+
+- **JS-rendered storefronts** — Pure CSR stores without a Storefront
+  API token are partially audited via static Shopify endpoints only.
+  Covers ~16 of 16 checks via static paths; product descriptions may
+  be unavailable.
+
+- **Tier 3 not live** — ~5–8% of hard cases (legal language,
+  jurisdiction-based policies) remain as potential false negatives
+  until v3 implementation.
+
+- **Business day handling** — "5 business days" and "5 days" score
+  identically. Not yet disambiguated.
+
+- **Causal claims** — 8 of 16 checks have verified mechanistic links.
+  The remaining 8 are empirically correlated. All findings are labelled
+  with their evidence tier. We do not claim definitive causal links to
+  any specific LLM's recommendation logic.
+
+- **Non-determinism in conclusion** — The L7 conclusion paragraph
+  varies between runs (LLM output). All checkpoint scores above it are
+  fully deterministic and reproducible.
 
 ---
 
+## Stack
 
-<p align="center">
-  Built to make every Shopify store AI-visible.<br/>
-  <strong>If AI can't read your store, AI can't recommend your store.</strong>
-</p>
+| Component | Version | Role | Cost |
+|---|---|---|---|
+| Python | 3.11 | Primary language | $0 |
+| spaCy `en_core_web_sm` | 3.x | NER — DATE, TIME, ORG entities (Tier 1) | $0 |
+| sentence-transformers | 2.x | `all-MiniLM-L6-v2` — all embeddings (80MB, CPU) | $0 |
+| extruct | latest | JSON-LD, Microdata, RDFa extraction | $0 |
+| BeautifulSoup4 | 4.x | HTML parsing, text extraction | $0 |
+| textstat | latest | Readability scores (Flesch, FK grade) | $0 |
+| requests | 2.x | HTTP fetches — retry, jitter, user-agent rotation | $0 |
+| Gemini 2.5 Flash | API | L7 conclusion + Part 2 chatbot (primary LLM) | ~$0.017/audit |
+| Ollama + Mistral | local | LLM fallback if Gemini unavailable | $0 |
+| SQLite | built-in | Audit cache + chat history (dev) | $0 |
+| PostgreSQL | 15 | Audit cache + chat history (prod) | ~$5/mo VPS |
+| Streamlit | 1.x | Prototype UI (this branch) | $0 |
+
+**Total cost at prototype scale: $0**  
+All embedding operations, all 16 checkpoint evaluations, and the
+semantic extraction layer are fully local. Gemini is called exactly
+once per full audit run.
+
+---
+
+*AI Representation Optimizer · AI Logic Branch · v2.0 · 2026 · Kasparro Track 5*  
+*Built by Tina Prabhat*
