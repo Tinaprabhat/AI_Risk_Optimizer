@@ -493,8 +493,8 @@ class CheckResult:
 2. Encodes V2 (website content from crawled HTML, cleaned by `text_cleaner.py`)
 3. Encodes V3 (schema content from JSON-LD extracted by `extruct`)
 4. Computes cosine distance for all three pairs
-5. Breaks intent into 4 dimensions (Tone, Category, Customer, Differentiator) and computes per-dimension distances against 3 page types (About, Homepage, Policies)
-6. Returns the 4×3 gap matrix + three summary gap scores
+5. Breaks intent into 4 dimensions (Tone, Category, Customer, Differentiator) and computes per-dimension distances against 3 page types (About, Homepage, Policies, FAQs, Product)
+6. Returns the 4×5 gap matrix + three summary gap scores
 
 **`layer7/aggregator.py`** receives all layer results, computes the weighted X/69 score, ranks blockers by impact weight, and calls `llm.py` for the conclusion paragraph.
 
@@ -718,16 +718,6 @@ If Ollama is not running, the backend falls through to hardcoded templates. No c
 
 ---
 
-### Docker (full stack)
-
-```bash
-cd kasparro
-docker-compose up --build
-```
-
-Spins up: `backend` (port 8000) · `frontend` (port 5173) · `postgres` (port 5432) · `ollama` (port 11434, optional).
-
----
 
 ## Environment Variables
 
@@ -765,15 +755,16 @@ VITE_API_BASE_URL=http://localhost:8000
 
 ## API Endpoints
 
-| Method | Endpoint | Description | Auth |
+| Method | Endpoint | Description |
 |---|---|---|---|
-| `POST` | `/api/audit` | Trigger new audit | None |
-| `GET` | `/api/audit/{audit_id}` | Retrieve cached result | None |
-| `GET` | `/api/audit/stream/{audit_id}` | SSE — live layer progress | None |
-| `GET` | `/api/mirror/{audit_id}` | AI Mirror — 3-perception data | None |
-| `POST` | `/api/fix/start` | Start fix session | None |
-| `POST` | `/api/fix/chat` | Continue chatbot conversation | None |
-| `GET` | `/health` | System health check | None |
+| `POST` | `/api/audit/start` | Start a new audit — returns job_id immediately |
+| `GET` | `/api/audit/status/{job_id}` | Poll for audit progress and result |
+| `DELETE` | `/api/audit/cache` | Clear cached result for a store URL |
+| `POST` | `/api/chat/start` | Start a fix conversation for a failed check |
+| `POST` | `/api/chat/reply` | Send a message and get advisor reply |
+| `GET` | `/api/chat/history` | Load full conversation history for a check |
+| `GET` | `/api/fix/template/{check_code}` | Get hardcoded fix template and steps |
+| `GET` | `/api/health` | Health check |
 
 ### `POST /api/audit` — request body
 
