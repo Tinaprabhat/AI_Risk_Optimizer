@@ -270,7 +270,7 @@ Full interactive docs: `http://localhost:8000/docs` (Swagger UI auto-generated b
 |---|---|---|---|
 | Prototype | Laptop · SQLite · Free Gemini | ~250 audits/day | **$0** |
 | Beta | VPS · PostgreSQL · cached | ~200 unique/day | **~$5** |
-| SaaS scale | Cloud · PostgreSQL · Redis | Unlimited | **~$17/day @ 1K audits** |
+| SaaS scale | Cloud · PostgreSQL | Unlimited | **~$17/day @ 1K audits** |
 
 - `$0.017` per audit (L7 only — all other layers are free)
 - `$0.05` per fix chatbot session
