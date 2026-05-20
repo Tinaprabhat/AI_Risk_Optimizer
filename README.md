@@ -842,7 +842,7 @@ VITE_API_BASE_URL=http://localhost:8000
 | Sequential fetching | Parallel HTTP requests | Sequential + ±500ms jitter | Parallel triggers Cloudflare after 3–5 hits |
 | Embedder as singleton | Load per request | Load once at startup | 3–5s load time — unacceptable per request |
 | SSE for scan progress | Polling every 2s | Server-sent events | Lower overhead, real-time layer-by-layer updates |
-| Raw score /79 | Percentage /100 | Raw number only | Percentage invites false comparison to SEO tools |
+| Raw score /69 | Percentage /100 | Raw number only | Percentage invites false comparison to SEO tools |
 | Passed checks collapsed | Show all checks | Collapsed by default | Visible passes reduce urgency — merchants don't fix things |
 | PostgreSQL + SQLite | PostgreSQL only | Both — switched by DATABASE_URL | Dev needs zero setup; prod needs concurrent write safety |
 
