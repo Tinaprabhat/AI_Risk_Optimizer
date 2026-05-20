@@ -256,7 +256,7 @@ Full interactive docs: `http://localhost:8000/docs` (Swagger UI auto-generated b
 ## Live Demo & Documentation
 | Resource | Link |
 |---|---|
-| Demo Video Walkthrough | [Google Drive](https://drive.google.com/file/d/1hIM0Sx8hBT7EkJ1GAiXSTlndZ2o1dH7b/view?usp=sharing) |
+| Demo Video Walkthrough | [Google Drive](https://drive.google.com/file/d/1vxx2FL6pjFGCZOJxW_MQV-6OkNWx0yKo/view?usp=drive_link) |
 | Product Document | [Google Drive](https://drive.google.com/file/d/1hIM0Sx8hBT7EkJ1GAiXSTlndZ2o1dH7b/view?usp=sharing) |
 | Technical Document | [Google Drive](https://drive.google.com/file/d/1bz5X4DvPJNF8RADxSr6oLIAFAqZhB17X/view?usp=sharing) |
 | Product Walkthrough Document | [Google Drive](https://drive.google.com/file/d/1COzKWvczI0HeaLrrZ21h6K6X_mpF4IML/view?usp=sharing) |
