@@ -96,42 +96,50 @@ SHIPPING_POLICY_VAGUE = "We try to ship orders as quickly as possible. Delivery 
 # 1. UNIT TESTS — R25 Brand Consistency
 # ═══════════════════════════════════════════════════════════════════════════════
 
+def _r25(html: str) -> dict:
+    """Run R25 the way the auditor does: extract brand → check (v2.0 signature)."""
+    from src.layer2.r7_r9_r11 import _extract_schema_items
+    from src.layer4.r23_r25 import check_r25
+    from src.utils.semantic_extractor import SemanticExtractor
+    brand = SemanticExtractor().extract_brand(html, _extract_schema_items(html))
+    return check_r25({"brand": brand}, html)
+
+
 class TestR25BrandConsistency:
 
     @pytest.mark.unit
     def test_consistent_brands_pass(self):
-        from src.layer4.r23_r25 import check_r25
-        result = check_r25("https://teststore.com", SHOPIFY_HTML_BASE)
+        result = _r25(SHOPIFY_HTML_BASE)
         assert result["status"] == "PASS", f"Expected PASS, got {result['status']} | {result['detail']}"
         assert result["score"] == 1
 
     @pytest.mark.unit
     def test_title_tag_fallback_used(self):
-        """When og:site_name and schema missing, title tag should be used as source."""
-        from src.layer4.r23_r25 import check_r25
-        result = check_r25("https://teststore.com", HTML_NO_OG_NO_SCHEMA)
-        # Only 1 source (title_tag) — should be UNKNOWN, not FAIL
-        assert result["status"] == "UNKNOWN", f"Expected UNKNOWN (only 1 source), got {result['status']}"
-        assert "title_tag" in result["evidence"]
+        """With no og:site_name/schema, the HTML title's first segment (en dash included) is the brand."""
+        result = _r25(HTML_NO_OG_NO_SCHEMA)
+        assert result["status"] == "PASS"
+        assert "html_title" in result["evidence"]
+        assert "'My Brand'" in result["evidence"], "en-dash title should split to 'My Brand'"
 
     @pytest.mark.unit
     def test_brand_mismatch_fail(self):
-        from src.layer4.r23_r25 import check_r25
-        result = check_r25("https://teststore.com", HTML_BRAND_MISMATCH)
+        result = _r25(HTML_BRAND_MISMATCH)
         assert result["status"] in ("FAIL", "WARN"), f"Expected FAIL or WARN, got {result['status']}"
 
     @pytest.mark.unit
     def test_warn_scores_half_point(self):
-        """WARN should now give score=0.5 (partial credit in v2)."""
+        """WARN (slight inconsistency) gives score=0.5 (partial credit, v2)."""
         from src.layer4.r23_r25 import check_r25
-        result = check_r25("https://teststore.com", HTML_BRAND_MISMATCH)
-        if result["status"] == "WARN":
-            assert result["score"] == 0.5, f"WARN should score 0.5, got {result['score']}"
+        semantic = {"brand": {"found": True, "brand_name": "Acme", "source": "og:site_name",
+                              "alternatives": ["Acme Store"], "consistency_score": 0.70,
+                              "confidence": 0.95}}
+        result = check_r25(semantic)
+        assert result["status"] == "WARN"
+        assert result["score"] == 0.5, f"WARN should score 0.5, got {result['score']}"
 
     @pytest.mark.unit
     def test_observability_present(self):
-        from src.layer4.r23_r25 import check_r25
-        result = check_r25("https://teststore.com", SHOPIFY_HTML_BASE)
+        result = _r25(SHOPIFY_HTML_BASE)
         obs = result.get("observability", {})
         assert obs, "Observability block should not be empty"
         assert "what_we_did" in obs

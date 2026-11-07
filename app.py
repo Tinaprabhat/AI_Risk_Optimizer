@@ -3,14 +3,17 @@ app.py
 ───────
 Streamlit UI — AI Representation Optimizer
 
+Profiles (sidebar):  agency (default, IT-services / Cynbit)  |  shopify (commerce)
+
 Layout:
-  1. Input form (URL + description + 4 MCQs)
+  1. Input form (URL + description + 4 profile-specific MCQs)
   2. Run audit button → progress bar
   3. Output:
-     a. Score card  (X/79)
+     a. Score card  (headline X/max  +  provisional score for unvalidated checks)
      b. Semantic gap display (L6)
      c. Conclusion paragraph (L7)
-     d. Full checklist (all 16 checks with scores)
+     d. Full checklist (all checks of the profile, provisional ones flagged)
+     e. Markdown report download
   4. Fix section — one expander per failed check → chatbot inside
 
 Minimal design. No decorative elements. Information first.
@@ -51,63 +54,39 @@ def startup():
 status = startup()
 
 # ── CONSTANTS ─────────────────────────────────────────────────────────────────
-MCQ_OPTIONS = {
-    "category":      ["Fashion", "Beauty", "Home & Living", "Electronics", "Food & Beverage",
-                      "Sports & Fitness", "Baby & Kids", "Jewellery", "Other"],
-    "customer":      ["Budget-conscious", "Quality-first", "Eco-conscious", "Gift buyers", "B2B buyers"],
-    "differentiator":["Price", "Speed of delivery", "Quality / Craftsmanship",
-                      "Sustainability", "Uniqueness / Handmade"],
-    "tone":          ["Premium / Luxury", "Friendly / Casual", "Technical / Expert", "Playful / Fun"],
-}
+from src.profiles import get_profile, AVAILABLE_PROFILES
 
 STATUS_ICON = {
     "PASS": "✅", "FAIL": "❌", "WARN": "⚠️",
     "UNKNOWN": "❓", "ERROR": "💥",
-    "FORWARD-LOOKING": "🔮", "NOT-APPLICABLE": "—",
+    "FORWARD-LOOKING": "🔮", "NOT-APPLICABLE": "—", "INFORMATIONAL": "ℹ️",
 }
 
-CHECK_LABELS = {
-    "R1":  "robots.txt — AI crawler access",
-    "R3":  "sitemap.xml — exists + product URLs",
-    "R5":  "Bot protection blocking AI agents",
-    "R6":  "SSL valid",
-    "R7":  "schema.org commerce types",
-    "R9":  "Price signal visible to crawler",
-    "R11": "JSON-LD valid",
-    "R13": "Product descriptions — specific not vague",
-    "R15": "FAQ page — covers buyer topics",
-    "R16": "Refund window — concrete days ★",
-    "R17": "Shipping — concrete timeframe ★",
-    "R23": "Contact page — branded email",
-    "R25": "Brand name — consistent",
-    "R28": "UCP profile",
-    "R30": "ACP feed quality (Shopify)",
-    "R31": "GMC homepage signals",
-}
+# Sidebar profile selector. APP_PROFILE env var sets the default (agency = Cynbit deployment).
+_default_profile = os.getenv("APP_PROFILE", "agency").lower()
+if _default_profile not in AVAILABLE_PROFILES:
+    _default_profile = "agency"
+with st.sidebar:
+    st.header("Audit profile")
+    profile_name = st.selectbox(
+        "What are you auditing?",
+        AVAILABLE_PROFILES,
+        index=AVAILABLE_PROFILES.index(_default_profile),
+        format_func=lambda p: {"agency": "IT-services agency", "shopify": "Shopify store"}.get(p, p),
+    )
+    st.caption("Checks tagged **provisional** are unvalidated hypotheses. They are reported "
+               "separately and do not count toward the headline score.")
 
-CHECK_ORDER = [
-    "R1","R3","R5","R6",       # L1
-    "R7","R9","R11",            # L2
-    "R13","R15","R16","R17",    # L3
-    "R23","R25",                # L4
-    "R28","R30","R31",          # L5
-]
-
-LAYER_LABELS = {
-    "R1":"L1","R3":"L1","R5":"L1","R6":"L1",
-    "R7":"L2","R9":"L2","R11":"L2",
-    "R13":"L3","R15":"L3","R16":"L3","R17":"L3",
-    "R23":"L4","R25":"L4",
-    "R28":"L5","R30":"L5","R31":"L5",
-}
+PROFILE = get_profile(profile_name)
+MCQ_OPTIONS = PROFILE.mcq_options
 
 
 # ═════════════════════════════════════════════════════════════════════════════
 # SECTION 1 — INPUT FORM
 # ═════════════════════════════════════════════════════════════════════════════
 
-st.title("🔍 AI Representation Optimizer")
-st.caption("Audit how AI shopping agents see your Shopify store — and fix what's blocking you.")
+st.title(f"🔍 {PROFILE.title}")
+st.caption(PROFILE.caption)
 
 if not os.getenv("GEMINI_API_KEY"):
     st.warning("⚠️ GEMINI_API_KEY not set. Add it to your .env file. Ollama Mistral will be used as fallback.")
@@ -119,24 +98,22 @@ st.divider()
 
 with st.form("audit_form"):
     store_url = st.text_input(
-        "Store URL",
-        placeholder="https://yourstore.com",
+        f"{PROFILE.entity_noun.capitalize()} URL",
+        placeholder="https://yourdomain.com",
         help="Full URL including https://",
     )
 
     free_text = st.text_area(
-        "Describe your store in 2–3 sentences",
-        placeholder="We sell handmade leather wallets for professionals who value quality over price. Our products are made from full-grain leather, handcrafted in small batches.",
+        f"Describe your {PROFILE.entity_noun} in 2–3 sentences",
+        placeholder=PROFILE.free_text_placeholder,
         height=100,
     )
 
+    mcq_values = {}
     col1, col2 = st.columns(2)
-    with col1:
-        cat  = st.selectbox("Store category",       MCQ_OPTIONS["category"])
-        cust = st.selectbox("Primary customer",      MCQ_OPTIONS["customer"])
-    with col2:
-        diff = st.selectbox("Main differentiator",   MCQ_OPTIONS["differentiator"])
-        tone = st.selectbox("Brand tone",            MCQ_OPTIONS["tone"])
+    for i, key in enumerate(PROFILE.mcq_options.keys()):
+        with (col1 if i % 2 == 0 else col2):
+            mcq_values[key] = st.selectbox(PROFILE.mcq_labels[key], PROFILE.mcq_options[key])
 
     submitted = st.form_submit_button("Run Audit", type="primary", use_container_width=True)
 
@@ -153,18 +130,13 @@ if submitted:
         st.error("Please describe your store.")
         st.stop()
 
-    mcq = {
-        "category":       cat,
-        "customer":       cust,
-        "differentiator": diff,
-        "tone":           tone,
-    }
+    mcq = dict(mcq_values)
 
     # Progress display
     progress_bar = st.progress(0, text="Starting audit...")
     status_text  = st.empty()
     step_count   = [0]
-    TOTAL_STEPS  = 8
+    TOTAL_STEPS  = 10
 
     def update_progress(msg: str):
         step_count[0] += 1
@@ -180,11 +152,15 @@ if submitted:
             mcq=mcq,
             use_cache=True,
             progress_cb=update_progress,
+            profile=PROFILE.name,
         )
         progress_bar.progress(100, text="Audit complete.")
         status_text.empty()
         st.session_state["result"] = result
         st.session_state["store_url"] = store_url
+        # Fix-chat state from a previous audit must not leak into this one
+        for _k in [k for k in st.session_state if k.startswith("chat_")]:
+            del st.session_state[_k]
 
     except Exception as e:
         progress_bar.empty()
@@ -202,6 +178,12 @@ if "result" not in st.session_state:
     st.stop()
 
 result    = st.session_state["result"]
+RPROF     = get_profile(result.get("profile", "shopify"))   # profile the result was produced with
+if RPROF.name != PROFILE.name:
+    st.warning(f"Showing results from the **{RPROF.name}** profile. Run a new audit to use **{PROFILE.name}**.")
+CHECK_LABELS = RPROF.labels
+CHECK_ORDER  = RPROF.check_order
+LAYER_LABELS = RPROF.layers
 store_url = st.session_state.get("store_url", result["store_url"])
 score     = result["score"]
 gap       = result["gap"]
@@ -211,18 +193,24 @@ failed    = result["failed"]
 st.divider()
 
 # ── 3a. SCORE CARD ────────────────────────────────────────────────────────────
-c1, c2, c3 = st.columns(3)
-with c1:
-    st.metric("Total Score", f"{score['grand_total']} / {score['max_total']}", f"{score['pct']}%")
-with c2:
-    st.metric("Scored checks (0–70)", f"{score['scored_total']} / {score['max_scored']}")
-with c3:
-    st.metric("Checklist (0–9)", f"{score['checklist_total']} / {score['max_checklist']}")
+has_prov = score.get("max_provisional", 0) > 0
+cols = st.columns(4 if has_prov else 3)
+with cols[0]:
+    st.metric("Total Score", f"{score['grand_total']:g} / {score['max_total']:g}", f"{score['pct']}%")
+with cols[1]:
+    st.metric(f"Scored checks (0–{score['max_scored']:g})", f"{score['scored_total']:g} / {score['max_scored']:g}")
+with cols[2]:
+    st.metric(f"Checklist (0–{score['max_checklist']:g})", f"{score['checklist_total']:g} / {score['max_checklist']:g}")
+if has_prov:
+    with cols[3]:
+        st.metric("Provisional (unvalidated)", f"{score['provisional_total']:g} / {score['max_provisional']:g}",
+                  f"{score.get('provisional_pct', 0)}%", delta_color="off")
 
-llm_note = {"gemini": "✦ Gemini", "ollama_mistral": "✦ Ollama Mistral", "fallback": "✦ Rule-based"}.get(result.get("llm_source", ""), "")
+llm_note = {"gemini": "✦ Gemini", "ollama_mistral": "✦ Ollama Mistral", "fallback": "✦ Rule-based"}.get(
+    result.get("conclusion_source", result.get("llm_source", "")), "")
 
 # ── 3b. CONCLUSION ────────────────────────────────────────────────────────────
-st.subheader("What this means for your store")
+st.subheader(f"What this means for your {RPROF.entity_noun}")
 st.info(result.get("conclusion", "Conclusion unavailable."))
 if llm_note:
     st.caption(f"Generated by: {llm_note}")
@@ -260,7 +248,7 @@ with st.expander("🧠 Semantic Gap — What you think vs what AI reads", expand
 st.divider()
 
 # ── 3d. FULL CHECKLIST ────────────────────────────────────────────────────────
-st.subheader("📋 All 16 Checks")
+st.subheader(f"📋 All {len(RPROF.checks)} Checks")
 
 prev_layer = None
 for code in CHECK_ORDER:
@@ -269,20 +257,15 @@ for code in CHECK_ORDER:
 
     # Layer header
     if layer != prev_layer:
-        layer_names = {
-            "L1": "Layer 1 — Crawlability",
-            "L2": "Layer 2 — Structured Data",
-            "L3": "Layer 3 — Semantic Content",
-            "L4": "Layer 4 — Trust Signals",
-            "L5": "Layer 5 — AI-Era Protocols",
-        }
-        st.markdown(f"**{layer_names.get(layer, layer)}**")
+        st.markdown(f"**{RPROF.layer_names.get(layer, layer)}**")
         prev_layer = layer
 
     status_val = check_res.get("status", "UNKNOWN")
     icon       = STATUS_ICON.get(status_val, "❓")
     score_val  = check_res.get("score", 0)
-    max_val    = 1 if code in {"R1","R3","R5","R6","R11","R15","R23","R25","R28"} else 10
+    spec       = RPROF.spec(code)
+    max_val    = f"{spec.max_score:g}" if spec else "-"
+    is_prov    = bool(spec and spec.kind == "provisional")
     detail     = check_res.get("detail", "")
     tier       = check_res.get("tier", "")
 
@@ -292,9 +275,9 @@ for code in CHECK_ORDER:
     with col_code:
         st.write(f"`{code}`")
     with col_label:
-        st.write(CHECK_LABELS.get(code, code))
+        st.write(CHECK_LABELS.get(code, code) + (" 🧪 *provisional*" if is_prov else ""))
     with col_score:
-        st.write(f"{score_val}/{max_val}")
+        st.write("—" if (spec and spec.kind == "informational") else f"{score_val}/{max_val}")
     with col_detail:
         st.caption(detail[:80] + "…" if len(detail) > 80 else detail)
 
@@ -366,16 +349,54 @@ st.divider()
 # SECTION 4 — FIX ENGINE
 # ═════════════════════════════════════════════════════════════════════════════
 
+def build_markdown_report() -> str:
+    """Assemble a shareable Markdown report from the stored result."""
+    lines = [f"# {RPROF.title} — {result['store_url']}", ""]
+    lines.append(f"**Score:** {score['grand_total']:g} / {score['max_total']:g} ({score['pct']}%)")
+    if score.get("max_provisional", 0):
+        lines.append(f"**Provisional (unvalidated checks):** {score['provisional_total']:g} / "
+                     f"{score['max_provisional']:g} ({score.get('provisional_pct', 0)}%)")
+    lines += ["", "## Conclusion", result.get("conclusion", ""), "", "## Checks", "",
+              "| Code | Check | Tier | Status | Score | Detail |", "|---|---|---|---|---|---|"]
+    for code in CHECK_ORDER:
+        c = checks.get(code, {})
+        sp = RPROF.spec(code)
+        mx = "-" if (sp and sp.kind == "informational") else f"{sp.max_score:g}" if sp else "-"
+        detail = (c.get("detail", "") or "").replace("|", "/").replace("\n", " ")
+        lines.append(f"| {code} | {CHECK_LABELS.get(code, code)} | {sp.tier if sp else ''} | "
+                     f"{c.get('status', 'UNKNOWN')} | {c.get('score', 0)}/{mx} | {detail} |")
+    if failed:
+        lines += ["", "## Fixes"]
+        for item in failed:
+            t = get_fix_template(item["code"], RPROF.name)
+            lines += ["", f"### {item['code']} — {t['title'] if t else item['code']}",
+                      f"*Found:* {item['detail']}"]
+            if t:
+                lines += [""] + [f"{i}. {st_}" for i, st_ in enumerate(t["steps"], 1)]
+                if t.get("template"):
+                    lines += ["", "```", t["template"], "```"]
+    lines += ["", gap.get("summary", "")]
+    return "\n".join(lines)
+
+
+from src.part2.fix_engine import (
+    get_fix_template, chatbot_first_message, chatbot_reply
+)
+
+st.download_button(
+    "⬇️ Download report (Markdown)",
+    data=build_markdown_report(),
+    file_name=f"ai_visibility_{RPROF.name}_{result['store_url'].split('//')[-1].replace('/', '_')}.md",
+    mime="text/markdown",
+)
+
 if not failed:
-    st.success("✅ No critical issues found. Your store is well-configured for AI discovery.")
+    st.success(f"✅ No critical issues found. Your {RPROF.entity_noun} is well-configured for AI discovery.")
     st.stop()
 
 st.subheader(f"🔧 Fix {len(failed)} Issue(s)")
 st.caption("Each issue below has a step-by-step fix guide. Click to open.")
 
-from src.part2.fix_engine import (
-    get_fix_template, chatbot_first_message, chatbot_reply
-)
 from src.utils.db import (
     save_chat_message, load_chat_history, clear_chat_history
 )
@@ -385,8 +406,10 @@ for item in failed:
     detail = item["detail"]
     fix    = item["fix"]
     icon   = STATUS_ICON.get(item["status"], "❓")
-    tmpl   = get_fix_template(code)
+    tmpl   = get_fix_template(code, RPROF.name)
     title  = tmpl["title"] if tmpl else f"Fix {code}"
+    if item.get("kind") == "provisional":
+        title += " (provisional)"
 
     with st.expander(f"{icon} {code} — {title}"):
 
@@ -408,15 +431,15 @@ for item in failed:
         # ── CHATBOT ───────────────────────────────────────────────────────────
         st.markdown("**💬 Ask the Fix Assistant**")
 
-        chat_key = f"chat_{code}"
+        chat_key = f"chat_{RPROF.name}_{code}"
 
         # Init chat if empty — show first message
         if chat_key not in st.session_state:
-            first_msg = chatbot_first_message(code, detail)
+            first_msg = chatbot_first_message(code, detail, RPROF.name)
             # Load from DB (resumable)
-            history = load_chat_history(store_url, code)
+            history = load_chat_history(store_url, code, RPROF.name)
             if not history:
-                save_chat_message(store_url, code, "bot", first_msg)
+                save_chat_message(store_url, code, "bot", first_msg, RPROF.name)
                 history = [{"role": "bot", "message": first_msg}]
             st.session_state[chat_key] = history
 
@@ -438,7 +461,7 @@ for item in failed:
         if user_input:
             # Save user message
             st.session_state[chat_key].append({"role": "user", "message": user_input})
-            save_chat_message(store_url, code, "user", user_input)
+            save_chat_message(store_url, code, "user", user_input, RPROF.name)
 
             # Get LLM reply
             with st.spinner("Thinking..."):
@@ -449,16 +472,17 @@ for item in failed:
                     store_url=store_url,
                     user_message=user_input,
                     history=st.session_state[chat_key],
+                    profile=RPROF.name,
                 )
 
             # Save bot reply
             st.session_state[chat_key].append({"role": "bot", "message": reply})
-            save_chat_message(store_url, code, "bot", reply)
+            save_chat_message(store_url, code, "bot", reply, RPROF.name)
             st.rerun()
 
         # Clear chat button
         if st.button(f"Clear conversation", key=f"clear_{code}"):
-            clear_chat_history(store_url, code)
+            clear_chat_history(store_url, code, RPROF.name)
             if chat_key in st.session_state:
                 del st.session_state[chat_key]
             st.rerun()

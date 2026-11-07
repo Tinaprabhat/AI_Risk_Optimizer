@@ -34,27 +34,40 @@ _MCQ_TEMPLATES = {
 }
 
 
+# Calibrated empirically (validation/calibrate_gap.py) on the 12 logged audits:
+#   same-site intent-vs-website gaps: median 0.66, min 0.45
+#   cross-site (unrelated)           : p5 0.64, p25 0.75, median 0.85
+# The original 0.15 / 0.30 cut-offs were below anything MiniLM produces for real
+# short-intent vs long-page comparisons, so every site read as MISALIGNED.
+GAP_ALIGNED_MAX = 0.55   # below: text clearly describes the same thing
+GAP_DRIFT_MAX   = 0.75   # below: partial overlap; at/above: reads like unrelated content
+
+
 def _classify_gap(gap: float) -> str:
-    if gap < 0.15:   return "ALIGNED"
-    elif gap < 0.30: return "DRIFT"
-    else:            return "MISALIGNED"
+    if gap < GAP_ALIGNED_MAX:   return "ALIGNED"
+    elif gap < GAP_DRIFT_MAX:   return "DRIFT"
+    else:                       return "MISALIGNED"
 
 
-def _build_v1(free_text: str, mcq: dict) -> tuple:
+def _build_v1(free_text: str, mcq: dict, templates: dict = None) -> tuple:
+    templates = templates or _MCQ_TEMPLATES
     mcq_sentences = [
-        _MCQ_TEMPLATES[k].format(value=v)
+        templates[k].format(value=v)
         for k, v in mcq.items()
-        if k in _MCQ_TEMPLATES and v
+        if k in templates and v
     ]
     intent_text = free_text.strip() + " " + " ".join(mcq_sentences)
     intent_text = chunk_text(intent_text, max_sentences=10)
     return embed(intent_text), intent_text
 
 
-def _build_v2(page_texts: dict) -> tuple:
+_DEFAULT_PAGE_KEYS = ("homepage", "about", "product", "faq", "policies")
+
+
+def _build_v2(page_texts: dict, page_keys: tuple = _DEFAULT_PAGE_KEYS) -> tuple:
     combined = " ".join(
         chunk_text(text, max_sentences=10)
-        for key in ("homepage", "about", "product", "faq", "policies")
+        for key in page_keys
         for text in [page_texts.get(key, "")]
         if text.strip()
     )
@@ -75,11 +88,28 @@ def _build_v3_from_schema(html: str, base_url: str) -> tuple:
             desc = item.get("description", "")
             if desc and isinstance(desc, str):
                 schema_texts.append(desc)
-            if item.get("@type") in ("Organization", "Store", "LocalBusiness"):
+            item_type = item.get("@type")
+            type_list = item_type if isinstance(item_type, list) else [item_type]
+            if any(t in ("Organization", "Store", "LocalBusiness", "ProfessionalService",
+                         "Corporation") for t in type_list):
                 for field in ("description", "slogan"):
                     val = item.get(field, "")
                     if val and isinstance(val, str):
                         schema_texts.append(val)
+            if "Service" in type_list:
+                for field in ("name", "description"):
+                    val = item.get(field, "")
+                    if val and isinstance(val, str):
+                        schema_texts.append(val)
+            catalog = item.get("hasOfferCatalog")
+            if isinstance(catalog, dict):
+                for offer in catalog.get("itemListElement", []) or []:
+                    offered = offer.get("itemOffered", {}) if isinstance(offer, dict) else {}
+                    if isinstance(offered, dict):
+                        for field in ("name", "description"):
+                            val = offered.get(field, "")
+                            if val and isinstance(val, str):
+                                schema_texts.append(val)
             if item.get("@type") == "FAQPage":
                 for qa in item.get("mainEntity", []):
                     answer = qa.get("acceptedAnswer", {}).get("text", "")
@@ -94,13 +124,13 @@ def _build_v3_from_schema(html: str, base_url: str) -> tuple:
     return embed(schema_text), schema_text[:500], "SCHEMA"
 
 
-def _build_v3_fallback(page_texts: dict) -> tuple:
+def _build_v3_fallback(page_texts: dict, keys: tuple = ("homepage", "about")) -> tuple:
     """
     V3 FALLBACK — when JSON-LD missing, build from crawled page text.
     page_texts values are already cleaned by auditor via extract_clean_text.
     """
     fallback_texts = []
-    for key in ("homepage", "about"):
+    for key in keys:
         t = page_texts.get(key, "")
         if t.strip():
             fallback_texts.append(chunk_text(t, max_sentences=5))
@@ -139,7 +169,12 @@ def compute_gap(
     page_texts: dict,
     homepage_html: str,
     base_url: str,
+    profile=None,
 ) -> dict:
+    if profile is None:
+        from src.profiles import get_profile
+        profile = get_profile("shopify")
+    templates = profile.mcq_templates
     result = {
         "gap_IW": None, "gap_IS": None, "gap_WS": None,
         "IW_label": "UNKNOWN", "IS_label": "UNKNOWN", "WS_label": "UNKNOWN",
@@ -155,19 +190,20 @@ def compute_gap(
 
     # Build V1
     try:
-        v1, intent_text = _build_v1(free_text, mcq)
+        v1, intent_text = _build_v1(free_text, mcq, templates)
     except Exception as e:
         result["error"] = f"V1 build failed: {e}"
         return result
 
     # Build V2
-    v2, website_text = _build_v2(page_texts)
+    v2, website_text = _build_v2(page_texts, profile.l6_page_keys)
 
     # Build V3 — schema first, fallback to crawled content
     v3, schema_text, schema_source = _build_v3_from_schema(homepage_html, base_url)
     if v3 is None:
         logger.info("L6: No JSON-LD schema found — using crawled content fallback for V3")
-        v3, schema_text, schema_source = _build_v3_fallback(page_texts)
+        v3, schema_text, schema_source = _build_v3_fallback(
+            page_texts, ("homepage", "about", "services") if profile.name == "agency" else ("homepage", "about"))
 
     result.update(
         intent_text=intent_text,
@@ -206,11 +242,11 @@ def compute_gap(
     result["observability"] = obs
 
     # 4×5 dimension × page matrix
-    dimensions = {k: v for k, v in mcq.items() if k in _MCQ_TEMPLATES}
+    dimensions = {k: v for k, v in mcq.items() if k in templates}
     pages      = {k: v for k, v in page_texts.items() if v.strip()}
     matrix     = {}
     for dim_name, dim_val in dimensions.items():
-        dim_text  = _MCQ_TEMPLATES[dim_name].format(value=dim_val)
+        dim_text  = templates[dim_name].format(value=dim_val)
         dim_embed = embed(dim_text)
         matrix[dim_name] = {}
         for page_name, page_text in pages.items():
@@ -219,13 +255,13 @@ def compute_gap(
             matrix[dim_name][page_name] = {"gap": gap, "label": _classify_gap(gap)}
     result["matrix"] = matrix
 
-    result["summary"] = _build_summary(result, free_text)
+    result["summary"] = _build_summary(result, free_text, profile.entity_noun)
     return result
 
 
-def _build_summary(result: dict, free_text: str) -> str:
+def _build_summary(result: dict, free_text: str, noun: str = "store") -> str:
     lines = []
-    lines.append("━━ WHAT YOU THINK YOUR STORE SAYS ━━")
+    lines.append(f"━━ WHAT YOU THINK YOUR {noun.upper()} SAYS ━━")
     lines.append(result["intent_text"] or free_text or "(not provided)")
     lines.append("")
 

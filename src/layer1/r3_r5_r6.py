@@ -39,7 +39,51 @@ def _fetch_child_sitemap(base_url: str, index_content: str) -> str:
     return child.text if child.ok else ""
 
 
-def check_r3(base_url: str) -> dict:
+_AGENCY_CHILD_HINTS = ("page", "service", "portfolio", "project", "case", "work", "solution")
+_SERVICE_URL_RE   = re.compile(r"/(services?|solutions?|what-we-do|our-services)(/|$)", re.I)
+_PORTFOLIO_URL_RE = re.compile(r"/(portfolio|case-stud(?:y|ies)|work|our-work|projects?)(/|$)", re.I)
+
+
+def _agency_sitemap_result(result: dict, raw: str, base_url: str) -> dict:
+    """R3 agency variant — count service/portfolio URLs, following up to 3 child sitemaps."""
+    texts = [raw]
+    if "<sitemapindex" in raw or ("<sitemap>" in raw and "<url>" not in raw):
+        locs = re.findall(r"<loc>(.*?)</loc>", raw, re.I)
+        preferred = [l for l in locs if any(h in l.lower() for h in _AGENCY_CHILD_HINTS)]
+        for target in (preferred or locs)[:3]:
+            jitter_sleep(0.3, 0.2)
+            child = safe_get(target)
+            if child.ok:
+                texts.append(child.text[:60000])
+    all_locs = []
+    for t in texts:
+        all_locs.extend(re.findall(r"<loc>(.*?)</loc>", t, re.I))
+    all_locs = [l.strip() for l in all_locs if l.strip() and not l.strip().endswith(".xml")]
+
+    service_urls   = [u for u in all_locs if _SERVICE_URL_RE.search(u)]
+    portfolio_urls = [u for u in all_locs if _PORTFOLIO_URL_RE.search(u)]
+    result["service_urls"]   = service_urls
+    result["portfolio_urls"] = portfolio_urls
+    result["all_urls"]       = all_locs[:200]
+    result["evidence"]       = f"{len(all_locs)} URLs | services: {len(service_urls)} | portfolio: {len(portfolio_urls)}"
+
+    if service_urls or portfolio_urls:
+        result.update(
+            status="PASS", score=1,
+            detail=f"Sitemap lists {len(service_urls)} service and {len(portfolio_urls)} portfolio/case-study URLs "
+                   f"({len(all_locs)} total).",
+        )
+    else:
+        result.update(
+            status="WARN", score=0,
+            detail=f"Sitemap found ({len(all_locs)} URLs) but no service or portfolio/case-study URLs detected. "
+                   "AI crawlers cannot discover your proof pages from it.",
+            fix="Make sure /services and /portfolio (or /case-studies) pages are included in sitemap.xml.",
+        )
+    return result
+
+
+def check_r3(base_url: str, profile_name: str = "shopify") -> dict:
     """
     R3 — Does sitemap.xml exist and contain product URLs?
 
@@ -90,6 +134,9 @@ def check_r3(base_url: str) -> dict:
             fix="Regenerate your sitemap. In Shopify: Online Store → Preferences → Resubmit sitemap.",
         )
         return result
+
+    if profile_name == "agency":
+        return _agency_sitemap_result(result, raw, base_url)
 
     # Detect sitemap index vs direct sitemap
     is_index = "<sitemapindex" in raw or (

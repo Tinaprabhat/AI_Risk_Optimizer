@@ -58,7 +58,23 @@ _SPECIFIC_EXEMPLARS = [
 ]
 
 
-def check_r13(homepage_text: str, product_text: str) -> dict:
+_VAGUE_EXEMPLARS_AGENCY = [
+    "we provide innovative and dynamic solutions for your business",
+    "end-to-end digital solutions tailored to your needs",
+    "web development, app development, and more",
+    "we are passionate about delivering excellence and quality service",
+    "your trusted technology partner for growth",
+]
+
+_SPECIFIC_EXEMPLARS_AGENCY = [
+    "we build React and Node.js web apps for startups, MVPs delivered in 8 weeks at fixed scope",
+    "Flutter mobile apps for iOS and Android with CI/CD pipelines deployed on AWS",
+    "reduced page load time from 6 seconds to 1.8 seconds and grew organic traffic by 140 percent",
+    "technical SEO audits, schema markup and local SEO for businesses in Jaipur",
+]
+
+
+def check_r13(homepage_text: str, product_text: str, profile_name: str = "shopify") -> dict:
     """
     R13 — Vague product descriptions.
 
@@ -93,8 +109,12 @@ def check_r13(homepage_text: str, product_text: str) -> dict:
     try:
         # Embed sample text and exemplars
         text_vec     = embed(text)
-        vague_vecs   = embed_batch(_VAGUE_EXEMPLARS)
-        specific_vecs = embed_batch(_SPECIFIC_EXEMPLARS)
+        if profile_name == "agency":
+            vague_vecs    = embed_batch(_VAGUE_EXEMPLARS_AGENCY)
+            specific_vecs = embed_batch(_SPECIFIC_EXEMPLARS_AGENCY)
+        else:
+            vague_vecs    = embed_batch(_VAGUE_EXEMPLARS)
+            specific_vecs = embed_batch(_SPECIFIC_EXEMPLARS)
 
         sim_vague    = float(np.max([cosine_sim(text_vec, v) for v in vague_vecs]))
         sim_specific = float(np.max([cosine_sim(text_vec, v) for v in specific_vecs]))
@@ -142,7 +162,7 @@ _FAQ_TOPICS = ["returns", "shipping", "sizing", "payment", "contact", "warranty"
 _MIN_TOPICS_PASS = 4   # must cover >= 4/6 topics to PASS
 
 
-def check_r15(semantic_data: dict) -> dict:
+def check_r15(semantic_data: dict, min_pass: int = _MIN_TOPICS_PASS) -> dict:
     """
     R15 — FAQ page coverage.
 
@@ -179,24 +199,25 @@ def check_r15(semantic_data: dict) -> dict:
 
     result["evidence"] = f"FAQ found at {page_url}. Covered: {', '.join(covered) or 'none'}"
 
-    if len(covered) >= _MIN_TOPICS_PASS:
+    n_topics = len(topics) or 6
+    if len(covered) >= min_pass:
         result.update({
             "status": "PASS",
             "score":  1,
-            "detail": f"FAQ covers {len(covered)}/6 topics ({', '.join(covered)}).",
+            "detail": f"FAQ covers {len(covered)}/{n_topics} topics ({', '.join(covered)}).",
         })
     elif len(covered) >= 2:
         result.update({
             "status": "WARN",
             "score":  0,
-            "detail": f"FAQ found but thin — covers {len(covered)}/6 topics. "
+            "detail": f"FAQ found but thin — covers {len(covered)}/{n_topics} topics. "
                        f"Missing: {', '.join(missing)}.",
         })
     else:
         result.update({
             "status": "FAIL",
             "score":  0,
-            "detail": f"FAQ page found but nearly empty — only {len(covered)}/6 topics. "
+            "detail": f"FAQ page found but nearly empty — only {len(covered)}/{n_topics} topics. "
                        f"Add answers for: {', '.join(missing)}.",
         })
 

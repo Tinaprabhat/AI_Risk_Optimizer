@@ -49,20 +49,38 @@ def _call_gemini(prompt: str, system: str) -> Optional[str]:
         logger.warning("GEMINI_API_KEY not set — skipping Gemini")
         return None
     try:
-        import google.generativeai as genai  # import here to avoid hard dep at module load
-        genai.configure(api_key=GEMINI_API_KEY)
-        model = genai.GenerativeModel(
-            model_name=GEMINI_MODEL,
-            system_instruction=system,
-        )
-        response = model.generate_content(
-            prompt,
-            generation_config=genai.types.GenerationConfig(
-                max_output_tokens=1024,
-                temperature=0.3,
-            ),
-        )
-        text = response.text.strip()
+        try:
+            # Current SDK: pip install google-genai
+            from google import genai
+            from google.genai import types
+            client = genai.Client(api_key=GEMINI_API_KEY)
+            response = client.models.generate_content(
+                model=GEMINI_MODEL,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=system,
+                    max_output_tokens=1024,
+                    temperature=0.3,
+                ),
+            )
+        except ImportError:
+            # Legacy SDK: pip install google-generativeai
+            import google.generativeai as genai
+            genai.configure(api_key=GEMINI_API_KEY)
+            model = genai.GenerativeModel(
+                model_name=GEMINI_MODEL,
+                system_instruction=system,
+            )
+            response = model.generate_content(
+                prompt,
+                generation_config=genai.types.GenerationConfig(
+                    max_output_tokens=1024,
+                    temperature=0.3,
+                ),
+            )
+        text = (response.text or "").strip()
+        if not text:
+            raise ValueError("empty Gemini response")
         logger.info(f"Gemini OK ({len(text)} chars)")
         return text
     except Exception as e:
@@ -108,8 +126,12 @@ def ollama_available() -> bool:
         import ollama
         client = ollama.Client(host=OLLAMA_HOST)
         models = client.list()
-        names  = [m["name"] for m in models.get("models", [])]
-        return any(OLLAMA_MODEL in n for n in names)
+        items  = models["models"] if isinstance(models, dict) else getattr(models, "models", [])
+        names  = []
+        for m in items:
+            # ollama>=0.4 returns objects with .model; older versions return dicts with "name"
+            names.append(m.get("name") or m.get("model") if isinstance(m, dict) else getattr(m, "model", ""))
+        return any(OLLAMA_MODEL in (n or "") for n in names)
     except Exception:
         return False
 

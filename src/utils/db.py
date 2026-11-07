@@ -67,12 +67,20 @@ def init_db() -> None:
     logger.info("DB initialised")
 
 
-def url_hash(url: str) -> str:
-    """SHA-256 hash of the URL — used as primary key."""
-    return hashlib.sha256(url.strip().lower().encode()).hexdigest()[:16]
+def url_hash(url: str, profile: str = "shopify") -> str:
+    """
+    SHA-256 hash of the URL — used as primary key.
+
+    The profile is mixed in only for non-shopify profiles, so existing
+    shopify rows (audits + chat history) remain reachable unchanged.
+    """
+    key = url.strip().lower()
+    if profile and profile != "shopify":
+        key = f"{profile}:{key}"
+    return hashlib.sha256(key.encode()).hexdigest()[:16]
 
 
-def save_audit(url: str, label: str, results: dict) -> None:
+def save_audit(url: str, label: str, results: dict, profile: str = "shopify") -> None:
     """Save a completed audit result. Overwrites if same URL."""
     conn = _connect()
     try:
@@ -80,7 +88,7 @@ def save_audit(url: str, label: str, results: dict) -> None:
             """INSERT OR REPLACE INTO audits
                (url_hash, url, label, audit_date, results_json)
                VALUES (?, ?, ?, ?, ?)""",
-            (url_hash(url), url, label, datetime.utcnow().isoformat(), json.dumps(results))
+            (url_hash(url, profile), url, label, datetime.utcnow().isoformat(), json.dumps(results))
         )
         conn.commit()
         logger.info(f"Audit saved for {url}")
@@ -90,7 +98,7 @@ def save_audit(url: str, label: str, results: dict) -> None:
         conn.close()
 
 
-def load_audit(url: str) -> Optional[dict]:
+def load_audit(url: str, profile: str = "shopify") -> Optional[dict]:
     """
     Load cached audit for a URL.
     Returns dict if found today, None otherwise (forces re-audit).
@@ -99,7 +107,7 @@ def load_audit(url: str) -> Optional[dict]:
     try:
         row = conn.execute(
             "SELECT * FROM audits WHERE url_hash = ?",
-            (url_hash(url),)
+            (url_hash(url, profile),)
         ).fetchone()
         if not row:
             return None
@@ -117,7 +125,7 @@ def load_audit(url: str) -> Optional[dict]:
         conn.close()
 
 
-def save_chat_message(url: str, check_code: str, role: str, message: str) -> None:
+def save_chat_message(url: str, check_code: str, role: str, message: str, profile: str = "shopify") -> None:
     """Append one message to a fix chatbot conversation."""
     conn = _connect()
     try:
@@ -125,7 +133,7 @@ def save_chat_message(url: str, check_code: str, role: str, message: str) -> Non
             """INSERT INTO chat_history
                (url_hash, check_code, role, message, created_at)
                VALUES (?, ?, ?, ?, ?)""",
-            (url_hash(url), check_code, role, message, datetime.utcnow().isoformat())
+            (url_hash(url, profile), check_code, role, message, datetime.utcnow().isoformat())
         )
         conn.commit()
     except Exception as e:
@@ -134,7 +142,7 @@ def save_chat_message(url: str, check_code: str, role: str, message: str) -> Non
         conn.close()
 
 
-def load_chat_history(url: str, check_code: str) -> list[dict]:
+def load_chat_history(url: str, check_code: str, profile: str = "shopify") -> list[dict]:
     """Load all messages for a specific check's chatbot conversation."""
     conn = _connect()
     try:
@@ -142,7 +150,7 @@ def load_chat_history(url: str, check_code: str) -> list[dict]:
             """SELECT role, message FROM chat_history
                WHERE url_hash = ? AND check_code = ?
                ORDER BY id ASC""",
-            (url_hash(url), check_code)
+            (url_hash(url, profile), check_code)
         ).fetchall()
         return [{"role": r["role"], "message": r["message"]} for r in rows]
     except Exception as e:
@@ -152,13 +160,13 @@ def load_chat_history(url: str, check_code: str) -> list[dict]:
         conn.close()
 
 
-def clear_chat_history(url: str, check_code: str) -> None:
+def clear_chat_history(url: str, check_code: str, profile: str = "shopify") -> None:
     """Clear chatbot history for a specific check (allows restarting fix conversation)."""
     conn = _connect()
     try:
         conn.execute(
             "DELETE FROM chat_history WHERE url_hash = ? AND check_code = ?",
-            (url_hash(url), check_code)
+            (url_hash(url, profile), check_code)
         )
         conn.commit()
     except Exception as e:

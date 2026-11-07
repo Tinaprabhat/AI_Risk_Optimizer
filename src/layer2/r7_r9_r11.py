@@ -70,7 +70,82 @@ def _extract_schema_items(html: str) -> list:
 # ── R7 — Schema.org Presence and Completeness ─────────────────────────────────
 # Unchanged from v1.
 
-def check_r7(homepage_html: str, product_pages_html=None) -> dict:
+_ORG_TYPES = {"Organization", "ProfessionalService", "LocalBusiness", "Corporation",
+              "Store", "ITService", "ComputerService"}
+
+
+def _flatten_graph(items: list) -> list:
+    """Expand @graph containers and return a flat list of dict nodes."""
+    flat = []
+    for it in items:
+        if not isinstance(it, dict):
+            continue
+        if isinstance(it.get("@graph"), list):
+            flat.extend(_flatten_graph(it["@graph"]))
+        else:
+            flat.append(it)
+    return flat
+
+
+def _types_of(item: dict) -> list:
+    t = item.get("@type", "")
+    return [str(x) for x in (t if isinstance(t, list) else [t])]
+
+
+def _check_r7_agency(result: dict, all_schema_items: list) -> dict:
+    """
+    R7 agency variant — Organization / ProfessionalService / Service markup.
+    10 points: org-type 3 + name, url, description, address|areaServed,
+    contact, sameAs, offer catalog/Service 1 each.
+    """
+    items = _flatten_graph(all_schema_items)
+    result["schema_data"] = all_schema_items
+    types_found = [t for it in items for t in _types_of(it)]
+
+    org = next((it for it in items if _ORG_TYPES & set(_types_of(it))), None)
+    has_service = any("Service" in _types_of(it) for it in items)
+
+    score, found, missing = 0, [], []
+    if org:
+        score += 3
+        found.append("org type (" + "/".join(sorted(_ORG_TYPES & set(_types_of(org)))) + ")")
+        checks = [
+            ("name",          bool(org.get("name"))),
+            ("url",           bool(org.get("url"))),
+            ("description",   bool(org.get("description"))),
+            ("address/areaServed", bool(org.get("address") or org.get("areaServed"))),
+            ("contact",       bool(org.get("contactPoint") or org.get("telephone") or org.get("email"))),
+            ("sameAs",        bool(org.get("sameAs"))),
+            ("offer catalog / Service", bool(org.get("hasOfferCatalog") or has_service)),
+        ]
+        for label, ok in checks:
+            if ok:
+                score += 1
+                found.append(label)
+            else:
+                missing.append(f"{label} (-1pt)")
+    else:
+        missing.append("Organization / ProfessionalService type (-3pts)")
+        if has_service:
+            score += 1
+            found.append("Service")
+
+    result["evidence"] = (f"Types found: {', '.join(sorted(set(types_found))) or 'none'}. "
+                          f"Fields: {', '.join(found) or 'none'}.")
+    if score >= _SCHEMA_PASS_THRESHOLD:
+        result.update(status="PASS", score=min(score, 10),
+                      detail=f"Agency schema well-configured (score {score}/10). Found: {', '.join(found)}.")
+    elif score >= _SCHEMA_WARN_THRESHOLD:
+        result.update(status="WARN", score=score,
+                      detail=f"Agency schema partial (score {score}/10). Missing: {', '.join(missing)}.")
+    else:
+        result.update(status="FAIL", score=score,
+                      detail=f"Agency schema incomplete (score {score}/10). Missing: {', '.join(missing)}.")
+    result["fix"] = "Add a ProfessionalService/Organization JSON-LD block with name, url, description, address, contactPoint, sameAs and hasOfferCatalog."
+    return result
+
+
+def check_r7(homepage_html: str, product_pages_html=None, profile_name: str = "shopify") -> dict:
     if not isinstance(product_pages_html, list):
         product_pages_html = [product_pages_html] if product_pages_html else []
     """
@@ -106,9 +181,14 @@ def check_r7(homepage_html: str, product_pages_html=None) -> dict:
     if not all_schema_items:
         result.update({
             "detail": "No schema.org JSON-LD found on any page. "
-                       "AI cannot extract structured product facts.",
+                       + ("AI cannot extract structured facts about your agency."
+                          if profile_name == "agency"
+                          else "AI cannot extract structured product facts."),
         })
         return result
+
+    if profile_name == "agency":
+        return _check_r7_agency(result, all_schema_items)
 
     result["schema_data"] = all_schema_items
 

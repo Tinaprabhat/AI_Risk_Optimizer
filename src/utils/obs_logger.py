@@ -91,6 +91,7 @@ def write_audit_log(
     page_texts:   dict = None,
     merchant_intent: str = "",
     mcq:          dict = None,
+    profile:      str = "shopify",
 ) -> str:
     """
     Write a full observability log for one audit to disk.
@@ -163,6 +164,7 @@ def write_audit_log(
 
     log_data = {
         "meta": {
+            "profile":         profile,
             "store_url":       store_url,
             "domain":          domain,
             "audit_timestamp": ts,

@@ -119,6 +119,25 @@ _SHIPPING_PATHS = ["/policies/shipping-policy", "/pages/shipping", "/pages/shipp
 _FAQ_PATHS     = ["/pages/faq", "/faq", "/help", "/pages/help", "/pages/faqs",
                   "/pages/customer-support", "/pages/support"]
 
+_SHOPIFY_TOPIC_KEYWORDS = {
+    "returns":  [r'\breturn\b', r'\brefund\b', r'\bexchange\b'],
+    "shipping": [r'\bshipping\b', r'\bdelivery\b', r'\bdispatch\b'],
+    "sizing":   [r'\bsize\b', r'\bsizing\b', r'\bfit\b', r'\bdimension\b'],
+    "payment":  [r'\bpayment\b', r'\bpay\b', r'\bcheckout\b', r'\bcard\b'],
+    "contact":  [r'\bcontact\b', r'\bemail\b', r'\bphone\b', r'\bsupport\b'],
+    "warranty": [r'\bwarranty\b', r'\bguarantee\b', r'\bdefect\b'],
+}
+
+AGENCY_TOPIC_KEYWORDS = {
+    "pricing":    [r'\bpric(e|es|ing)\b', r'\bcost\b', r'\bbudget\b', r'\bquote\b', r'\brates?\b'],
+    "timeline":   [r'\btimeline\b', r'\bhow long\b', r'\bweeks?\b', r'\bdelivery time\b', r'\bturnaround\b'],
+    "process":    [r'\bprocess\b', r'\bworkflow\b', r'\bmethodolog', r'\bagile\b', r'\bscrum\b', r'\bdiscovery\b'],
+    "support":    [r'\bsupport\b', r'\bmaintenance\b', r'\bpost[- ]launch\b', r'\bwarranty\b'],
+    "technology": [r'\btechnolog', r'\btech stack\b', r'\bframework\b', r'\breact\b', r'\bnode\b', r'\bwordpress\b', r'\bflutter\b'],
+    "contract":   [r'\bcontract\b', r'\bNDA\b', r'\bownership\b', r'\bIP\b', r'\bsource code\b', r'\bpayment terms\b'],
+}
+AGENCY_FAQ_PATHS = ["/faq", "/faqs", "/help", "/support", "/frequently-asked-questions", "/pages/faq"]
+
 # ── Tier 2 Exemplar sets (sentence-transformer fallback) ─────────────────────
 
 _REFUND_EXISTS_EXEMPLARS = [
@@ -412,7 +431,12 @@ class SemanticExtractor:
         # Source 2 — schema.org Organization.name
         schema_name = None
         for item in (schema_org if isinstance(schema_org, list) else [schema_org]):
-            if isinstance(item, dict) and item.get("@type") in ("Organization", "Store", "LocalBusiness"):
+            _t = item.get("@type") if isinstance(item, dict) else None
+            _tl = _t if isinstance(_t, list) else [_t]
+            if isinstance(item, dict) and any(
+                x in ("Organization", "Store", "LocalBusiness", "ProfessionalService", "Corporation")
+                for x in _tl
+            ):
                 schema_name = item.get("name", "")
                 if schema_name:
                     sources.append(("schema.org", schema_name.strip(), 0.90))
@@ -423,7 +447,7 @@ class SemanticExtractor:
         if m:
             title = m.group(1).strip()
             # Take first segment before | or — or -
-            segment = re.split(r'\s*[|—\-]\s*', title)[0].strip()
+            segment = re.split(r'\s*[|—–\-]\s*', title)[0].strip()
             if segment and len(segment) >= 2:
                 sources.append(("html_title", segment, 0.75))
 
@@ -466,26 +490,28 @@ class SemanticExtractor:
             "consistency_score": consistency,
         }
 
-    def extract_faq(self, base_url: str, homepage_html: str) -> dict:
+    def extract_faq(self, base_url: str, homepage_html: str,
+                    topic_keywords: dict = None, faq_paths: list = None,
+                    fallback_paths: list = None) -> dict:
         """
         Discover FAQ page via 3-stage discovery, then extract topic coverage.
 
         Topics: returns, shipping, sizing, payment, contact, warranty
         """
+        topic_keywords = topic_keywords or _SHOPIFY_TOPIC_KEYWORDS
+        faq_paths      = faq_paths or _FAQ_PATHS
+        fallback_paths = fallback_paths or ["/pages/contact", "/pages/about"]
         result = {
             "page_found":    False,
             "page_url":      None,
-            "topics_covered": {
-                "returns": 0.0, "shipping": 0.0, "sizing": 0.0,
-                "payment": 0.0, "contact": 0.0, "warranty": 0.0
-            },
+            "topics_covered": {t: 0.0 for t in topic_keywords},
             "completeness":  0.0,
         }
 
         # Stage 1 — standard paths
         faq_text = ""
         faq_url  = None
-        for path in _FAQ_PATHS:
+        for path in faq_paths:
             jitter_sleep(0.3, 0.2)
             resp = safe_get(base_url.rstrip("/") + path)
             if resp.ok:
@@ -509,7 +535,7 @@ class SemanticExtractor:
 
         # Stage 3 — check if FAQ content exists on contact/about pages
         if not faq_text:
-            for path in ["/pages/contact", "/pages/about"]:
+            for path in fallback_paths:
                 jitter_sleep(0.3, 0.2)
                 resp = safe_get(base_url.rstrip("/") + path)
                 if resp.ok:
@@ -527,15 +553,6 @@ class SemanticExtractor:
         result["page_url"]   = faq_url
 
         # Topic coverage via keyword presence (simple + reliable)
-        topic_keywords = {
-            "returns":  [r'\breturn\b', r'\brefund\b', r'\bexchange\b'],
-            "shipping": [r'\bshipping\b', r'\bdelivery\b', r'\bdispatch\b'],
-            "sizing":   [r'\bsize\b', r'\bsizing\b', r'\bfit\b', r'\bdimension\b'],
-            "payment":  [r'\bpayment\b', r'\bpay\b', r'\bcheckout\b', r'\bcard\b'],
-            "contact":  [r'\bcontact\b', r'\bemail\b', r'\bphone\b', r'\bsupport\b'],
-            "warranty": [r'\bwarranty\b', r'\bguarantee\b', r'\bdefect\b'],
-        }
-
         covered = 0
         for topic, patterns in topic_keywords.items():
             for pat in patterns:
@@ -598,7 +615,30 @@ class SemanticExtractor:
 
         return result
 
-    def extract(self, base_url: str, homepage_html: str, schema_org: dict) -> dict:
+    def _extract_agency(self, base_url: str, homepage_html: str, schema_org) -> dict:
+        """Agency profile: brand + FAQ (agency topics) + services/portfolio page text.
+        Skips refund/shipping/price crawls entirely (commerce-only)."""
+        from src.utils.agency_extractor import extract_agency
+
+        brand = self.extract_brand(homepage_html, schema_org)
+        faq = self.extract_faq(
+            base_url, homepage_html,
+            topic_keywords=AGENCY_TOPIC_KEYWORDS,
+            faq_paths=AGENCY_FAQ_PATHS,
+            fallback_paths=["/contact", "/about", "/services"],
+        )
+        ag = extract_agency(base_url, homepage_html)
+
+        pages_crawled = sum(1 for v in ag["pages"].values() if v) + (1 if faq.get("page_found") else 0)
+        return {
+            "brand": brand, "faq": faq,
+            "agency_pages": ag["pages"], "agency_page_texts": ag["page_texts"],
+            "pages_crawled": pages_crawled,
+            "extraction_confidence": brand.get("confidence", 0.0),
+        }
+
+    def extract(self, base_url: str, homepage_html: str, schema_org: dict,
+                profile_name: str = "shopify") -> dict:
         """
         Main entry point. Run all extractions in one pass.
 
@@ -610,8 +650,11 @@ class SemanticExtractor:
         Returns:
             Structured semantic data dict passed to all checkpoints.
         """
-        logger.info(f"SemanticExtractor.extract() — {base_url}")
+        logger.info(f"SemanticExtractor.extract() — {base_url} [{profile_name}]")
         pages_crawled = 0
+
+        if profile_name == "agency":
+            return self._extract_agency(base_url, homepage_html, schema_org)
 
         # Refund
         refund = self.extract_refund(base_url, homepage_html)

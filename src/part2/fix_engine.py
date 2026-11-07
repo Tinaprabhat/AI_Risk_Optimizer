@@ -295,17 +295,22 @@ TEMPLATES = {
 
 # ── CHATBOT ───────────────────────────────────────────────────────────────────
 
-def get_fix_template(check_code: str) -> Optional[dict]:
-    """Return the hardcoded fix template for a check code."""
+def get_fix_template(check_code: str, profile: str = "shopify") -> Optional[dict]:
+    """Return the hardcoded fix template for a check code (profile-aware)."""
+    if profile and profile != "shopify":
+        from src.profiles import get_profile
+        tmpl = get_profile(profile).templates
+        if tmpl is not None:
+            return tmpl.get(check_code)
     return TEMPLATES.get(check_code)
 
 
-def chatbot_first_message(check_code: str, check_detail: str) -> str:
+def chatbot_first_message(check_code: str, check_detail: str, profile: str = "shopify") -> str:
     """
     Generate the first chatbot message for a fix conversation.
     Deterministic — no LLM needed for opening message.
     """
-    template = get_fix_template(check_code)
+    template = get_fix_template(check_code, profile)
     if not template:
         return f"I'll help you fix {check_code}. Issue: {check_detail}\n\nAre you ready to start?"
 
@@ -324,6 +329,7 @@ def chatbot_reply(
     store_url: str,
     user_message: str,
     history: list[dict],
+    profile: str = "shopify",
 ) -> tuple[str, str]:
     """
     Generate chatbot reply using LLM (Gemini → Ollama → fallback).
@@ -332,35 +338,37 @@ def chatbot_reply(
         check_code:   e.g. "R16"
         check_detail: What was found during audit
         check_fix:    The fix text from the check result
-        store_url:    Merchant's store URL
-        user_message: Latest message from merchant
+        store_url:    URL being audited
+        user_message: Latest message from the user
         history:      List of {"role": "user"|"bot", "message": str}
 
     Returns:
         (reply_text, llm_source)
     """
-    template = get_fix_template(check_code)
+    from src.profiles import get_profile
+    prof = get_profile(profile)
+    template = get_fix_template(check_code, profile)
 
     system_prompt = (
-        f"You are a helpful Shopify store advisor fixing one specific issue: {check_code} — {template['title'] if template else check_code}.\n"
-        f"Store URL: {store_url}\n\n"
+        f"You are {prof.fix_persona} fixing one specific issue: {check_code} — {template['title'] if template else check_code}.\n"
+        f"{prof.entity_noun.capitalize()} URL: {store_url}\n\n"
         f"Issue found: {check_detail}\n\n"
         f"Fix guide:\n{check_fix}\n\n"
         f"{'Steps: ' + chr(10).join(f'{i+1}. {s}' for i, s in enumerate(template['steps'])) if template else ''}\n\n"
         f"SCOPE RULE: Only answer questions about this specific fix ({check_code}). "
-        f"If the merchant asks about something else, politely redirect them back to this fix. "
+        f"If the user asks about something else, politely redirect them back to this fix. "
         f"Give one step at a time. Be encouraging. Keep replies under 150 words."
     )
 
     # Build conversation context
     conv_context = "\n".join(
-        f"{'Merchant' if m['role'] == 'user' else 'Advisor'}: {m['message']}"
+        f"{'User' if m['role'] == 'user' else 'Advisor'}: {m['message']}"
         for m in history[-6:]  # last 6 messages for context
     )
 
     user_prompt = (
         f"Conversation so far:\n{conv_context}\n\n"
-        f"Merchant says: {user_message}\n\n"
+        f"User says: {user_message}\n\n"
         f"Reply as the advisor (one step at a time, under 150 words):"
     )
 

@@ -49,7 +49,10 @@ _PHONE_RE          = re.compile(r'(?:\+\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-
 _LIVE_CHAT_RE      = re.compile(r'tidio|intercom|gorgias|zendesk|crisp|tawk|livechat', re.IGNORECASE)
 
 
-def check_r23(contact_text: str) -> dict:
+_PHONE_INTL_RE = re.compile(r'\+\d{1,3}[-.\s]?\(?\d{2,5}\)?[-.\s]?\d{3,5}[-.\s]?\d{3,6}')
+
+
+def check_r23(contact_text: str, intl_phone: bool = False) -> dict:
     """
     R23 — Contact page presence and quality.
 
@@ -79,7 +82,8 @@ def check_r23(contact_text: str) -> dict:
 
     has_branded_email = bool(_BRANDED_EMAIL_RE.search(contact_text))
     has_gmail_email   = bool(_GMAIL_EMAIL_RE.search(contact_text))
-    has_phone         = bool(_PHONE_RE.search(contact_text))
+    has_phone         = bool(_PHONE_RE.search(contact_text) or
+                             (intl_phone and _PHONE_INTL_RE.search(contact_text)))
     has_live_chat     = bool(_LIVE_CHAT_RE.search(contact_text))
 
     has_any_contact = has_branded_email or has_gmail_email or has_phone or has_live_chat
@@ -124,7 +128,7 @@ _CONSISTENCY_PASS_THRESHOLD = 0.85   # cosine similarity between brand name sour
 _MAX_VARIATIONS_PASS        = 2      # <= 2 distinct names = PASS
 
 
-def check_r25(semantic_data: dict, homepage_html: str = "") -> dict:
+def _check_r25_impl(semantic_data: dict, homepage_html: str = "") -> dict:
     """
     R25 — Brand name consistency across sources.
 
@@ -197,7 +201,7 @@ def check_r25(semantic_data: dict, homepage_html: str = "") -> dict:
     if consistency < _CONSISTENCY_PASS_THRESHOLD and len(unique_norms) > 1:
         result.update({
             "status": "WARN",
-            "score":  0,
+            "score":  0.5,
             "detail": f"Brand name slightly inconsistent across sources "
                        f"(consistency={consistency:.2f}). "
                        f"Found: {', '.join(all_names[:3])}. "
@@ -214,3 +218,12 @@ def check_r25(semantic_data: dict, homepage_html: str = "") -> dict:
     })
 
     return result
+
+
+def check_r25(semantic_data: dict, homepage_html: str = "") -> dict:
+    """R25 — Brand name consistency (see _check_r25_impl). Always returns an observability block."""
+    from src.utils.observability import ensure_observability
+    res = _check_r25_impl(semantic_data, homepage_html)
+    return ensure_observability(
+        "R25", res,
+        "Compared brand name across og:site_name, schema.org Organization.name and the HTML title.")
