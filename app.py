@@ -88,11 +88,11 @@ MCQ_OPTIONS = PROFILE.mcq_options
 st.title(f"🔍 {PROFILE.title}")
 st.caption(PROFILE.caption)
 
-if not os.getenv("GEMINI_API_KEY"):
-    st.warning("⚠️ GEMINI_API_KEY not set. Add it to your .env file. Ollama Mistral will be used as fallback.")
+if not (os.getenv("GROQ_API_KEY") or os.getenv("GEMINI_API_KEY")):
+    st.warning("⚠️ No GROQ_API_KEY or GEMINI_API_KEY set. Add one to your .env file. Ollama Mistral will be used as fallback.")
 
 if not status["ollama_ok"]:
-    st.info("ℹ️ Ollama not running locally. If Gemini fails, rule-based fallbacks will be used for conclusions.")
+    st.info("ℹ️ Ollama not running locally. If cloud LLMs fail, rule-based fallbacks will be used for conclusions.")
 
 st.divider()
 
@@ -206,7 +206,7 @@ if has_prov:
         st.metric("Provisional (unvalidated)", f"{score['provisional_total']:g} / {score['max_provisional']:g}",
                   f"{score.get('provisional_pct', 0)}%", delta_color="off")
 
-llm_note = {"gemini": "✦ Gemini", "ollama_mistral": "✦ Ollama Mistral", "fallback": "✦ Rule-based"}.get(
+llm_note = {"groq": "✦ Groq", "gemini": "✦ Gemini", "ollama_mistral": "✦ Ollama Mistral", "fallback": "✦ Rule-based"}.get(
     result.get("conclusion_source", result.get("llm_source", "")), "")
 
 # ── 3b. CONCLUSION ────────────────────────────────────────────────────────────
